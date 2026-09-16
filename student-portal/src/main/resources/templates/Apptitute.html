@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quantitative Aptitude - Student Preparation Portal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+        }
+
+        .topic-card {
+            transition: 0.3s;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        /* Question Container Styles */
+        .question-container {
+            max-width: 760px;
+            margin: auto;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .question-number {
+            color: #0d6efd;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .question-text {
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .option {
+            display: block;
+            padding: 8px 12px;
+            margin: 6px 0;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            background: #f0f7ff;
+            border-color: #0d6efd;
+        }
+
+        .option input {
+            margin-right: 8px;
+        }
+
+        #questionPage,
+        #resultPage {
+            display: none;
+        }
+
+        .result-card {
+            background: white;
+            max-width: 760px;
+            margin: 35px auto;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+        }
+
+        .result-icon {
+            font-size: 60px;
+        }
+
+        .score {
+            font-size: 55px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .status {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .result-box {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .correct-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #198754;
+        }
+
+        .wrong-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #dc3545;
+        }
+
+        .percentage-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .topic-title {
+            color: #0d6efd;
+        }
+
+        footer {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <a class="navbar-brand" href="javascript:void(0)" onclick="showTopics()">
+            Student Preparation Portal
+        </a>
+
+        <!-- Right Side: Dashboard + Single Light-Green Toggle Button -->
+        <div class="d-flex align-items-center gap-2">
+            <a href="Dashboard" class="btn btn-outline-light">
+                Dashboard
+            </a>
+
+            <!-- Hidden Google Translate Element -->
+            <div id="google_translate_element" style="display: none;"></div>
+
+            <!-- Single Toggle Button -->
+            <button id="langToggleBtn" class="btn custom-translate-btn" onclick="toggleLanguage()">
+                हिंदी (Hindi)
+            </button>
+        </div>
+
+    </div>
+</nav>
+
+<!-- =========================================================
+     TOPICS PAGE
+========================================================= -->
+
+<div id="topicsPage">
+
+    <div class="container mt-5">
+
+        <div class="text-center mb-5">
+            <h1>Quantitative Aptitude Preparation</h1>
+
+            <p class="text-muted">
+                Select an aptitude topic and master your numerical & quantitative problem-solving skills.
+            </p>
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- Number System -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Number System & HCF,LCM</h4>
+                            <p>Practice HCF, LCM, divisibility rules, and remainder concepts.</p>
+                        </div>
+                        <a href="/MyPdf/number_system_aptitude_en.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Number System Notes
+                        </a>
+
+                        <button onclick="startTest('number_system')" class="btn btn-dark">
+                            Start Practice (50 Qs)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Percentage -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Percentage</h4>
+                            <p>Practice percentage increases, decreases, and ratio conversions.</p>
+                        </div>
+                        <a href="/MyPdf/Percentage_Study_Material_English.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Percentage Notes
+                        </a>
+
+                        <button onclick="startTest('percentage')" class="btn btn-dark">
+                            Start Practice (50 Qs)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profit & Loss -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Profit & Loss</h4>
+                            <p>Master cost price, selling price, discounts, and markups.</p>
+                        </div>
+                        <a href="/MyPdf/Profit_and_Loss_Study_Material_English.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Profit & Loss Notes
+                        </a>
+
+                        <button onclick="startTest('profit_loss')" class="btn btn-dark">
+                            Start Practice (50 Qs)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simple & Compound Interest -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Simple & Compound Interest</h4>
+                            <p>Solve questions on Principal, Rate, Time, SI, and compounding.</p>
+                        </div>
+                        <a href="/MyPdf/Simple_Interest_Study_Material_English.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            SI & CI Notes
+                        </a>
+                        <button onclick="startTest('interest')" class="btn btn-dark">
+                            Start Practice (50 Qs)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ratio & Proportion -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Ratio & Proportion</h4>
+                            <p>Practice direct, inverse ratios, partnerships, and proportions.</p>
+                        </div>
+                        <a href="/MyPdf/Ratio_and_Proportion_Guide.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Ratio & Proportion
+                        </a>
+                        <button onclick="startTest('ratio_proportion')" class="btn btn-dark">
+                            Start Practice (50 Qs)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time & Work -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Time & Work</h4>
+                            <p>Solve work efficiency, pipes & cisterns, and group work problems.</p>
+                        </div>
+                        <a href="/MyPdf/Time_and_Work_Master_Guide.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Time & Work Notes
+                        </a>
+                        <button onclick="startTest('time_work')" class="btn btn-dark">
+                            Start Practice (50 Qs)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speed, Distance & Time -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Speed, Distance & Time</h4>
+                            <p>Practice relative speed, train problems, and boats & streams.</p>
+                        </div>
+                        <a href="/MyPdf/Time_Speed_and_Distance_Guide.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Speed, Distance & Time Notes
+                        </a>
+                        <button onclick="startTest('speed_distance')" class="btn btn-dark">
+                            Start Practice (50 Qs)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Permutation & Combination -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Permutation & Combination</h4>
+                            <p>    Solve arrangement, selection, and grouping problems .</p>
+                        </div>
+                        <a href="/MyPdf/Permutation_Combination_Guide_964237af.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Permutation & Combination Notes
+                        </a>
+                        <button onclick="startTest('permutation_combination')" class="btn btn-dark">
+                            Start Practice (50 Qs)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Probability -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Probability</h4>
+                            <p>Practice dice, card, coin, and conditional probability problems.</p>
+                        </div>
+                        <a href="/MyPdf/Probability_Master_Guide_8292a13a-6.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                           Probability Notes
+                        </a>
+                        <button onclick="startTest('probability')" class="btn btn-dark">
+                            Start Practice (50 Qs)
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+<!--------DI--------->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Data Interpretation </h4>
+                            <p>Practice dice, card, coin, and conditional probability problems.</p>
+                        </div>
+                        <a href="/MyPdf/Data_Interpretation_Guide_7af812b9.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            DI Notes
+                        </a>
+                        <button onclick="startTest('data_interpretation')" class="btn btn-dark">
+                            Start Practice (50 Qs)
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="text-center mt-5 mb-5">
+            <a href="Dashboard" class="btn btn-secondary">
+                ← Back to Dashboard
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     QUESTION PAGE
+========================================================= -->
+
+<div id="questionPage">
+
+    <div class="container mt-4">
+
+        <div class="text-center mb-3">
+            <h2 id="questionTopic" class="topic-title">
+                Aptitude Practice
+            </h2>
+            <p class="text-muted">
+                Answer all questions carefully and submit your test.
+            </p>
+        </div>
+
+        <div class="question-container">
+
+            <div id="questionsContainer"></div>
+
+            <div class="text-center mt-3 mb-5">
+                <button onclick="submitTest()" class="btn btn-primary btn-lg">
+                    Submit Test
+                </button>
+                <button onclick="showTopics()" class="btn btn-secondary btn-lg ms-2">
+                    Back to Topics
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     RESULT PAGE
+========================================================= -->
+
+<div id="resultPage">
+
+    <div class="container">
+
+        <div class="result-card text-center">
+
+            <div id="resultIcon" class="result-icon">
+                🏆
+            </div>
+
+            <h1>Test Completed!</h1>
+
+            <p class="text-muted">
+                Topic: <strong id="resultTopic">-</strong>
+            </p>
+
+            <p>
+                Your aptitude practice test result is given below.
+            </p>
+
+            <div class="score">
+                <span id="correctScore">0</span> / <span id="totalScore">0</span>
+            </div>
+
+            <div class="fw-bold text-muted">
+                Your Score
+            </div>
+
+            <div id="resultStatus" class="status"></div>
+
+            <hr class="my-4">
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="result-box">
+                        <div id="correctNumber" class="correct-number">0</div>
+                        <div>Correct</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="result-box">
+                        <div id="wrongNumber" class="wrong-number">0</div>
+                        <div>Wrong</div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="result-box">
+                        <div id="percentageNumber" class="percentage-number">0%</div>
+                        <div>Percentage</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button onclick="tryAgain()" class="btn btn-primary btn-lg">
+                    Try Again
+                </button>
+                <button onclick="showTopics()" class="btn btn-secondary btn-lg ms-2">
+                    Aptitude Topics
+                </button>
+                <a href="Dashboard" class="btn btn-dark btn-lg ms-2">
+                    Dashboard
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white text-center p-3">
+    <p class="mb-0">
+        © 2026 Student Preparation Portal
+    </p>
+</footer>
+
+
+<script>
+
+    /* =========================================================
+       QUESTION GENERATOR HELPER FUNCTIONS
+       (Easy 1-15, Medium 16-35, Hard 36-50)
+    ========================================================= */
+
+    function createNumberSystemQuestions() {
+        let list = [];
+        // Easy (1-15)
+        for (let i = 1; i <= 15; i++) {
+            let num1 = i * 4;
+            let num2 = i * 6;
+            let ans = i * 12; // LCM
+            list.push({
+                question: `[Easy] Q${i}: What is the LCM of ${num1} and ${num2}?`,
+                options: [`${ans}`, `${ans + 4}`, `${ans - 2}`, `${ans * 2}`],
+                answer: `${ans}`
+            });
+        }
+        // Medium (16-35)
+        for (let i = 16; i <= 35; i++) {
+            let rem = i % 7;
+            let ans = rem;
+            list.push({
+                question: `[Medium] Q${i}: What is the remainder when (${i} * 15 + ${rem}) is divided by 7?`,
+                options: [`${(ans + 1) % 7}`, `${ans}`, `${(ans + 3) % 7}`, `${(ans + 5) % 7}`],
+                answer: `${ans}`
+            });
+        }
+        // Hard (36-50)
+        for (let i = 36; i <= 50; i++) {
+            let n = i;
+            let ans = 1; // Unit digit of cycles
+            list.push({
+                question: `[Hard] Q${i}: Find the unit digit in the expression (7^${n * 4} + 3^${n * 4}).`,
+                options: [`2`, `0`, `4`, `6`],
+                answer: `2`
+            });
+        }
+        return list;
+    }
+
+    function createPercentageQuestions() {
+        let list = [];
+        // Easy (1-15)
+        for (let i = 1; i <= 15; i++) {
+            let val = i * 50;
+            let pct = 10 + i;
+            let ans = (val * pct) / 100;
+            list.push({
+                question: `[Easy] Q${i}: What is ${pct}% of ${val}?`,
+                options: [`${ans}`, `${ans + 5}`, `${ans - 2}`, `${ans + 10}`],
+                answer: `${ans}`
+            });
+        }
+        // Medium (16-35)
+        for (let i = 16; i <= 35; i++) {
+            let inc = 20;
+            let dec = 20;
+            let net = 4; // 20% increase then 20% decrease = -4% net
+            list.push({
+                question: `[Medium] Q${i}: If a salary is first increased by ${inc}% and then decreased by ${dec}%, what is the net change?`,
+                options: ["4% decrease", "4% increase", "No change", "2% decrease"],
+                answer: "4% decrease"
+            });
+        }
+        // Hard (36-50)
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: In an examination, 65% passed in Math, 55% in English, and 40% passed in both. What percentage failed in both?`,
+                options: ["20%", "15%", "25%", "30%"],
+                answer: "20%"
+            });
+        }
+        return list;
+    }
+
+    function createProfitLossQuestions() {
+        let list = [];
+        // Easy (1-15)
+        for (let i = 1; i <= 15; i++) {
+            let cp = i * 100;
+            let sp = cp + i * 20;
+            let profit = sp - cp;
+            list.push({
+                question: `[Easy] Q${i}: An item bought for ₹${cp} is sold for ₹${sp}. Find the profit amount.`,
+                options: [`₹${profit}`, `₹${profit + 10}`, `₹${profit - 5}`, `₹${profit + 20}`],
+                answer: `₹${profit}`
+            });
+        }
+        // Medium (16-35)
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: If Cost Price of 15 articles is equal to Selling Price of 10 articles, what is the profit percentage?`,
+                options: ["50%", "33.33%", "25%", "40%"],
+                answer: "50%"
+            });
+        }
+        // Hard (36-50)
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: A dishonest dealer sells goods at Cost Price but uses a 900g weight instead of 1 kg. Find his real gain percentage.`,
+                options: ["11.11%", "10%", "12.5%", "9.09%"],
+                answer: "11.11%"
+            });
+        }
+        return list;
+    }
+
+    function createInterestQuestions() {
+        let list = [];
+        // Easy (1-15)
+        for (let i = 1; i <= 15; i++) {
+            let p = i * 1000;
+            let r = 5;
+            let t = 2;
+            let si = (p * r * t) / 100;
+            list.push({
+                question: `[Easy] Q${i}: Calculate Simple Interest on ₹${p} at ${r}% p.a. for ${t} years.`,
+                options: [`₹${si}`, `₹${si + 50}`, `₹${si - 20}`, `₹${si + 100}`],
+                answer: `₹${si}`
+            });
+        }
+        // Medium (16-35)
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: At what rate percent per annum will a sum of money double itself in 8 years at Simple Interest?`,
+                options: ["12.5%", "10%", "15%", "8%"],
+                answer: "12.5%"
+            });
+        }
+        // Hard (36-50)
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: What is the difference between CI and SI on ₹10,000 at 10% per annum for 3 years?`,
+                options: ["₹310", "₹300", "₹320", "₹350"],
+                answer: "₹310"
+            });
+        }
+        return list;
+    }
+
+    function createRatioQuestions() {
+        let list = [];
+        // Easy (1-15)
+        for (let i = 1; i <= 15; i++) {
+            let a = i * 2;
+            let b = i * 3;
+            list.push({
+                question: `[Easy] Q${i}: Simplify the ratio ${a * 5}:${b * 5}.`,
+                options: [`${a}:${b}`, `${a + 1}:${b}`, `${a}:${b + 1}`, `1:2`],
+                answer: `${a}:${b}`
+            });
+        }
+        // Medium (16-35)
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: Two numbers are in ratio 3:5. If 9 is subtracted from each, ratio becomes 12:23. Find the smaller number.`,
+                options: ["33", "55", "27", "45"],
+                answer: "33"
+            });
+        }
+        // Hard (36-50)
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: A vessel contains milk and water in ratio 7:5. When 9 liters of mixture is replaced with water, ratio becomes 7:9. How much milk was originally present?`,
+                options: ["21 liters", "28 liters", "14 liters", "35 liters"],
+                answer: "21 liters"
+            });
+        }
+        return list;
+    }
+
+    function createTimeWorkQuestions() {
+        let list = [];
+        // Easy (1-15)
+        for (let i = 1; i <= 15; i++) {
+            let daysA = 10;
+            let daysB = 15;
+            let together = 6;
+            list.push({
+                question: `[Easy] Q${i}: A can do a work in 10 days, B in 15 days. In how many days can they complete it together?`,
+                options: ["6 days", "8 days", "5 days", "7.5 days"],
+                answer: "6 days"
+            });
+        }
+        // Medium (16-35)
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: A is twice as efficient as B. If together they finish a job in 14 days, in how many days can A alone finish it?`,
+                options: ["21 days", "28 days", "42 days", "18 days"],
+                answer: "21 days"
+            });
+        }
+        // Hard (36-50)
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: Pipe A can fill a tank in 12 hours, Pipe B in 15 hours. Pipe C can empty it in 20 hours. If all open, how long to fill?`,
+                options: ["10 hours", "8 hours", "12 hours", "15 hours"],
+                answer: "10 hours"
+            });
+        }
+        return list;
+    }
+
+    function createSpeedDistanceQuestions() {
+        let list = [];
+        // Easy (1-15)
+        for (let i = 1; i <= 15; i++) {
+            let speed = i * 10;
+            let time = 3;
+            let dist = speed * time;
+            list.push({
+                question: `[Easy] Q${i}: A car travels at ${speed} km/h for ${time} hours. What distance does it cover?`,
+                options: [`${dist} km`, `${dist + 10} km`, `${dist - 5} km`, `${dist + 20} km`],
+                answer: `${dist} km`
+            });
+        }
+        // Medium (16-35)
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: A train 150m long passes a pole in 15 seconds. What is the speed of the train in km/h?`,
+                options: ["36 km/h", "54 km/h", "45 km/h", "30 km/h"],
+                answer: "36 km/h"
+            });
+        }
+        // Hard (36-50)
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: A man can row 6 km/h in still water. If stream velocity is 2 km/h, it takes 3 hours to row to a point and back. Find the distance.`,
+                options: ["8 km", "6 km", "10 km", "12 km"],
+                answer: "8 km"
+            });
+        }
+        return list;
+    }
+
+    function createPermutationQuestions() {
+        let list = [];
+        // Easy (1-15)
+        for (let i = 1; i <= 15; i++) {
+            list.push({
+                question: `[Easy] Q${i}: In how many ways can the letters of the word 'CAT' be arranged?`,
+                options: ["6", "3", "9", "12"],
+                answer: "6"
+            });
+        }
+        // Medium (16-35)
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: How many 3-digit numbers can be formed using digits 1, 2, 3, 4, 5 without repetition?`,
+                options: ["60", "125", "20", "120"],
+                answer: "60"
+            });
+        }
+        // Hard (36-50)
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: In how many ways can a committee of 5 people be chosen from 7 men and 4 women such that it contains at least 3 men?`,
+                options: ["356", "210", "441", "308"],
+                answer: "356"
+            });
+        }
+        return list;
+    }
+
+    function createProbabilityQuestions() {
+        let list = [];
+        // Easy (1-15)
+        for (let i = 1; i <= 15; i++) {
+            list.push({
+                question: `[Easy] Q${i}: What is the probability of getting a Head when an unbiased coin is tossed?`,
+                options: ["1/2", "1/4", "1", "0"],
+                answer: "1/2"
+            });
+        }
+        // Medium (16-35)
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: Two dice are thrown simultaneously. What is the probability of getting a sum of 8?`,
+                options: ["5/36", "1/6", "1/9", "7/36"],
+                answer: "5/36"
+            });
+        }
+        // Hard (36-50)
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: From a deck of 52 cards, 2 cards are drawn at random. What is the probability that both are Kings?`,
+                options: ["1/221", "1/169", "1/26", "2/221"],
+                answer: "1/221"
+            });
+        }
+        return list;
+    }
+
+    // Data Interpretatoon
+    function createDIQuestions() {
+        let list = [];
+
+        // --- Easy (1-15): Table DI - Basic Average & Ratio ---
+        // Context: Company sales over 2 months
+        for (let i = 1; i <= 15; i++) {
+            let salesA = i * 10 + 20; // Month 1 sales
+            let salesB = i * 15 + 30; // Month 2 sales
+            let ans = (salesA + salesB) / 2; // Average sales
+
+            list.push({
+                question: `[Easy] Q${i}: A company sold ${salesA} units in Jan and ${salesB} units in Feb. What is the average monthly sales?`,
+                options: [`${ans}`, `${ans + 5}`, `${ans - 5}`, `${ans + 10}`],
+                answer: `${ans}`
+            });
+        }
+
+        // --- Medium (16-35): Bar Chart DI - Percentage Increase/Decrease ---
+        // Context: Production target vs actual production
+        for (let i = 16; i <= 35; i++) {
+            let target = i * 20;
+            let actual = target + (i % 5 + 1) * 10;
+            let diff = actual - target;
+            let ans = parseFloat(((diff / target) * 100).toFixed(2)); // Percentage Increase
+
+            list.push({
+                question: `[Medium] Q${i}: Target production was ${target} units, but actual production reached ${actual} units. Find the percentage increase.`,
+                options: [`${ans}%`, `${(ans + 2.5).toFixed(2)}%`, `${(ans - 1.5).toFixed(2)}%`, `${(ans + 5).toFixed(2)}%`],
+                answer: `${ans}%`
+            });
+        }
+
+        // --- Hard (36-50): Pie Chart / Mixed DI - Multi-step Weighted Ratio & Difference ---
+        // Context: Total budget distribution & expense analysis
+        for (let i = 36; i <= 50; i++) {
+            let totalBudget = i * 1000;
+            let RND_percent = 25; // 25% budget for R&D
+            let Marketing_percent = 40; // 40% budget for Marketing
+
+            // Difference between Marketing and R&D spend
+            let ans = (totalBudget * (Marketing_percent - RND_percent)) / 100;
+
+            list.push({
+                question: `[Hard] Q${i}: In a total budget of ₹${totalBudget}, 25% is spent on R&D and 40% on Marketing. Find the absolute difference between Marketing and R&D expenses.`,
+                options: [`₹${ans}`, `₹${ans + 500}`, `₹${ans - 200}`, `₹${ans * 1.2}`],
+                answer: `₹${ans}`
+            });
+        }
+
+        return list;
+    }
+
+
+    /* =========================================================
+       QUESTION BANK INITIALIZATION
+    ========================================================= */
+
+    const questionBank = {
+        number_system: createNumberSystemQuestions(),
+        percentage: createPercentageQuestions(),
+        profit_loss: createProfitLossQuestions(),
+        interest: createInterestQuestions(),
+        ratio_proportion: createRatioQuestions(),
+        time_work: createTimeWorkQuestions(),
+        speed_distance: createSpeedDistanceQuestions(),
+        permutation_combination: createPermutationQuestions(),
+        probability: createProbabilityQuestions(),
+        data_interpretation:createDIQuestions()
+    };
+
+
+    /* =========================================================
+       TOPIC NAMES
+    ========================================================= */
+
+    const topicNames = {
+        number_system: "Number System",
+        percentage: "Percentage",
+        profit_loss: "Profit & Loss",
+        interest: "Simple & Compound Interest",
+        ratio_proportion: "Ratio & Proportion",
+        time_work: "Time & Work",
+        speed_distance: "Speed, Distance & Time",
+        permutation_combination: "Permutation & Combination",
+        probability: "Probability",
+        data_interpretation:"data interpretation"
+    };
+
+
+    /* =========================================================
+       CURRENT VARIABLES
+    ========================================================= */
+
+    let currentTopic = "";
+    let currentQuestions = [];
+
+
+    /* =========================================================
+       START TEST
+    ========================================================= */
+
+    function startTest(topic) {
+
+        currentTopic = topic;
+        currentQuestions = questionBank[topic];
+
+        localStorage.setItem("currentAptitudeTopic", topic);
+        localStorage.removeItem("aptitudeTestResult");
+
+        document.getElementById("topicsPage").style.display = "none";
+        document.getElementById("resultPage").style.display = "none";
+        document.getElementById("questionPage").style.display = "block";
+
+        document.getElementById("questionTopic").innerText =
+            topicNames[topic] + " - Practice Test (50 Questions)";
+
+        const container = document.getElementById("questionsContainer");
+        container.innerHTML = "";
+
+        currentQuestions.forEach(function(item, index) {
+
+            let optionsHTML = "";
+
+            item.options.forEach(function(option) {
+                optionsHTML += `
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="question${index}"
+                        value="${escapeHTML(option)}">
+                    ${escapeHTML(option)}
+                </label>
+            `;
+            });
+
+            const card = document.createElement("div");
+            card.className = "question-card";
+
+            card.innerHTML = `
+            <div class="question-number">
+                Question ${index + 1} of ${currentQuestions.length}
+            </div>
+            <div class="question-text">
+                ${escapeHTML(item.question)}
+            </div>
+            <div>
+                ${optionsHTML}
+            </div>
+        `;
+
+            container.appendChild(card);
+        });
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       SUBMIT TEST
+    ========================================================= */
+
+    function submitTest() {
+
+        if (!currentQuestions || currentQuestions.length === 0) {
+            alert("No questions available.");
+            return;
+        }
+
+        let correct = 0;
+        let attempted = 0;
+
+        currentQuestions.forEach(function(item, index) {
+            const selected = document.querySelector(
+                `input[name="question${index}"]:checked`
+            );
+
+            if (selected) {
+                attempted++;
+                if (selected.value === item.answer) {
+                    correct++;
+                }
+            }
+        });
+
+        const total = currentQuestions.length;
+        const wrong = total - correct;
+        const percentage = Math.round((correct / total) * 100);
+
+        showResult(
+            correct,
+            wrong,
+            total,
+            attempted,
+            percentage
+        );
+    }
+
+
+    /* =========================================================
+       SHOW RESULT
+    ========================================================= */
+
+    function showResult(correct, wrong, total, attempted, percentage) {
+
+        document.getElementById("questionPage").style.display = "none";
+        document.getElementById("topicsPage").style.display = "none";
+        document.getElementById("resultPage").style.display = "block";
+
+        document.getElementById("resultTopic").innerText = topicNames[currentTopic];
+        document.getElementById("correctScore").innerText = correct;
+        document.getElementById("totalScore").innerText = total;
+        document.getElementById("correctNumber").innerText = correct;
+        document.getElementById("wrongNumber").innerText = wrong;
+        document.getElementById("percentageNumber").innerText = percentage + "%";
+
+        const status = document.getElementById("resultStatus");
+        const icon = document.getElementById("resultIcon");
+
+        if (percentage >= 40) {
+            status.innerHTML = "PASS ✅";
+            status.style.color = "#198754";
+            icon.innerHTML = "🏆";
+        } else {
+            status.innerHTML = "FAIL ❌";
+            status.style.color = "#dc3545";
+            icon.innerHTML = "❌";
+        }
+
+        const result = {
+            topic: currentTopic,
+            topicName: topicNames[currentTopic],
+            total: total,
+            attempted: attempted,
+            correct: correct,
+            wrong: wrong,
+            percentage: percentage
+        };
+
+        localStorage.setItem("aptitudeTestResult", JSON.stringify(result));
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       TRY AGAIN
+    ========================================================= */
+
+    function tryAgain() {
+        startTest(currentTopic);
+    }
+
+
+    /* =========================================================
+       SHOW TOPICS
+    ========================================================= */
+
+    function showTopics() {
+        document.getElementById("questionPage").style.display = "none";
+        document.getElementById("resultPage").style.display = "none";
+        document.getElementById("topicsPage").style.display = "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       HTML ESCAPE
+    ========================================================= */
+
+    function escapeHTML(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+</script>
+<!-- Google Translate Script -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'hi,en',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- Dark Mode Compatible Translator Styling -->
+<style>
+    .goog-te-combo {
+        padding: 5px 10px;
+        border-radius: 6px;
+        background-color: #212529;
+        color: #ffffff;
+        border: 1px solid #495057;
+        font-size: 14px;
+        outline: none;
+    }
+    .goog-logo-link, .goog-te-gadget span {
+        display: none !important;
+    }
+    .goog-te-gadget {
+        color: transparent !important;
+        font-size: 0 !important;
+    }
+    .goog-te-banner-frame {
+        display: none !important;
+    }
+    body {
+        top: 0 !important;
+    }
+</style>
+
+
+
+
+<!-- CSS & JS (</body> ke theek pehle add karein) -->
+<style>
+    .custom-translate-btn {
+        background-color: #d1e7dd !important;
+        color: #0f5132 !important;
+        border: 1px solid #badbcc !important;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+    .custom-translate-btn:hover {
+        background-color: #badbcc !important;
+    }
+    .custom-translate-btn:focus {
+        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+        border-color: #198754 !important;
+    }
+
+    /* Google unneeded UI & branding hide */
+    .goog-logo-link, .goog-te-gadget span, .goog-te-banner-frame, .skiptranslate, .goog-te-gadget {
+        display: none !important;
+        color: transparent !important;
+    }
+    body {
+        top: 0 !important;
+        position: static !important;
+    }
+</style>
+
+<script type="text/javascript">
+    let currentLang = 'en';
+
+    // Page load hone par auto-translate rokar English me fix rakhne ke liye cookie clear karein
+    document.addEventListener("DOMContentLoaded", function() {
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + document.domain + "; path=/;";
+        currentLang = 'en';
+        document.getElementById("langToggleBtn").innerText = "हिंदी (Hindi)";
+    });
+
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'hi,en',
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    // Single Button Toggle Logic (English ⟷ Hindi)
+    function toggleLanguage() {
+        var btn = document.getElementById("langToggleBtn");
+        var selectField = document.querySelector(".goog-te-combo");
+
+        if (currentLang === 'en') {
+            // Switch to Hindi
+            if (selectField) {
+                selectField.value = 'hi';
+                selectField.dispatchEvent(new Event('change'));
+            } else {
+                document.cookie = "googtrans=/en/hi; path=/";
+                location.reload();
+            }
+            btn.innerText = "English";
+            currentLang = 'hi';
+        } else {
+            // Switch back to English
+            if (selectField) {
+                selectField.value = 'en';
+                selectField.dispatchEvent(new Event('change'));
+            } else {
+                document.cookie = "googtrans=/en/en; path=/";
+                location.reload();
+            }
+            btn.innerText = "हिंदी (Hindi)";
+            currentLang = 'en';
+        }
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+</body>
+</html>

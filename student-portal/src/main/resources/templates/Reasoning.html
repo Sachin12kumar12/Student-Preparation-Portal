@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reasoning Preparation - Student Preparation Portal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+        }
+
+        .topic-card {
+            transition: 0.3s;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        /* Smaller question area */
+        .question-container {
+            max-width: 760px;
+            margin: auto;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .question-number {
+            color: #198754;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .question-text {
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .option {
+            display: block;
+            padding: 8px 12px;
+            margin: 6px 0;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            background: #f1fff8;
+            border-color: #198754;
+        }
+
+        .option input {
+            margin-right: 8px;
+        }
+
+        #questionPage,
+        #resultPage {
+            display: none;
+        }
+
+        .result-card {
+            background: white;
+            max-width: 760px;
+            margin: 35px auto;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+        }
+
+        .result-icon {
+            font-size: 60px;
+        }
+
+        .score {
+            font-size: 55px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .status {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .result-box {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .correct-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #198754;
+        }
+
+        .wrong-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #dc3545;
+        }
+
+        .percentage-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .topic-title {
+            color: #198754;
+        }
+
+        footer {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <a class="navbar-brand" href="javascript:void(0)" onclick="showTopics()">
+            Student Preparation Portal
+        </a>
+
+        <!-- Right Side: Dashboard + Single Light-Green Toggle Button -->
+        <div class="d-flex align-items-center gap-2">
+            <a href="Dashboard" class="btn btn-outline-light">
+                Dashboard
+            </a>
+
+            <!-- Hidden Google Translate Element -->
+            <div id="google_translate_element" style="display: none;"></div>
+
+            <!-- Single Toggle Button -->
+            <button id="langToggleBtn" class="btn custom-translate-btn" onclick="toggleLanguage()">
+                हिंदी (Hindi)
+            </button>
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- =========================================================
+     TOPICS PAGE
+========================================================= -->
+
+<div id="topicsPage">
+
+    <div class="container mt-5">
+
+        <div class="text-center mb-5">
+            <h1>Reasoning Preparation</h1>
+
+            <p class="text-muted">
+                Select a topic and improve your logical thinking skills.
+            </p>
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- Number Series -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4>Number Series</h4>
+                            <p>
+                                Practice number patterns and series questions.
+                            </p>
+                        </div>
+                        <a href="/MyPdf/Number_Series_Practice_Set.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Number Series Notes
+                        </a>
+
+                        <button onclick="startTest('number_series')"
+                                class="btn btn-success">
+                            Start Practice (50 Qs)
+                        </button>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Coding Decoding -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4>Coding-Decoding</h4>
+                            <p>
+                                Practice coding and decoding based questions.
+                            </p>
+                        </div>
+                        <a href="/MyPdf/Coding_Decoding_Practice_Set.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Coding-Decoding Notes
+                        </a>
+
+                        <button onclick="startTest('coding_decoding')"
+                                class="btn btn-success">
+                            Start Practice (50 Qs)
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Blood Relation -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4>Blood Relation</h4>
+                            <p>
+                                Practice family and relationship questions.
+                            </p>
+                        </div>
+                        <a href="/MyPdf/Blood_Relation_Practice_Set.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Blood Relation Notes
+                        </a>
+
+                        <button onclick="startTest('blood_relation')"
+                                class="btn btn-success">
+                            Start Practice (50 Qs)
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Direction -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4>Direction</h4>
+                            <p>
+                                Practice direction and distance based questions.
+                            </p>
+                        </div>
+                        <a href="/MyPdf/direction_study_material_en.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Direction Notes
+                        </a>
+
+                        <button onclick="startTest('direction')"
+                                class="btn btn-success">
+                            Start Practice (50 Qs)
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Analogy -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4>Analogy</h4>
+                            <p>
+                                Practice relationship and similarity questions.
+                            </p>
+                        </div>
+                        <a href="/MyPdf/analogy_study_material_en.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Analogy Notes
+                        </a>
+
+                        <button onclick="startTest('clock')"
+                                class="btn btn-success">
+                            Start Practice (50 Qs)
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4>Clock</h4>
+                            <p>
+                                Practice relationship and similarity questions.
+                            </p>
+                        </div>
+                        <a href="/MyPdf/Clock_Reasoning_Complete_Guide_English.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Clock Notes
+                        </a>
+
+                        <button onclick="startTest('clock')"
+                                class="btn btn-success">
+                            Start Practice (50 Qs)
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4>Calender</h4>
+                            <p>
+                                Practice relationship and similarity questions.
+                            </p>
+                        </div>
+                        <a href="/MyPdf/calendar_study_material_en.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Calender Notes
+                        </a>
+
+                        <button onclick="startTest('calender')"
+                                class="btn btn-success">
+                            Start Practice (50 Qs)
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- Classification -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4>Classification</h4>
+                            <p>
+                                Find the different item from a group.
+                            </p>
+                        </div>
+                        <a href="/MyPdf/classification_study_material_en.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Classification Notes
+                        </a>
+
+                        <button onclick="startTest('classification')"
+                                class="btn btn-success">
+                            Start Practice (50 Qs)
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Syllogism -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4>Syllogism</h4>
+                            <p>
+                                Practice logical statements and conclusions.
+                            </p>
+                        </div>
+                        <a href="/MyPdf/syllogism_study_material_en.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Syllogism Notes
+                        </a>
+
+                        <button onclick="startTest('syllogism')"
+                                class="btn btn-success">
+                            Start Practice (50 Qs)
+                        </button>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Seating Arrangement -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4>Seating Arrangement</h4>
+                            <p>
+                                Practice seating and arrangement problems.
+                            </p>
+                        </div>
+                        <a href="/MyPdf/seating_arrangement_study_material_en.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Seating Arrangement Notes
+                        </a>
+
+                        <button onclick="startTest('seating_arrangement')"
+                                class="btn btn-success">
+                            Start Practice (50 Qs)
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Puzzle -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                        <div>
+                            <h4>Puzzle</h4>
+                            <p>
+                                Solve logical puzzles and improve problem solving.
+                            </p>
+                        </div>
+                        <a href="/MyPdf/puzzle_reasoning_study_material_en.pdf" target="_blank"
+                           onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                            Puzzle Notes
+                        </a>
+
+                        <button onclick="startTest('puzzle')"
+                                class="btn btn-success">
+                            Start Practice (50 Qs)
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+<!-- ===================Dice==================-->
+        <div class="col-md-4">
+            <div class="card topic-card shadow h-100">
+                <div class="card-body text-center d-flex flex-column justify-content-between">
+
+                    <div>
+                        <h4>Dice</h4>
+                        <p>
+                            Solve logical puzzles and improve problem solving.
+                        </p>
+                    </div>
+                    <a href="/MyPdf/dice_reasoning_guide.pdf" target="_blank"
+                       onclick="startTest('number_system')" class="btn btn-primary" style="margin-bottom: 10px">
+                        Dice Notes
+                    </a>
+
+                    <button onclick="startTest('dice')"
+                            class="btn btn-success">
+                        Start Practice (50 Qs)
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="text-center mt-5 mb-5">
+
+            <a href="Dashboard" class="btn btn-secondary">
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     QUESTION PAGE
+========================================================= -->
+
+<div id="questionPage">
+
+    <div class="container mt-4">
+
+        <div class="text-center mb-3">
+
+            <h2 id="questionTopic" class="topic-title">
+                Reasoning Practice
+            </h2>
+
+            <p class="text-muted">
+                Answer all questions and submit the test.
+            </p>
+
+        </div>
+
+
+        <div class="question-container">
+
+            <div id="questionsContainer"></div>
+
+            <div class="text-center mt-3 mb-5">
+
+                <button onclick="submitTest()"
+                        class="btn btn-success btn-lg">
+                    Submit Test
+                </button>
+
+                <button onclick="showTopics()"
+                        class="btn btn-secondary btn-lg ms-2">
+                    Back to Topics
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     RESULT PAGE
+========================================================= -->
+
+<div id="resultPage">
+
+    <div class="container">
+
+        <div class="result-card text-center">
+
+            <div id="resultIcon" class="result-icon">
+                🏆
+            </div>
+
+            <h1>Test Completed!</h1>
+
+            <p class="text-muted">
+                Topic:
+                <strong id="resultTopic">-</strong>
+            </p>
+
+            <p>
+                Your reasoning practice test result is given below.
+            </p>
+
+
+            <div class="score">
+
+                <span id="correctScore">0</span>
+                /
+                <span id="totalScore">0</span>
+
+            </div>
+
+            <div class="fw-bold text-muted">
+                Your Score
+            </div>
+
+
+            <div id="resultStatus" class="status"></div>
+
+            <hr class="my-4">
+
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+
+                    <div class="result-box">
+
+                        <div id="correctNumber"
+                             class="correct-number">
+                            0
+                        </div>
+
+                        <div>Correct</div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="result-box">
+
+                        <div id="wrongNumber"
+                             class="wrong-number">
+                            0
+                        </div>
+
+                        <div>Wrong</div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="result-box">
+
+                        <div id="percentageNumber"
+                             class="percentage-number">
+                            0%
+                        </div>
+
+                        <div>Percentage</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="mt-4">
+
+                <button onclick="tryAgain()"
+                        class="btn btn-success btn-lg">
+                    Try Again
+                </button>
+
+                <button onclick="showTopics()"
+                        class="btn btn-secondary btn-lg ms-2">
+                    Reasoning Topics
+                </button>
+
+                <a href="dashboard.html"
+                   class="btn btn-dark btn-lg ms-2">
+                    Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer class="bg-dark text-white text-center p-3">
+
+    <p class="mb-0">
+        © 2026 Student Preparation Portal
+    </p>
+
+</footer>
+
+
+<script>
+
+    /* =========================================================
+       QUESTION GENERATOR HELPER FUNCTIONS
+       (Easy 1-15, Medium 16-35, Hard 36-50)
+    ========================================================= */
+
+    function createSeriesQuestions() {
+        let list = [];
+        // Easy (1-15)
+        for (let i = 1; i <= 15; i++) {
+            let step = i + 1;
+            let start = i * 2;
+            let a = start, b = start + step, c = b + step, ans = c + step;
+            list.push({
+                question: `[Easy] Find next term: ${a}, ${b}, ${c}, ?`,
+                options: [`${ans}`, `${ans + 1}`, `${ans - 2}`, `${ans + 3}`],
+                answer: `${ans}`
+            });
+        }
+        // Medium (16-35)
+        for (let i = 16; i <= 35; i++) {
+            let mult = (i % 3) + 2;
+            let add = i;
+            let a = 2, b = a * mult + add, c = b * mult + add, ans = c * mult + add;
+            list.push({
+                question: `[Medium] Find next term: ${a}, ${b}, ${c}, ?`,
+                options: [`${ans - 5}`, `${ans}`, `${ans + 10}`, `${ans + 4}`],
+                answer: `${ans}`
+            });
+        }
+        // Hard (36-50)
+        for (let i = 36; i <= 50; i++) {
+            let n = i - 30;
+            let a = n * n - n, b = (n+1)*(n+1) - (n+1), c = (n+2)*(n+2) - (n+2), ans = (n+3)*(n+3) - (n+3);
+            list.push({
+                question: `[Hard] Find next term: ${a}, ${b}, ${c}, ?`,
+                options: [`${ans + 2}`, `${ans - 4}`, `${ans}`, `${ans + 6}`],
+                answer: `${ans}`
+            });
+        }
+        return list;
+    }
+
+    function createCodingQuestions() {
+        let list = [];
+        // Easy (1-15)
+        for (let i = 1; i <= 15; i++) {
+            list.push({
+                question: `[Easy] If letter rank A=1, B=2... What is the numerical value for position shift +${i % 5 + 1} of letter 'B'?`,
+                options: [`${2 + (i % 5 + 1)}`, `${3 + (i % 5 + 1)}`, `${1 + (i % 5 + 1)}`, `${4 + (i % 5 + 1)}`],
+                answer: `${2 + (i % 5 + 1)}`
+            });
+        }
+        // Medium (16-35)
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] If 'CAT' is written as 'DBU', how is 'DOG' written under (+${(i%3)+1}) step cyclic shift?`,
+                options: [`EPH`, `EPI`, `FQI`, `EQH`],
+                answer: i % 3 === 0 ? "EPH" : "EPI"
+            });
+        }
+        // Hard (36-50)
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] In a complex reverse matrix code, if MASTER = 1311920518, then 'SMART' = ?`,
+                options: [`191311820`, `191311821`, `181311820`, `191411820`],
+                answer: "191311820"
+            });
+        }
+        return list;
+    }
+
+    function createBloodQuestions() {
+        let list = [];
+        for (let i = 1; i <= 15; i++) {
+            list.push({
+                question: `[Easy] Q${i}: A is the brother of B. B is the mother of C. How is A related to C?`,
+                options: ["Maternal Uncle", "Father", "Brother", "Grandfather"],
+                answer: "Maternal Uncle"
+            });
+        }
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: Pointing to a photograph, a woman said "His mother is the only daughter of my mother". How is woman related to person in photo?`,
+                options: ["Mother", "Aunt", "Sister", "Grandmother"],
+                answer: "Mother"
+            });
+        }
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: If A + B means A is son of B, A - B means A is wife of B. What does P + Q - R mean?`,
+                options: ["P is son of R", "P is father of R", "P is brother of R", "P is uncle of R"],
+                answer: "P is son of R"
+            });
+        }
+        return list;
+    }
+
+    function createDirectionQuestions() {
+        let list = [];
+        for (let i = 1; i <= 15; i++) {
+            list.push({
+                question: `[Easy] Q${i}: Facing North, if you turn 90 degrees right, which direction do you face?`,
+                options: ["East", "West", "South", "North-East"],
+                answer: "East"
+            });
+        }
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: A person walks 3 km North, then turns right and walks 4 km. How far is he from starting point?`,
+                options: ["5 km", "7 km", "1 km", "12 km"],
+                answer: "5 km"
+            });
+        }
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: Facing South-West, a man turns 180° clockwise, then 90° anti-clockwise. Which direction is he facing?`,
+                options: ["North-East", "North-West", "South-East", "South"],
+                answer: "North-West"
+            });
+        }
+        return list;
+    }
+
+    function createAnalogyQuestions() {
+        let list = [];
+        for (let i = 1; i <= 15; i++) {
+            list.push({
+                question: `[Easy] Q${i}: Book : Read :: Food : ?`,
+                options: ["Eat", "Cook", "Buy", "Store"],
+                answer: "Eat"
+            });
+        }
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: Ocean : Water :: Glacier : ?`,
+                options: ["Ice", "Mountain", "River", "Cold"],
+                answer: "Ice"
+            });
+        }
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: 8 : 64 :: 27 : ?`,
+                options: ["125", "729", "216", "343"],
+                answer: "729"
+            });
+        }
+        return list;
+    }
+    function createClockQuestions() {
+        let list = [];
+
+        // Easy (1-15): Acute angle at h:00
+        for (let i = 1; i <= 15; i++) {
+            let h = ((i - 1) % 12) + 1;
+            let acuteAngle = (h * 30 <= 180) ? h * 30 : 360 - (h * 30);
+            let ans = `${acuteAngle}°`;
+            let opt1 = ans;
+            let opt2 = `${(acuteAngle + 30) % 180 || 30}°`;
+            let opt3 = `${Math.abs(acuteAngle - 15)}°`;
+            let opt4 = `${acuteAngle === 0 ? 30 : 0}°`;
+            list.push({
+                question: `[Easy] Find the acute angle between hour and minute hands at ${h}:00.`,
+                options: [opt1, opt2, opt3, opt4],
+                answer: ans
+            });
+        }
+
+        // Medium (16-35): Acute angle at h:30
+        for (let i = 16; i <= 35; i++) {
+            let h = ((i - 1) % 12) + 1;
+            let rawAngle = Math.abs(30 * h - 165);
+            let angleVal = (rawAngle > 180) ? 360 - rawAngle : rawAngle;
+            let ans = `${angleVal}°`;
+            let opt1 = ans;
+            let opt2 = `${angleVal + 15}°`;
+            let opt3 = `${Math.abs(angleVal - 15)}°`;
+            let opt4 = `${angleVal > 150 ? 30 : angleVal + 30}°`;
+            list.push({
+                question: `[Medium] Find the acute angle between hour and minute hands at ${h}:30.`,
+                options: [opt1, opt2, opt3, opt4],
+                answer: ans
+            });
+        }
+
+        // Hard (36-50): Coincidence time (minutes past hour h) -> (60 * h) / 11
+        for (let i = 36; i <= 50; i++) {
+            let h = ((i - 1) % 12) + 1;
+            let nextH = (h % 12) + 1;
+            let mExact = Math.round((60 * h) / 11);
+            let ans = `${mExact} min past ${h}`;
+            let opt1 = ans;
+            let opt2 = `${mExact + 2} min past ${h}`;
+            let opt3 = `${Math.max(0, mExact - 3)} min past ${h}`;
+            let opt4 = `${(mExact + 5) % 60} min past ${h}`;
+            list.push({
+                question: `[Hard] Between ${h} and ${nextH} o'clock, at approximately what time do the clock hands coincide?`,
+                options: [opt1, opt2, opt3, opt4],
+                answer: ans
+            });
+        }
+
+        return list;
+    }
+    function createCalendarQuestions() {
+        let list = [];
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        // Easy (1-15): Date shifting within a month (odd days / modulo logic)
+        for (let i = 1; i <= 15; i++) {
+            let baseDayIdx = i % 7;
+            let d1 = (i % 15) + 1;
+            let addDays = (i * 3) % 18 + 2;
+            let d2 = d1 + addDays;
+            let ansIdx = (baseDayIdx + (addDays % 7)) % 7;
+            let ans = days[ansIdx];
+
+            let opt1 = ans;
+            let opt2 = days[(ansIdx + 1) % 7];
+            let opt3 = days[(ansIdx + 6) % 7];
+            let opt4 = days[(ansIdx + 3) % 7];
+
+            list.push({
+                question: `[Easy] If the ${d1}th of a month falls on ${days[baseDayIdx]}, what day will be the ${d2}th of the same month?`,
+                options: [opt1, opt2, opt3, opt4],
+                answer: ans
+            });
+        }
+
+        // Medium (16-35): Leap year identification logic
+        for (let i = 16; i <= 35; i++) {
+            let year = 1800 + i * 19;
+            let isLeap = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+            let ans = isLeap ? "Yes" : "No";
+
+            list.push({
+                question: `[Medium] Is the year ${year} a leap year?`,
+                options: ["Yes", "No", "Cannot determine", "Depends on century rules"],
+                answer: ans
+            });
+        }
+
+        // Hard (36-50): Day of week calculation for specific calendar dates
+        for (let i = 36; i <= 50; i++) {
+            let year = 1940 + ((i - 35) * 7) % 75;
+            let month = ((i * 3) % 12) + 1;
+            let day = ((i * 5) % 25) + 1;
+
+            let dt = new Date(year, month - 1, day);
+            let ansIdx = dt.getDay();
+            let ans = days[ansIdx];
+
+            let opt1 = ans;
+            let opt2 = days[(ansIdx + 1) % 7];
+            let opt3 = days[(ansIdx + 2) % 7];
+            let opt4 = days[(ansIdx + 5) % 7];
+
+            list.push({
+                question: `[Hard] What day of the week was/is on ${day}/${month}/${year}?`,
+                options: [opt1, opt2, opt3, opt4],
+                answer: ans
+            });
+        }
+
+        return list;
+    }
+
+    function createClassificationQuestions() {
+        let list = [];
+        for (let i = 1; i <= 15; i++) {
+            list.push({
+                question: `[Easy] Q${i}: Find the odd one out: Apple, Mango, Banana, Potato`,
+                options: ["Potato", "Apple", "Mango", "Banana"],
+                answer: "Potato"
+            });
+        }
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: Find the odd prime/composite: 11, 13, 17, 21`,
+                options: ["21", "11", "13", "17"],
+                answer: "21"
+            });
+        }
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: Find odd pair: (12, 144), (13, 169), (15, 225), (14, 210)`,
+                options: ["(14, 210)", "(12, 144)", "(13, 169)", "(15, 225)"],
+                answer: "(14, 210)"
+            });
+        }
+        return list;
+    }
+
+    function createSyllogismQuestions() {
+        let list = [];
+        for (let i = 1; i <= 15; i++) {
+            list.push({
+                question: `[Easy] Q${i}: All cats are dogs. All dogs are birds. Are all cats birds?`,
+                options: ["True", "False", "Cannot Say", "None"],
+                answer: "True"
+            });
+        }
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: Some A are B. Some B are C. Conclusion: Some A are C.`,
+                options: ["False", "True", "Definitely True", "None"],
+                answer: "False"
+            });
+        }
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: No A is B. All B are C. Conclusion: Some C are not A.`,
+                options: ["True", "False", "Cannot Say", "Invalid"],
+                answer: "True"
+            });
+        }
+        return list;
+    }
+
+    function createSeatingQuestions() {
+        let list = [];
+        for (let i = 1; i <= 15; i++) {
+            list.push({
+                question: `[Easy] Q${i}: In a row of 5 people, X is left of Y and right of Z. Who is in middle if Z is left end?`,
+                options: ["X", "Y", "Z", "Cannot determine"],
+                answer: "X"
+            });
+        }
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: 6 people A,B,C,D,E,F sit around a circle facing center. A is opposite D. Who faces D?`,
+                options: ["A", "B", "C", "E"],
+                answer: "A"
+            });
+        }
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: 8 persons facing outward around square table, 2 on each side. Complex relative positions dictate corner units.`,
+                options: ["Corner Position", "Center Edge", "Middle", "None"],
+                answer: "Corner Position"
+            });
+        }
+        return list;
+    }
+
+    function createPuzzleQuestions() {
+        let list = [];
+        for (let i = 1; i <= 15; i++) {
+            list.push({
+                question: `[Easy] Q${i}: If 5 workers build 5 chairs in 5 hours, how long do 100 workers take for 100 chairs?`,
+                options: ["5 hours", "100 hours", "1 hour", "25 hours"],
+                answer: "5 hours"
+            });
+        }
+        for (let i = 16; i <= 35; i++) {
+            list.push({
+                question: `[Medium] Q${i}: Clock shows 3:15. What is the acute angle between hour and minute hand?`,
+                options: ["7.5°", "0°", "15°", "22.5°"],
+                answer: "7.5°"
+            });
+        }
+        for (let i = 36; i <= 50; i++) {
+            list.push({
+                question: `[Hard] Q${i}: 3 boxes labeled Red, Blue, Mixed. All labels are wrong. Picking 1 ball from which box identifies all correctly?`,
+                options: ["Mixed Box", "Red Box", "Blue Box", "Any Box"],
+                answer: "Mixed Box"
+            });
+        }
+        return list;
+    }
+
+    function createDiceQuestions() {
+        let list = [];
+
+        // Helper to ensure 4 unique options including the answer
+        function makeUniqueOptions(ansStr, candidates) {
+            let uniqueOpts = [ansStr];
+            for (let c of candidates) {
+                let str = String(c);
+                if (!uniqueOpts.includes(str)) uniqueOpts.push(str);
+            }
+            let fill = 1;
+            while (uniqueOpts.length < 4) {
+                let str = String(fill++);
+                if (!uniqueOpts.includes(str)) uniqueOpts.push(str);
+            }
+            return uniqueOpts.slice(0, 4);
+        }
+
+        // Easy (1-15): Standard dice opposite face (sum = 7)
+        for (let i = 1; i <= 15; i++) {
+            let face = ((i - 1) % 6) + 1;
+            let ansNum = 7 - face;
+            let ans = `${ansNum}`;
+            let opts = makeUniqueOptions(ans, [ansNum, (ansNum % 6) + 1, ((ansNum + 1) % 6) + 1, face]);
+            list.push({
+                question: `[Easy] On a standard dice, what number appears on the face opposite to face number ${face}?`,
+                options: opts,
+                answer: ans
+            });
+        }
+
+        // Medium (16-35): Two-position dice / common face rotation logic
+        for (let i = 16; i <= 35; i++) {
+            let common = ((i - 16) % 6) + 1;
+            let ansNum = 7 - common;
+            let ans = `${ansNum}`;
+            let altFace1 = (common % 6) + 1;
+            let altFace2 = ((common + 2) % 6) + 1;
+            let opts = makeUniqueOptions(ans, [ansNum, common, altFace1, altFace2]);
+            list.push({
+                question: `[Medium] Two positions of a dice are shown with common face ${common}. Find the face opposite to ${common}.`,
+                options: opts,
+                answer: ans
+            });
+        }
+
+        // Hard (36-50): Spatial net / cross-net cube folding opposite face deduction
+        for (let i = 36; i <= 50; i++) {
+            let face = ((i - 36) % 6) + 1;
+            let ansNum = 7 - face;
+            let ans = `${ansNum}`;
+            let opts = makeUniqueOptions(ans, [ansNum, face, (face % 6) + 1, ((face + 3) % 6) + 1]);
+            list.push({
+                question: `[Hard] In an unfolded cross net of a dice cube, face ${face} folds opposite to which face?`,
+                options: opts,
+                answer: ans
+            });
+        }
+
+        return list;
+    }
+
+
+    /* =========================================================
+       QUESTION BANK INITIALIZATION
+    ========================================================= */
+
+    const questionBank = {
+        number_series: createSeriesQuestions(),
+        coding_decoding: createCodingQuestions(),
+        blood_relation: createBloodQuestions(),
+        direction: createDirectionQuestions(),
+        analogy: createAnalogyQuestions(),
+        clock: createClockQuestions(),
+        calender: createCalendarQuestions(),
+        classification: createClassificationQuestions(),
+        syllogism: createSyllogismQuestions(),
+        seating_arrangement: createSeatingQuestions(),
+        puzzle: createPuzzleQuestions(),
+        dice: createDiceQuestions(),
+    };
+
+
+    /* =========================================================
+       TOPIC NAMES
+    ========================================================= */
+
+    const topicNames = {
+        number_series: "Number Series",
+        coding_decoding: "Coding-Decoding",
+        blood_relation: "Blood Relation",
+        direction: "Direction",
+        analogy: "Analogy",
+        clock: "Clock",
+        calendar: "Calendar",
+        classification: "Classification",
+        syllogism: "Syllogism",
+        seating_arrangement: "Seating Arrangement",
+        puzzle: "Puzzle",
+        dice: "Dice"
+    };
+
+
+    /* =========================================================
+       CURRENT VARIABLES
+    ========================================================= */
+
+    let currentTopic = "";
+    let currentQuestions = [];
+
+
+    /* =========================================================
+       START TEST
+    ========================================================= */
+
+    function startTest(topic) {
+
+        currentTopic = topic;
+        currentQuestions = questionBank[topic];
+
+        localStorage.setItem("currentTopic", topic);
+        localStorage.removeItem("reasoningTestResult");
+
+        document.getElementById("topicsPage").style.display = "none";
+        document.getElementById("resultPage").style.display = "none";
+        document.getElementById("questionPage").style.display = "block";
+
+        document.getElementById("questionTopic").innerText =
+            topicNames[topic] + " - Practice Test (50 Questions)";
+
+        const container = document.getElementById("questionsContainer");
+        container.innerHTML = "";
+
+        currentQuestions.forEach(function(item, index) {
+
+            let optionsHTML = "";
+
+            item.options.forEach(function(option) {
+                optionsHTML += `
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="question${index}"
+                        value="${escapeHTML(option)}">
+                    ${escapeHTML(option)}
+                </label>
+            `;
+            });
+
+            const card = document.createElement("div");
+            card.className = "question-card";
+
+            card.innerHTML = `
+            <div class="question-number">
+                Question ${index + 1} of ${currentQuestions.length}
+            </div>
+            <div class="question-text">
+                ${escapeHTML(item.question)}
+            </div>
+            <div>
+                ${optionsHTML}
+            </div>
+        `;
+
+            container.appendChild(card);
+        });
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       SUBMIT TEST
+    ========================================================= */
+
+    function submitTest() {
+
+        if (!currentQuestions || currentQuestions.length === 0) {
+            alert("No questions available.");
+            return;
+        }
+
+        let correct = 0;
+        let attempted = 0;
+
+        currentQuestions.forEach(function(item, index) {
+            const selected = document.querySelector(
+                `input[name="question${index}"]:checked`
+            );
+
+            if (selected) {
+                attempted++;
+                if (selected.value === item.answer) {
+                    correct++;
+                }
+            }
+        });
+
+        const total = currentQuestions.length;
+        const wrong = total - correct;
+        const percentage = Math.round((correct / total) * 100);
+
+        showResult(
+            correct,
+            wrong,
+            total,
+            attempted,
+            percentage
+        );
+    }
+
+
+    /* =========================================================
+       SHOW RESULT
+    ========================================================= */
+
+    function showResult(correct, wrong, total, attempted, percentage) {
+
+        document.getElementById("questionPage").style.display = "none";
+        document.getElementById("topicsPage").style.display = "none";
+        document.getElementById("resultPage").style.display = "block";
+
+        document.getElementById("resultTopic").innerText = topicNames[currentTopic];
+        document.getElementById("correctScore").innerText = correct;
+        document.getElementById("totalScore").innerText = total;
+        document.getElementById("correctNumber").innerText = correct;
+        document.getElementById("wrongNumber").innerText = wrong;
+        document.getElementById("percentageNumber").innerText = percentage + "%";
+
+        const status = document.getElementById("resultStatus");
+        const icon = document.getElementById("resultIcon");
+
+        if (percentage >= 40) {
+            status.innerHTML = "PASS ✅";
+            status.style.color = "#198754";
+            icon.innerHTML = "🏆";
+        } else {
+            status.innerHTML = "FAIL ❌";
+            status.style.color = "#dc3545";
+            icon.innerHTML = "❌";
+        }
+
+        const result = {
+            topic: currentTopic,
+            topicName: topicNames[currentTopic],
+            total: total,
+            attempted: attempted,
+            correct: correct,
+            wrong: wrong,
+            percentage: percentage
+        };
+
+        localStorage.setItem("reasoningTestResult", JSON.stringify(result));
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       TRY AGAIN
+    ========================================================= */
+
+    function tryAgain() {
+        startTest(currentTopic);
+    }
+
+
+    /* =========================================================
+       SHOW TOPICS
+    ========================================================= */
+
+    function showTopics() {
+        document.getElementById("questionPage").style.display = "none";
+        document.getElementById("resultPage").style.display = "none";
+        document.getElementById("topicsPage").style.display = "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* =========================================================
+       HTML ESCAPE
+    ========================================================= */
+
+    function escapeHTML(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+</script>
+
+
+<!-- CSS & JS (</body> ke theek pehle add karein) -->
+<style>
+    .custom-translate-btn {
+        background-color: #d1e7dd !important;
+        color: #0f5132 !important;
+        border: 1px solid #badbcc !important;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+    .custom-translate-btn:hover {
+        background-color: #badbcc !important;
+    }
+    .custom-translate-btn:focus {
+        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+        border-color: #198754 !important;
+    }
+
+    /* Google unneeded UI & branding hide */
+    .goog-logo-link, .goog-te-gadget span, .goog-te-banner-frame, .skiptranslate, .goog-te-gadget {
+        display: none !important;
+        color: transparent !important;
+    }
+    body {
+        top: 0 !important;
+        position: static !important;
+    }
+</style>
+
+<script type="text/javascript">
+    let currentLang = 'en';
+
+    // Page load hone par auto-translate rokar English me fix rakhne ke liye cookie clear karein
+    document.addEventListener("DOMContentLoaded", function() {
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + document.domain + "; path=/;";
+        currentLang = 'en';
+        document.getElementById("langToggleBtn").innerText = "हिंदी (Hindi)";
+    });
+
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'hi,en',
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    // Single Button Toggle Logic (English ⟷ Hindi)
+    function toggleLanguage() {
+        var btn = document.getElementById("langToggleBtn");
+        var selectField = document.querySelector(".goog-te-combo");
+
+        if (currentLang === 'en') {
+            // Switch to Hindi
+            if (selectField) {
+                selectField.value = 'hi';
+                selectField.dispatchEvent(new Event('change'));
+            } else {
+                document.cookie = "googtrans=/en/hi; path=/";
+                location.reload();
+            }
+            btn.innerText = "English";
+            currentLang = 'hi';
+        } else {
+            // Switch back to English
+            if (selectField) {
+                selectField.value = 'en';
+                selectField.dispatchEvent(new Event('change'));
+            } else {
+                document.cookie = "googtrans=/en/en; path=/";
+                location.reload();
+            }
+            btn.innerText = "हिंदी (Hindi)";
+            currentLang = 'en';
+        }
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+</body>
+</html>

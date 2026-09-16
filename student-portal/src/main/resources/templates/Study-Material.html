@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Study Material - Student Preparation Portal</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <style>
+
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .page-title {
+            margin-top: 40px;
+            margin-bottom: 35px;
+        }
+
+        .material-card {
+            height: 100%;
+            transition: 0.3s;
+        }
+
+        .material-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .material-icon {
+            font-size: 50px;
+        }
+
+        .material-list {
+            text-align: left;
+        }
+
+        footer {
+            margin-top: 60px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand" href="javascript:void(0)" onclick="showTopics()">
+                Student Preparation Portal
+            </a>
+
+            <!-- Right Side: Dashboard + Single Light-Green Toggle Button -->
+            <div class="d-flex align-items-center gap-2">
+                <a href="Dashboard" class="btn btn-outline-light">
+                    Dashboard
+                </a>
+
+                <!-- Hidden Google Translate Element -->
+                <div id="google_translate_element" style="display: none;"></div>
+
+                <!-- Single Toggle Button -->
+                <button id="langToggleBtn" class="btn custom-translate-btn" onclick="toggleLanguage()">
+                    हिंदी (Hindi)
+                </button>
+            </div>
+
+        </div>
+    </nav>
+
+
+
+    <!-- =========================
+         PAGE TITLE
+    ========================== -->
+
+    <div class="container">
+
+        <div class="text-center page-title">
+
+            <h1>
+                Study Material
+            </h1>
+
+            <p class="text-muted">
+
+                Prepare for your placement with
+                useful study materials.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             MATERIAL CARDS
+        ========================== -->
+
+        <div class="row g-4">
+
+
+            <!-- Aptitude -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card material-card text-center p-3">
+
+                    <div class="material-icon">
+                        🧮
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4>
+                            Aptitude
+                        </h4>
+
+                        <p class="text-muted">
+                            Quantitative aptitude
+                            preparation material.
+                        </p>
+
+
+                        <div class="material-list">
+
+                            <ul>
+
+                                <li>
+                                    Number System
+                                </li>
+
+                                <li>
+                                    Percentage
+                                </li>
+
+                                <li>
+                                    Profit & Loss
+                                </li>
+
+                                <li>
+                                    Simple Interest
+                                </li>
+
+                                <li>
+                                    Compound Interest
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                        <!-- <button
+                            class="btn btn-primary w-100"
+                            onclick="showMessage('Aptitude')">
+
+                            View Material
+
+                        </button> -->
+                               <a href="/MyPdf/Aptitude_Interactive_Complete_Handbook-3.pdf" target="_blank" class="btn btn-success w-100" >View Material</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Reasoning -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card material-card text-center p-3">
+
+                    <div class="material-icon">
+                        🧠
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4>
+                            Reasoning
+                        </h4>
+
+                        <p class="text-muted">
+                            Logical reasoning
+                            preparation material.
+                        </p>
+
+
+                        <div class="material-list">
+
+                            <ul>
+
+                                <li>
+                                    Number Series
+                                </li>
+
+                                <li>
+                                    Coding-Decoding
+                                </li>
+
+                                <li>
+                                    Blood Relation
+                                </li>
+
+                                <li>
+                                    Direction
+                                </li>
+
+                                <li>
+                                    Syllogism
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                        <!-- <button
+                            class="btn btn-success w-100"
+                            onclick="showMessage('Reasoning')">
+
+                            View Material
+
+                        </button> -->
+                          <a href="/MyPdf/Reasoning_Complete_Compendium.pdf" target="_blank" class="btn btn-success w-100" >View Material</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Java -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card material-card text-center p-3">
+
+                    <div class="material-icon">
+                        ☕
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4>
+                            Java
+                        </h4>
+
+                        <p class="text-muted">
+                            Java programming
+                            preparation material.
+                        </p>
+
+
+                        <div class="material-list">
+
+                            <ul>
+
+                                <li>
+                                    Java Basics
+                                </li>
+
+                                <li>
+                                    OOP
+                                </li>
+
+                                <li>
+                                    Arrays
+                                </li>
+
+                                <li>
+                                    Exception Handling
+                                </li>
+
+                                <li>
+                                    Collections
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                        <!-- <button
+                            class="btn btn-warning w-100"
+                            onclick="showMessage('Java')">
+
+                            View Material
+
+                        </button> -->
+                          <a href="/MyPdf/Complete_Java_30_Topics_Masterclass.pdf" target="_blank" class="btn btn-success w-100" >View Material</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DBMS -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card material-card text-center p-3">
+
+                    <div class="material-icon">
+                        🗄️
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4>
+                            DBMS
+                        </h4>
+
+                        <p class="text-muted">
+                            Database management
+                            system material.
+                        </p>
+
+
+                        <div class="material-list">
+
+                            <ul>
+
+                                <li>
+                                    DBMS Basics
+                                </li>
+
+                                <li>
+                                    Keys
+                                </li>
+
+                                <li>
+                                    Normalization
+                                </li>
+
+                                <li>
+                                    ER Model
+                                </li>
+
+                                <li>
+                                    Transactions
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                          <a href="/MyPdf/Database_Management_Systems_Complete_Guide_and_Practice.pdf" target="_blank" class="btn btn-success w-100" >View Material</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SQL -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card material-card text-center p-3">
+
+                    <div class="material-icon">
+                        💾
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4>
+                            SQL
+                        </h4>
+
+                        <p class="text-muted">
+                            SQL queries and
+                            database practice.
+                        </p>
+
+
+                        <div class="material-list">
+
+                            <ul>
+
+                                <li>
+                                    SELECT
+                                </li>
+
+                                <li>
+                                    INSERT
+                                </li>
+
+                                <li>
+                                    UPDATE
+                                </li>
+
+                                <li>
+                                    DELETE
+                                </li>
+
+                                <li>
+                                    JOIN
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                        <!-- <button
+                            class="btn btn-secondary w-100"
+                            onclick="showMessage('SQL')">
+
+                            View Material
+
+                        </button> -->
+                          <a href="/MyPdf/SQL_Complete_Guide_and_Practice.pdf" target="_blank" class="btn btn-success w-100" >View Material</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Operating System -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card material-card text-center p-3">
+
+                    <div class="material-icon">
+                        ⚙️
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4>
+                            Operating System
+                        </h4>
+
+                        <p class="text-muted">
+                            OS concepts for
+                            technical interviews.
+                        </p>
+
+
+                        <div class="material-list">
+
+                            <ul>
+
+                                <li>
+                                    Process
+                                </li>
+
+                                <li>
+                                    Threads
+                                </li>
+
+                                <li>
+                                    Scheduling
+                                </li>
+
+                                <li>
+                                    Deadlock
+                                </li>
+
+                                <li>
+                                    Memory Management
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                        <!-- <button
+                            class="btn btn-dark w-100"
+                            onclick="showMessage('Operating System')">
+
+                            View Material
+
+                        </button> -->
+                          <a href="/MyPdf/Operating_Systems_Complete_Guide_and_Practice.pdf" target="_blank" class="btn btn-success w-100" >View Material</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Computer Networks -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card material-card text-center p-3">
+
+                    <div class="material-icon">
+                        🌐
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4>
+                            Computer Networks
+                        </h4>
+
+                        <p class="text-muted">
+                            Networking concepts
+                            for placement.
+                        </p>
+
+
+                        <div class="material-list">
+
+                            <ul>
+
+                                <li>
+                                    OSI Model
+                                </li>
+
+                                <li>
+                                    TCP/IP
+                                </li>
+
+                                <li>
+                                    IP Address
+                                </li>
+
+                                <li>
+                                    HTTP
+                                </li>
+
+                                <li>
+                                    Network Security
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+
+                          <a href="/MyPdf/Computer_Networks_Complete_Guide_and_Practice.pdf" target="_blank" class="btn btn-success w-100" >View Material</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Data Structures -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card material-card text-center p-3">
+
+                    <div class="material-icon">
+                        📚
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4>
+                            Data Structures
+                        </h4>
+
+                        <p class="text-muted">
+                            Important data structure
+                            concepts.
+                        </p>
+
+
+                        <div class="material-list">
+
+                            <ul>
+
+                                <li>
+                                    Array
+                                </li>
+
+                                <li>
+                                    Linked List
+                                </li>
+
+                                <li>
+                                    Stack
+                                </li>
+
+                                <li>
+                                    Queue
+                                </li>
+
+                                <li>
+                                    Tree
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                        <!-- <button
+                            class="btn btn-success w-100"
+                            onclick="showMessage('Data Structures')">
+
+                            View Material
+
+                        </button> -->
+                          <a href="/MyPdf/Data_Structures_Theory_and_Practice.pdf" target="_blank" class="btn btn-success w-100" >View Material</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="bg-dark text-white text-center p-3">
+
+        <p class="mb-0">
+
+            © 2026 Student Preparation Portal
+
+        </p>
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        function showMessage(subject) {
+
+            alert(
+                subject +
+                " study material will be available soon."
+            );
+
+        }
+
+    </script>
+
+
+    <!-- CSS & JS (</body> ke theek pehle add karein) -->
+    <style>
+        .custom-translate-btn {
+            background-color: #d1e7dd !important;
+            color: #0f5132 !important;
+            border: 1px solid #badbcc !important;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .custom-translate-btn:hover {
+            background-color: #badbcc !important;
+        }
+        .custom-translate-btn:focus {
+            box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+            border-color: #198754 !important;
+        }
+
+        /* Google unneeded UI & branding hide */
+        .goog-logo-link, .goog-te-gadget span, .goog-te-banner-frame, .skiptranslate, .goog-te-gadget {
+            display: none !important;
+            color: transparent !important;
+        }
+        body {
+            top: 0 !important;
+            position: static !important;
+        }
+    </style>
+
+    <script type="text/javascript">
+        let currentLang = 'en';
+
+        // Page load hone par auto-translate rokar English me fix rakhne ke liye cookie clear karein
+        document.addEventListener("DOMContentLoaded", function() {
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + document.domain + "; path=/;";
+            currentLang = 'en';
+            document.getElementById("langToggleBtn").innerText = "हिंदी (Hindi)";
+        });
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'hi,en',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        // Single Button Toggle Logic (English ⟷ Hindi)
+        function toggleLanguage() {
+            var btn = document.getElementById("langToggleBtn");
+            var selectField = document.querySelector(".goog-te-combo");
+
+            if (currentLang === 'en') {
+                // Switch to Hindi
+                if (selectField) {
+                    selectField.value = 'hi';
+                    selectField.dispatchEvent(new Event('change'));
+                } else {
+                    document.cookie = "googtrans=/en/hi; path=/";
+                    location.reload();
+                }
+                btn.innerText = "English";
+                currentLang = 'hi';
+            } else {
+                // Switch back to English
+                if (selectField) {
+                    selectField.value = 'en';
+                    selectField.dispatchEvent(new Event('change'));
+                } else {
+                    document.cookie = "googtrans=/en/en; path=/";
+                    location.reload();
+                }
+                btn.innerText = "हिंदी (Hindi)";
+                currentLang = 'en';
+            }
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+</body>
+
+</html>

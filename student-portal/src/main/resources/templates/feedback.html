@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback & Support - Placement Prep Portal</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-indigo: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px 15px;
+            color: #f8fafc;
+        }
+
+        /* Top Nav / Back Action */
+        .top-nav {
+            max-width: 680px;
+            width: 100%;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #cbd5e1;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            transform: translateX(-3px);
+        }
+
+        /* Main Wrapper & Flexible Feedback Card */
+        .feedback-wrapper {
+            max-width: 680px;
+            width: 100%;
+            margin: auto;
+        }
+
+        .feedback-card {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border-radius: 24px;
+            box-shadow: 0 20.8px 50px -10px rgba(0, 0, 0, 0.35);
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 576px) {
+            .feedback-card {
+                padding: 24px 20px;
+                border-radius: 18px;
+            }
+        }
+
+        .feedback-header-badge {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            color: var(--primary-indigo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+
+        .feedback-card h2 {
+            font-weight: 700;
+            font-size: 1.75rem;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .feedback-card p.subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        /* Category Selector Pills (Flexbox) */
+        .category-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .category-pill input[type="radio"] {
+            display: none;
+        }
+
+        .category-pill label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .category-pill input[type="radio"]:checked + label {
+            background: #ede9fe;
+            color: var(--primary-indigo);
+            border-color: #c7d2fe;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .category-pill label:hover {
+            background: #e2e8f0;
+        }
+
+        /* Flexible Form Fields */
+        .form-label {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .custom-input,
+        .custom-textarea {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            background-color: #f8fafc;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            color: #0f172a;
+            transition: all 0.2s ease;
+        }
+
+        .custom-input:focus,
+        .custom-textarea:focus {
+            outline: none;
+            background-color: #ffffff;
+            border-color: var(--primary-indigo);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+        }
+
+        .custom-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Submit Action Button */
+        .btn-submit-feedback {
+            background: var(--primary-indigo);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 24px;
+            font-weight: 600;
+            font-size: 1rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+            margin-top: 24px;
+        }
+
+        .btn-submit-feedback:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+        }
+
+        /* Footer Attribution */
+        .page-footer-note {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Top Navigation / Back -->
+<div class="top-nav">
+    <a href="index_page" class="btn-back">
+        <i class="fa-solid fa-arrow-left"></i> Back to Portal
+    </a>
+    <span class="text-white-50 small d-none d-sm-inline">Placement Prep Support</span>
+</div>
+
+<!-- Main Content Wrapper -->
+<div class="feedback-wrapper">
+    <div class="feedback-card">
+
+        <div class="feedback-header-badge">
+            <i class="fa-solid fa-comment-dots"></i>
+        </div>
+
+        <h2>We Value Your Feedback</h2>
+        <p class="subtitle">Help us improve the preparation experience. Share bugs, feature requests, or suggestions.</p>
+
+        <!-- Spring Boot Feedback Form mapping to /submit_feedback -->
+        <form th:action="@{/submit_feedback}" method="post">
+
+            <!-- Category Choice (Flexible Flex Row) -->
+            <div class="mb-4">
+                <label class="form-label">Feedback Category</label>
+                <div class="category-group">
+                    <div class="category-pill">
+                        <input type="radio" id="cat1" name="feedbackCategory" value="Suggestion" checked>
+                        <label for="cat1"><i class="fa-solid fa-lightbulb text-warning"></i> Suggestion</label>
+                    </div>
+                    <div class="category-pill">
+                        <input type="radio" id="cat2" name="feedbackCategory" value="Bug Report">
+                        <label for="cat2"><i class="fa-solid fa-bug text-danger"></i> Bug Report</label>
+                    </div>
+                    <div class="category-pill">
+                        <input type="radio" id="cat3" name="feedbackCategory" value="Content Issue">
+                        <label for="cat3"><i class="fa-solid fa-book-open text-primary"></i> Content Issue</label>
+                    </div>
+                    <div class="category-pill">
+                        <input type="radio" id="cat4" name="feedbackCategory" value="Other">
+                        <label for="cat4"><i class="fa-solid fa-ellipsis"></i> Other</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="mb-3">
+                <label class="form-label" for="studentEmail">Email / Student ID (Optional)</label>
+                <input type="email" id="studentEmail" name="studentEmail" class="custom-input" placeholder="e.g. student@college.edu">
+            </div>
+
+            <!-- Feedback Textarea -->
+            <div class="mb-3">
+                <label class="form-label" for="feedbackQuery">Your Feedback / Message *</label>
+                <textarea id="feedbackQuery" name="feedbackQuery" class="custom-textarea" placeholder="Describe your experience, feature requirement, or query clearly..." required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit-feedback">
+                <i class="fa-solid fa-paper-plane"></i> Submit Feedback
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="page-footer-note">
+        &copy; 2026 Placement Prep Portal. Built with care for student growth.
+    </div>
+</div>
+
+<!-- Alert / Toast Script -->
+<script th:if="${msg}">
+    alert("[(${msg})]");
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mock Test - Student Preparation Portal</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            font-family: Arial, sans-serif;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            padding: 7px 0;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* ================= MAIN CONTAINER ================= */
+
+        .test-container {
+            width: 100%;
+            max-width: 820px;
+            margin: 12px auto 15px;
+            padding: 0 12px;
+        }
+
+        /* ================= TEST HEADER ================= */
+
+        .test-header {
+            border: 0;
+            border-radius: 12px;
+            margin-bottom: 10px !important;
+        }
+
+        .test-header .card-body {
+            padding: 12px 16px;
+        }
+
+        .test-header h3 {
+            font-size: 21px;
+            margin-bottom: 3px !important;
+        }
+
+        .test-header p {
+            font-size: 13px;
+        }
+
+        .timer {
+            font-size: 18px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        /* ================= PROGRESS ================= */
+
+        .progress-area {
+            margin-bottom: 8px !important;
+        }
+
+        .progress {
+            height: 8px !important;
+        }
+
+        /* ================= QUESTION CARD ================= */
+
+        .question-card {
+            border: 0;
+            border-radius: 12px;
+        }
+
+        .question-card .card-body {
+            padding: 14px 18px !important;
+        }
+
+        #questionText {
+            font-size: clamp(17px, 1.8vw, 21px);
+            line-height: 1.3;
+            margin-bottom: 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .question-card hr {
+            margin: 8px 0 10px;
+        }
+
+        /* ================= OPTIONS ================= */
+
+        .option {
+            margin-bottom: 6px;
+        }
+
+        .option input {
+            margin-right: 6px;
+        }
+
+        .option label {
+            cursor: pointer;
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: block;
+            line-height: 1.2;
+            font-size: 15px;
+            transition: .15s;
+            overflow-wrap: anywhere;
+        }
+
+        .option label:hover {
+            background-color: #f1f1f1;
+        }
+
+        .option input:checked + label {
+            border-color: #0d6efd;
+            background-color: #eaf2ff;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .test-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 8px !important;
+            margin-bottom: 0;
+        }
+
+        .test-actions .left-actions,
+        .test-actions .right-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .test-actions .btn {
+            padding: 6px 14px;
+            font-size: 14px;
+        }
+
+        /* ================= PC SHORT SCREEN ================= */
+
+        @media (min-width: 768px) and (max-height: 800px) {
+
+            .navbar {
+                padding: 5px 0;
+            }
+
+            .test-container {
+                margin-top: 7px;
+                margin-bottom: 8px;
+            }
+
+            .test-header .card-body {
+                padding: 9px 14px;
+            }
+
+            .test-header h3 {
+                font-size: 19px;
+            }
+
+            .question-card .card-body {
+                padding: 10px 14px !important;
+            }
+
+            #questionText {
+                font-size: 19px;
+                line-height: 1.25;
+            }
+
+            .option {
+                margin-bottom: 4px;
+            }
+
+            .option label {
+                padding: 6px 9px;
+                font-size: 14px;
+            }
+
+            .test-actions {
+                margin-top: 5px !important;
+            }
+        }
+
+        /* ================= TABLET ================= */
+
+        @media (min-width: 768px) and (max-width: 1100px) {
+
+            .test-container {
+                max-width: 760px;
+            }
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 767px) {
+
+            .test-container {
+                max-width: 100%;
+                margin: 8px auto 10px;
+                padding: 0 8px;
+            }
+
+            .navbar {
+                padding: 6px 0;
+            }
+
+            .navbar-brand {
+                font-size: 15px;
+            }
+
+            .test-header .card-body {
+                padding: 10px 12px;
+            }
+
+            .test-header h3 {
+                font-size: 18px;
+            }
+
+            .timer {
+                font-size: 16px;
+            }
+
+            .question-card .card-body {
+                padding: 11px 12px !important;
+            }
+
+            #questionText {
+                font-size: 17px;
+                line-height: 1.3;
+            }
+
+            .option {
+                margin-bottom: 5px;
+            }
+
+            .option label {
+                padding: 7px 8px;
+                font-size: 14px;
+            }
+
+            .test-actions {
+                gap: 6px;
+            }
+
+            .test-actions .left-actions,
+            .test-actions .right-actions {
+                gap: 6px;
+            }
+
+            .test-actions .btn {
+                padding: 6px 9px;
+                font-size: 13px;
+            }
+        }
+
+        /* ================= SMALL MOBILE ================= */
+
+        @media (max-width: 400px) {
+
+            .test-actions .btn {
+                padding: 5px 7px;
+                font-size: 12px;
+            }
+
+            #questionText {
+                font-size: 16px;
+            }
+
+            .option label {
+                font-size: 13px;
+                padding: 6px 7px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" href="javascript:void(0)" onclick="showTopics()">
+            Student Preparation Portal
+        </a>
+        <!-- Right Side: Dashboard + Single Light-Green Toggle Button -->
+        <div class="d-flex align-items-center gap-2">
+            <a href="Dashboard" class="btn btn-outline-light">
+                Dashboard
+            </a>
+
+            <!-- Hidden Google Translate Element -->
+            <div id="google_translate_element" style="display: none;"></div>
+
+            <!-- Single Toggle Button -->
+            <button id="langToggleBtn" class="btn custom-translate-btn" onclick="toggleLanguage()">
+                हिंदी (Hindi)
+            </button>
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container test-container">
+
+
+    <!-- ================= TEST HEADER ================= -->
+
+    <div class="card test-header shadow-sm">
+
+        <div class="card-body">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-8">
+
+                    <h3 id="testTitle">
+                        Aptitude Mock Test
+                    </h3>
+
+                    <p class="text-muted mb-0">
+                        Answer all questions carefully.
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-4 text-md-end mt-2 mt-md-0">
+
+                    <div class="timer">
+
+                        Time Left:
+
+                        <span id="timer">
+                                30:00
+                            </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= QUESTION PROGRESS ================= -->
+
+    <div class="progress-area mb-2">
+
+        <div class="d-flex justify-content-between">
+
+                <span>
+                    Question
+                    <strong id="questionNumber">1</strong>
+                    of
+                    <strong id="totalQuestions">10</strong>
+                </span>
+
+            <span>
+                    Score:
+                    <strong id="score">0</strong>
+                </span>
+
+        </div>
+
+
+        <div class="progress mt-2">
+
+            <div id="progressBar"
+                 class="progress-bar"
+                 role="progressbar"
+                 style="width:10%;">
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= QUESTION CARD ================= -->
+
+    <div class="card question-card shadow-sm">
+
+        <div class="card-body">
+
+
+            <h4 id="questionText">
+                Question will appear here
+            </h4>
+
+
+            <hr>
+
+
+            <!-- OPTION A -->
+
+            <div class="option">
+
+                <input
+                        type="radio"
+                        name="answer"
+                        id="optionA"
+                        value="A">
+
+                <label for="optionA" id="labelA">
+                    Option A
+                </label>
+
+            </div>
+
+
+            <!-- OPTION B -->
+
+            <div class="option">
+
+                <input
+                        type="radio"
+                        name="answer"
+                        id="optionB"
+                        value="B">
+
+                <label for="optionB" id="labelB">
+                    Option B
+                </label>
+
+            </div>
+
+
+            <!-- OPTION C -->
+
+            <div class="option">
+
+                <input
+                        type="radio"
+                        name="answer"
+                        id="optionC"
+                        value="C">
+
+                <label for="optionC" id="labelC">
+                    Option C
+                </label>
+
+            </div>
+            <!-- OPTION D -->
+
+            <div class="option">
+
+                <input
+                        type="radio"
+                        name="answer"
+                        id="optionD"
+                        value="D">
+
+                <label for="optionD" id="labelD">
+                    Option D
+                </label>
+
+            </div>
+
+
+            <div id="message"
+                 class="mt-2 fw-bold">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= ACTION BUTTONS ================= -->
+
+    <div class="test-actions">
+
+        <div class="left-actions">
+
+            <button
+                    class="btn btn-secondary"
+                    onclick="previousQuestion()"
+                    id="previousButton">
+
+                Previous
+
+            </button>
+
+        </div>
+
+
+        <div class="right-actions">
+
+            <button
+                    class="btn btn-primary"
+                    onclick="nextQuestion()"
+                    id="nextButton">
+
+                Next
+
+            </button>
+
+
+            <button
+                    class="btn btn-danger"
+                    onclick="submitTest()"
+                    id="submitButton">
+
+                Submit Test
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+
+    /* =====================================================
+       APTITUDE QUESTIONS
+    ===================================================== */
+
+    const aptitudeQuestions = [
+
+        {
+            question: "What is 20% of 500?",
+            options: {
+                A: "50",
+                B: "100",
+                C: "150",
+                D: "200"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "A shopkeeper buys an article for ₹800 and sells it for ₹960. What is the profit percentage?",
+            options: {
+                A: "10%",
+                B: "15%",
+                C: "20%",
+                D: "25%"
+            },
+            answer: "C"
+        },
+
+        {
+            question: "What is the average of 15, 20, 25, 30 and 35?",
+            options: {
+                A: "20",
+                B: "25",
+                C: "30",
+                D: "35"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "A train covers 240 km in 4 hours. What is its speed?",
+            options: {
+                A: "40 km/h",
+                B: "50 km/h",
+                C: "60 km/h",
+                D: "80 km/h"
+            },
+            answer: "C"
+        },
+
+        {
+            question: "What is the simple interest on ₹2000 at 5% per annum for 3 years?",
+            options: {
+                A: "₹200",
+                B: "₹250",
+                C: "₹300",
+                D: "₹350"
+            },
+            answer: "C"
+        },
+
+        {
+            question: "The ratio of boys to girls in a class is 3:2. If there are 30 boys, how many girls are there?",
+            options: {
+                A: "15",
+                B: "20",
+                C: "25",
+                D: "30"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "A can complete a work in 10 days. How much work can A complete in one day?",
+            options: {
+                A: "1/5",
+                B: "1/10",
+                C: "1/15",
+                D: "1/20"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "A number is increased from 400 to 500. What is the percentage increase?",
+            options: {
+                A: "20%",
+                B: "25%",
+                C: "30%",
+                D: "35%"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "If 5 pens cost ₹75, what will be the cost of 12 pens?",
+            options: {
+                A: "₹150",
+                B: "₹160",
+                C: "₹180",
+                D: "₹200"
+            },
+            answer: "C"
+        },
+
+        {
+            question: "A man bought an article for ₹1000 and sold it for ₹850. What is his loss percentage?",
+            options: {
+                A: "10%",
+                B: "12%",
+                C: "15%",
+                D: "20%"
+            },
+            answer: "C"
+        }
+
+    ];
+
+
+    /* =====================================================
+       REASONING QUESTIONS
+    ===================================================== */
+
+    const reasoningQuestions = [
+
+        {
+            question: "Find the next number: 2, 4, 8, 16, ?",
+            options: {
+                A: "24",
+                B: "28",
+                C: "32",
+                D: "36"
+            },
+            answer: "C"
+        },
+
+        {
+            question: "If CAT is coded as DBU, then DOG is coded as?",
+            options: {
+                A: "EPH",
+                B: "EOG",
+                C: "FPH",
+                D: "DPH"
+            },
+            answer: "A"
+        },
+
+        {
+            question: "A is the brother of B. B is the sister of C. How is A related to C?",
+            options: {
+                A: "Father",
+                B: "Brother",
+                C: "Uncle",
+                D: "Cousin"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "A man walks 5 km North and then 5 km East. In which direction is he from his starting point?",
+            options: {
+                A: "North",
+                B: "South",
+                C: "North-East",
+                D: "South-East"
+            },
+            answer: "C"
+        },
+
+        {
+            question: "Find the odd one out.",
+            options: {
+                A: "Apple",
+                B: "Mango",
+                C: "Potato",
+                D: "Banana"
+            },
+            answer: "C"
+        },
+
+        {
+            question: "Find the next letter: A, C, E, G, ?",
+            options: {
+                A: "H",
+                B: "I",
+                C: "J",
+                D: "K"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "If BOOK is coded as CPPL, then PEN is coded as?",
+            options: {
+                A: "QFO",
+                B: "QEN",
+                C: "PFN",
+                D: "RFO"
+            },
+            answer: "A"
+        },
+
+        {
+            question: "Find the missing number: 3, 6, 12, 24, ?",
+            options: {
+                A: "36",
+                B: "42",
+                C: "48",
+                D: "54"
+            },
+            answer: "C"
+        },
+
+        {
+            question: "Which number is different from the others?",
+            options: {
+                A: "9",
+                B: "16",
+                C: "25",
+                D: "30"
+            },
+            answer: "D"
+        },
+
+        {
+            question: "If all dogs are animals and some animals are black, which statement is definitely true?",
+            options: {
+                A: "All dogs are black",
+                B: "Some dogs are black",
+                C: "All dogs are animals",
+                D: "No dogs are animals"
+            },
+            answer: "C"
+        }
+
+    ];
+
+
+    /* =====================================================
+       TECHNICAL QUESTIONS
+    ===================================================== */
+
+    const technicalQuestions = [
+
+        {
+            question: "Which keyword is used to create a class in Java?",
+            options: {
+                A: "object",
+                B: "class",
+                C: "new",
+                D: "create"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "Which concept allows a Java class to acquire properties of another class?",
+            options: {
+                A: "Encapsulation",
+                B: "Inheritance",
+                C: "Abstraction",
+                D: "Compilation"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "Which SQL command is used to retrieve data from a database?",
+            options: {
+                A: "INSERT",
+                B: "UPDATE",
+                C: "SELECT",
+                D: "DELETE"
+            },
+            answer: "C"
+        },
+
+        {
+            question: "Which SQL command is used to add a new record to a table?",
+            options: {
+                A: "ADD",
+                B: "INSERT",
+                C: "CREATE",
+                D: "UPDATE"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "Which data structure follows the LIFO principle?",
+            options: {
+                A: "Queue",
+                B: "Array",
+                C: "Stack",
+                D: "Linked List"
+            },
+            answer: "C"
+        },
+
+        {
+            question: "Which data structure follows the FIFO principle?",
+            options: {
+                A: "Stack",
+                B: "Queue",
+                C: "Tree",
+                D: "Graph"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "Which of the following is an operating system?",
+            options: {
+                A: "MySQL",
+                B: "Linux",
+                C: "HTML",
+                D: "Java"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "Which protocol is commonly used to access web pages?",
+            options: {
+                A: "FTP",
+                B: "HTTP",
+                C: "SMTP",
+                D: "SSH"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "What does JVM stand for in Java?",
+            options: {
+                A: "Java Variable Machine",
+                B: "Java Virtual Machine",
+                C: "Java Visual Machine",
+                D: "Java Verified Machine"
+            },
+            answer: "B"
+        },
+
+        {
+            question: "Which key is used to uniquely identify a record in a database table?",
+            options: {
+                A: "Foreign Key",
+                B: "Primary Key",
+                C: "Candidate Key",
+                D: "Super Key"
+            },
+            answer: "B"
+        }
+
+    ];
+
+
+    /* =====================================================
+       TEST TYPE
+    ===================================================== */
+
+    const urlParams =
+        new URLSearchParams(window.location.search);
+
+    const testType =
+        (urlParams.get("test") || "aptitude").toLowerCase();
+
+
+    let questions = [];
+    let testName = "";
+
+
+    if (testType === "aptitude") {
+
+        questions = aptitudeQuestions;
+
+        testName = "Aptitude Mock Test";
+
+    }
+
+    else if (testType === "reasoning") {
+
+        questions = reasoningQuestions;
+
+        testName = "Reasoning Mock Test";
+
+    }
+
+    else if (testType === "technical") {
+
+        questions = technicalQuestions;
+
+        testName = "Technical Mock Test";
+
+    }
+
+    else if (testType === "placement") {
+
+        questions = [
+            ...aptitudeQuestions,
+            ...reasoningQuestions,
+            ...technicalQuestions
+        ];
+
+        testName = "Full Placement Test";
+
+    }
+
+    else {
+
+        questions = aptitudeQuestions;
+
+        testName = "Aptitude Mock Test";
+
+    }
+
+
+    /* =====================================================
+       VARIABLES
+    ===================================================== */
+
+    let currentQuestion = 0;
+
+    let userAnswers =
+        new Array(questions.length).fill(null);
+
+    let timeLeft =
+        testType === "placement" ? 1800 : 600;
+
+    let timer;
+
+    let submitted = false;
+
+
+    /* =====================================================
+       INITIAL DATA
+    ===================================================== */
+
+    document.getElementById("testTitle").innerText =
+        testName;
+
+    document.getElementById("totalQuestions").innerText =
+        questions.length;
+
+
+    /* =====================================================
+       SHOW QUESTION
+    ===================================================== */
+
+    function showQuestion() {
+
+        const question =
+            questions[currentQuestion];
+
+
+        document.getElementById("questionText").innerText =
+            question.question;
+
+
+        document.getElementById("labelA").innerText =
+            "A. " + question.options.A;
+
+        document.getElementById("labelB").innerText =
+            "B. " + question.options.B;
+
+        document.getElementById("labelC").innerText =
+            "C. " + question.options.C;
+
+        document.getElementById("labelD").innerText =
+            "D. " + question.options.D;
+
+
+        document.getElementById("questionNumber").innerText =
+            currentQuestion + 1;
+
+
+        const progress =
+            ((currentQuestion + 1) /
+                questions.length) * 100;
+
+
+        document.getElementById("progressBar").style.width =
+            progress + "%";
+
+
+        /* Restore previous answer */
+
+        document
+            .querySelectorAll('input[name="answer"]')
+            .forEach(radio => {
+
+                radio.checked =
+                    radio.value ===
+                    userAnswers[currentQuestion];
+
+            });
+
+
+        /* Previous button */
+
+        document.getElementById("previousButton").disabled =
+            currentQuestion === 0;
+
+
+        /* Next button */
+
+        document.getElementById("nextButton").style.display =
+            currentQuestion === questions.length - 1
+                ? "none"
+                : "inline-block";
+
+
+        /* Submit button */
+
+        document.getElementById("submitButton").style.display =
+            currentQuestion === questions.length - 1
+                ? "inline-block"
+                : "inline-block";
+
+
+        document.getElementById("message").innerText = "";
+
+
+        updateCurrentScore();
+    }
+
+
+    /* =====================================================
+       SAVE ANSWER
+    ===================================================== */
+
+    function saveAnswer() {
+
+        const selected =
+            document.querySelector(
+                'input[name="answer"]:checked'
+            );
+
+
+        userAnswers[currentQuestion] =
+            selected ? selected.value : null;
+    }
+
+
+    /* =====================================================
+       CURRENT SCORE
+    ===================================================== */
+
+    function updateCurrentScore() {
+
+        let score = 0;
+
+        questions.forEach((question, index) => {
+
+            if (
+                userAnswers[index] !== null &&
+                userAnswers[index] === question.answer
+            ) {
+
+                score++;
+
+            }
+
+        });
+
+
+        document.getElementById("score").innerText =
+            score;
+    }
+
+
+    /* =====================================================
+       NEXT QUESTION
+    ===================================================== */
+
+    function nextQuestion() {
+
+        saveAnswer();
+
+        updateCurrentScore();
+
+
+        if (currentQuestion < questions.length - 1) {
+
+            currentQuestion++;
+
+            showQuestion();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       PREVIOUS QUESTION
+    ===================================================== */
+
+    function previousQuestion() {
+
+        saveAnswer();
+
+        updateCurrentScore();
+
+
+        if (currentQuestion > 0) {
+
+            currentQuestion--;
+
+            showQuestion();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       SUBMIT TEST
+    ===================================================== */
+
+    function submitTest() {
+
+        if (submitted) {
+            return;
+        }
+
+
+        saveAnswer();
+
+
+        let score = 0;
+
+
+        /* EXACT ANSWER CHECKING */
+
+        questions.forEach((question, index) => {
+
+            if (
+                userAnswers[index] ===
+                question.answer
+            ) {
+
+                score++;
+
+            }
+
+        });
+
+
+        /* QUESTION-WISE RESULT */
+
+        const resultDetails =
+            questions.map((question, index) => {
+
+                return {
+
+                    question:
+                    question.question,
+
+                    options:
+                    question.options,
+
+                    selected:
+                        userAnswers[index],
+
+                    correct:
+                    question.answer,
+
+                    isCorrect:
+                        userAnswers[index] ===
+                        question.answer
+
+                };
+
+            });
+
+
+        /* SAVE RESULT */
+
+        localStorage.setItem(
+            "testScore",
+            String(score)
+        );
+
+
+        localStorage.setItem(
+            "totalQuestions",
+            String(questions.length)
+        );
+
+
+        localStorage.setItem(
+            "testType",
+            testType
+        );
+
+
+        localStorage.setItem(
+            "testName",
+            testName
+        );
+
+
+        localStorage.setItem(
+            "testAnswers",
+            JSON.stringify(resultDetails)
+        );
+
+
+        submitted = true;
+
+
+        clearInterval(timer);
+
+
+        /* RESULT PAGE */
+
+        window.location.href =
+            "result.html";
+
+    }
+
+
+    /* =====================================================
+       TIMER
+    ===================================================== */
+
+    function startTimer() {
+
+        timer = setInterval(() => {
+            let minutes = Math.floor(timeLeft / 60);
+
+            let seconds = timeLeft % 60;
+            document.getElementById("timer").innerText = minutes + ":" + String(seconds).padStart(2, "0");
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                alert(
+                    "Time is over! Test will be submitted."
+                );
+                submitTest();
+                return;
+            }
+
+
+            timeLeft--;
+
+        }, 1000);
+
+    }
+
+
+    /* =====================================================
+       START TEST
+    ===================================================== */
+
+    showQuestion();
+
+    startTimer();
+
+
+</script>
+
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- CSS & JS (</body> ke theek pehle add karein) -->
+<style>
+    .custom-translate-btn {
+        background-color: #d1e7dd !important;
+        color: #0f5132 !important;
+        border: 1px solid #badbcc !important;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+    .custom-translate-btn:hover {
+        background-color: #badbcc !important;
+    }
+    .custom-translate-btn:focus {
+        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+        border-color: #198754 !important;
+    }
+
+    /* Google unneeded UI & branding hide */
+    .goog-logo-link, .goog-te-gadget span, .goog-te-banner-frame, .skiptranslate, .goog-te-gadget {
+        display: none !important;
+        color: transparent !important;
+    }
+    body {
+        top: 0 !important;
+        position: static !important;
+    }
+</style>
+
+<script type="text/javascript">
+    let currentLang = 'en';
+
+    // Page load hone par auto-translate rokar English me fix rakhne ke liye cookie clear karein
+    document.addEventListener("DOMContentLoaded", function() {
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + document.domain + "; path=/;";
+        currentLang = 'en';
+        document.getElementById("langToggleBtn").innerText = "हिंदी (Hindi)";
+    });
+
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'hi,en',
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    // Single Button Toggle Logic (English ⟷ Hindi)
+    function toggleLanguage() {
+        var btn = document.getElementById("langToggleBtn");
+        var selectField = document.querySelector(".goog-te-combo");
+
+        if (currentLang === 'en') {
+            // Switch to Hindi
+            if (selectField) {
+                selectField.value = 'hi';
+                selectField.dispatchEvent(new Event('change'));
+            } else {
+                document.cookie = "googtrans=/en/hi; path=/";
+                location.reload();
+            }
+            btn.innerText = "English";
+            currentLang = 'hi';
+        } else {
+            // Switch back to English
+            if (selectField) {
+                selectField.value = 'en';
+                selectField.dispatchEvent(new Event('change'));
+            } else {
+                document.cookie = "googtrans=/en/en; path=/";
+                location.reload();
+            }
+            btn.innerText = "हिंदी (Hindi)";
+            currentLang = 'en';
+        }
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+</body>
+
+</html>

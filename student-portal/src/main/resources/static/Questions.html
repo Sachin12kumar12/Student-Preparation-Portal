@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Practice Questions</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body class="bg-light">
+
+
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class="navbar-brand" href="javascript:void(0)" onclick="showTopics()">
+                Student Preparation Portal
+            </a>
+
+            <!-- Right Side: Dashboard + Single Light-Green Toggle Button -->
+            <div class="d-flex align-items-center gap-2">
+                <a href="dashboard.html" class="btn btn-outline-light">
+                    Dashboard
+                </a>
+
+                <!-- Hidden Google Translate Element -->
+                <div id="google_translate_element" style="display: none;"></div>
+
+                <!-- Single Toggle Button -->
+                <button id="langToggleBtn" class="btn custom-translate-btn" onclick="toggleLanguage()">
+                    हिंदी (Hindi)
+                </button>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- Main Container -->
+
+    <div class="container mt-5">
+
+
+        <!-- Topic Heading -->
+
+        <div class="text-center mb-4">
+
+            <h1 id="topicTitle">
+                Practice Questions
+            </h1>
+
+            <p class="text-muted">
+                Select the correct answer
+            </p>
+
+        </div>
+
+
+
+        <!-- Question Card -->
+
+        <div class="card shadow mx-auto" style="max-width: 700px;">
+
+            <div class="card-body">
+
+
+                <!-- Question Number -->
+
+                <h5 id="questionNumber" class="text-primary">
+                    Question 1
+                </h5>
+
+
+                <!-- Question -->
+
+                <h4 id="questionText" class="mt-3">
+                    Question will appear here
+                </h4>
+
+
+                <!-- Options -->
+
+                <div id="options" class="mt-4">
+
+                </div>
+
+
+                <!-- Submit Button -->
+
+                <button
+                    id="submitBtn"
+                    class="btn btn-success mt-3"
+                    onclick="submitAnswer()"
+                >
+                    Submit Answer
+                </button>
+
+
+                <!-- Next Button -->
+
+                <button
+                    id="nextBtn"
+                    class="btn btn-primary mt-3"
+                    onclick="nextQuestion()"
+                    style="display:none;"
+                >
+                    Next
+                </button>
+
+
+                <!-- Previous Button -->
+
+                <button
+                    id="previousBtn"
+                    class="btn btn-secondary mt-3"
+                    onclick="previousQuestion()"
+                    style="display:none;"
+                >
+                    Previous
+                </button>
+
+
+                <!-- Result -->
+
+                <div
+                    id="result"
+                    class="alert alert-info mt-4"
+                    style="display:none;"
+                >
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- Footer -->
+
+    <footer class="bg-dark text-white text-center p-3 mt-5">
+
+        <p class="mb-0">
+            © 2026 Student Preparation Portal
+        </p>
+
+    </footer>
+
+
+
+    <!-- ========================= -->
+    <!-- JAVASCRIPT START -->
+    <!-- ========================= -->
+
+    <script>
+
+
+        // URL se topic lena
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        let topic = urlParams.get("topic");
+
+
+        // Agar topic nahi mila
+        
+
+        if (!topic) {
+
+            topic = "percentage";
+
+        }
+
+
+        // Topic ko standard format me convert karna
+
+        // number-series → number_series
+        // coding-decoding → coding_decoding
+
+        topic = topic
+            .toLowerCase()
+            .trim()
+            .replace(/[-\s]+/g, "_");
+
+
+
+        // =========================
+        // QUESTION DATABASE
+        // =========================
+
+        const questionDatabase = {
+
+
+            // -------------------------
+            // NUMBER SERIES
+            // -------------------------
+
+            number_series: [
+
+                {
+                    question: "Find the next number: 2, 4, 6, 8, ?",
+                    options: ["9", "10", "12", "14"],
+                    answer: "10"
+                },
+
+                {
+                    question: "Find the next number: 5, 10, 15, 20, ?",
+                    options: ["22", "25", "30", "35"],
+                    answer: "25"
+                },
+
+                {
+                    question: "Find the next number: 3, 6, 12, 24, ?",
+                    options: ["36", "48", "50", "60"],
+                    answer: "48"
+                },
+
+                {
+                    question: "Find the next number: 10, 20, 30, 40, ?",
+                    options: ["45", "50", "55", "60"],
+                    answer: "50"
+                },
+
+                {
+                    question: "Find the next number: 1, 4, 9, 16, ?",
+                    options: ["20", "24", "25", "30"],
+                    answer: "25"
+                }
+
+            ],
+
+
+
+            // -------------------------
+            // CODING DECODING
+            // -------------------------
+
+            coding_decoding: [
+
+                {
+                    question: "If CAT is coded as DBU, how is DOG coded?",
+                    options: ["EPH", "EOH", "FPH", "DPG"],
+                    answer: "EPH"
+                },
+
+                {
+                    question: "If PEN is coded as QFO, how is BOOK coded?",
+                    options: ["CPPL", "CQQM", "BPPL", "CPPM"],
+                    answer: "CPPL"
+                },
+
+                {
+                    question: "If A = 1, B = 2, C = 3, what is the value of CAB?",
+                    options: ["5", "6", "7", "8"],
+                    answer: "6"
+                },
+
+                {
+                    question: "If RED is coded as SFE, how is BLUE coded?",
+                    options: ["CMVF", "CLVF", "CMUE", "BMVF"],
+                    answer: "CMVF"
+                },
+
+                {
+                    question: "If SUN is coded as TVO, how is MOON coded?",
+                    options: ["NPPO", "NPPM", "MPPO", "OPPN"],
+                    answer: "NPPO"
+                }
+
+            ],
+
+
+
+            // -------------------------
+            // BLOOD RELATION
+            // -------------------------
+
+            blood_relation: [
+
+                {
+                    question: "A is the brother of B. B is the sister of C. How is A related to C?",
+                    options: ["Brother", "Sister", "Father", "Uncle"],
+                    answer: "Brother"
+                },
+
+                {
+                    question: "P is the father of Q. How is Q related to P?",
+                    options: ["Brother", "Child", "Uncle", "Father"],
+                    answer: "Child"
+                },
+
+                {
+                    question: "R is the mother of S. How is S related to R?",
+                    options: ["Son/Daughter", "Father", "Brother", "Uncle"],
+                    answer: "Son/Daughter"
+                },
+
+                {
+                    question: "A is the son of B. B is the daughter of C. How is C related to A?",
+                    options: ["Grandparent", "Brother", "Father", "Uncle"],
+                    answer: "Grandparent"
+                },
+
+                {
+                    question: "X is the sister of Y. How is Y related to X?",
+                    options: ["Brother/Sister", "Father", "Mother", "Uncle"],
+                    answer: "Brother/Sister"
+                }
+
+            ],
+
+
+
+            // -------------------------
+            // DIRECTION
+            // -------------------------
+
+            direction: [
+
+                {
+                    question: "A person walks 10 m north and then 10 m south. Where is he from the starting point?",
+                    options: ["10 m North", "10 m South", "At starting point", "20 m North"],
+                    answer: "At starting point"
+                },
+
+                {
+                    question: "If you face North and turn right, which direction will you face?",
+                    options: ["West", "East", "South", "North"],
+                    answer: "East"
+                },
+
+                {
+                    question: "If you face East and turn left, which direction will you face?",
+                    options: ["North", "South", "West", "East"],
+                    answer: "North"
+                },
+
+                {
+                    question: "If you face South and turn right, which direction will you face?",
+                    options: ["East", "West", "North", "South"],
+                    answer: "West"
+                },
+
+                {
+                    question: "Which direction is opposite to North?",
+                    options: ["East", "West", "South", "North-East"],
+                    answer: "South"
+                }
+
+            ],
+
+
+
+            // -------------------------
+            // ANALOGY
+            // -------------------------
+
+            analogy: [
+
+                {
+                    question: "Book : Read :: Food : ?",
+                    options: ["Cook", "Eat", "Buy", "Sell"],
+                    answer: "Eat"
+                },
+
+                {
+                    question: "Pen : Write :: Knife : ?",
+                    options: ["Cut", "Eat", "Draw", "Read"],
+                    answer: "Cut"
+                },
+
+                {
+                    question: "Bird : Fly :: Fish : ?",
+                    options: ["Run", "Swim", "Walk", "Jump"],
+                    answer: "Swim"
+                },
+
+                {
+                    question: "Teacher : School :: Doctor : ?",
+                    options: ["Court", "Hospital", "Market", "Bank"],
+                    answer: "Hospital"
+                },
+
+                {
+                    question: "Day : Night :: Hot : ?",
+                    options: ["Warm", "Cold", "Sun", "Light"],
+                    answer: "Cold"
+                }
+
+            ],
+
+
+
+            // -------------------------
+            // CLASSIFICATION
+            // -------------------------
+
+            classification: [
+
+                {
+                    question: "Find the odd one out.",
+                    options: ["Apple", "Mango", "Banana", "Carrot"],
+                    answer: "Carrot"
+                },
+
+                {
+                    question: "Find the odd one out.",
+                    options: ["Dog", "Cat", "Cow", "Rose"],
+                    answer: "Rose"
+                },
+
+                {
+                    question: "Find the odd one out.",
+                    options: ["2", "4", "6", "9"],
+                    answer: "9"
+                },
+
+                {
+                    question: "Find the odd one out.",
+                    options: ["Monday", "Tuesday", "January", "Friday"],
+                    answer: "January"
+                },
+
+                {
+                    question: "Find the odd one out.",
+                    options: ["Java", "Python", "HTML", "C++"],
+                    answer: "HTML"
+                }
+
+            ],
+
+
+
+            // -------------------------
+            // SYLLOGISM
+            // -------------------------
+
+            syllogism: [
+
+                {
+                    question: "All cats are animals. All animals are living beings. Therefore cats are living beings.",
+                    options: ["True", "False", "Cannot say", "None"],
+                    answer: "True"
+                },
+
+                {
+                    question: "All students are learners. Ravi is a student. Ravi is a learner.",
+                    options: ["True", "False", "Cannot say", "None"],
+                    answer: "True"
+                },
+
+                {
+                    question: "All roses are flowers. Some flowers are red. Can we say all roses are red?",
+                    options: ["Yes", "No", "Always", "None"],
+                    answer: "No"
+                },
+
+                {
+                    question: "All dogs are animals. Some animals are cats. Are all dogs cats?",
+                    options: ["Yes", "No", "Cannot say", "Both"],
+                    answer: "No"
+                },
+
+                {
+                    question: "All engineers are graduates. Aman is an engineer. Aman is a graduate.",
+                    options: ["True", "False", "Cannot say", "None"],
+                    answer: "True"
+                }
+
+            ],
+
+
+
+            // -------------------------
+            // SEATING ARRANGEMENT
+            // -------------------------
+
+            seating_arrangement: [
+
+                {
+                    question: "A, B and C sit in a row. B sits between A and C. Who is in the middle?",
+                    options: ["A", "B", "C", "Cannot say"],
+                    answer: "B"
+                },
+
+                {
+                    question: "P sits to the left of Q. Who is on the right?",
+                    options: ["P", "Q", "Both", "None"],
+                    answer: "Q"
+                },
+
+                {
+                    question: "A sits between B and C. Who are next to A?",
+                    options: ["B and C", "A and B", "A and C", "None"],
+                    answer: "B and C"
+                },
+
+                {
+                    question: "X is sitting at the extreme left of a row. Who can sit immediately right of X?",
+                    options: ["Any person", "No one", "Only X", "None"],
+                    answer: "Any person"
+                },
+
+                {
+                    question: "If Ravi sits between Mohan and Sohan, who is in the middle?",
+                    options: ["Mohan", "Ravi", "Sohan", "Cannot say"],
+                    answer: "Ravi"
+                }
+
+            ],
+
+
+
+            // -------------------------
+            // PUZZLE
+            // -------------------------
+
+            puzzle: [
+
+                {
+                    question: "If there are 5 apples and you take 2, how many apples do you have?",
+                    options: ["2", "3", "5", "7"],
+                    answer: "2"
+                },
+
+                {
+                    question: "A clock shows 3:00. What is the angle between the hands?",
+                    options: ["30°", "60°", "90°", "180°"],
+                    answer: "90°"
+                },
+
+                {
+                    question: "If today is Monday, what day will it be after 3 days?",
+                    options: ["Tuesday", "Wednesday", "Thursday", "Friday"],
+                    answer: "Thursday"
+                },
+
+                {
+                    question: "There are 10 birds on a tree. 2 fly away. How many remain?",
+                    options: ["8", "10", "12", "2"],
+                    answer: "8"
+                },
+
+                {
+                    question: "A room has 4 corners. One object is placed in each corner. How many objects are there?",
+                    options: ["2", "3", "4", "8"],
+                    answer: "4"
+                }
+
+            ],
+
+
+
+            // -------------------------
+            // PERCENTAGE
+            // -------------------------
+
+           
+            profit_loss: [
+ {
+        question: "A shopkeeper buys an item for ₹500 and sells it for ₹600. What is the profit?",
+        options: ["₹50", "₹100", "₹150", "₹200"],
+        answer: "₹100"
+    },
+
+    {
+        question: "An item is bought for ₹800 and sold for ₹720. What is the loss?",
+        options: ["₹60", "₹70", "₹80", "₹90"],
+        answer: "₹80"
+    },
+
+    {
+        question: "A product is bought for ₹1000 and sold for ₹1200. What is the profit percentage?",
+        options: ["10%", "15%", "20%", "25%"],
+        answer: "20%"
+    },
+
+    {
+        question: "An article is bought for ₹500 and sold for ₹450. What is the loss percentage?",
+        options: ["5%", "10%", "15%", "20%"],
+        answer: "10%"
+    },
+
+    {
+        question: "A shopkeeper buys a bag for ₹1500 and sells it for ₹1800. What is the profit?",
+        options: ["₹200", "₹250", "₹300", "₹350"],
+        answer: "₹300"
+    },
+
+    {
+        question: "An item costs ₹2000. If it is sold at a profit of 10%, what is its selling price?",
+        options: ["₹2100", "₹2200", "₹2300", "₹2400"],
+        answer: "₹2200"
+    },
+
+    {
+        question: "A book is bought for ₹400 and sold for ₹360. What is the loss percentage?",
+        options: ["5%", "10%", "15%", "20%"],
+        answer: "10%"
+    },
+
+    {
+        question: "A bicycle is bought for ₹5000 and sold for ₹5500. What is the profit percentage?",
+        options: ["5%", "10%", "15%", "20%"],
+        answer: "10%"
+    },
+
+    {
+        question: "If the cost price of an item is ₹900 and the profit is ₹180, what is the selling price?",
+        options: ["₹980", "₹1000", "₹1080", "₹1100"],
+        answer: "₹1080"
+    },
+
+    {
+        question: "An article is sold for ₹720 at a loss of ₹80. What is its cost price?",
+        options: ["₹800", "₹820", "₹850", "₹880"],
+        answer: "₹800"
+    }
+
+              
+            ],
+            
+            
+
+compound_interest: [
+
+    {
+        question: "What is the compound interest on ₹1000 at 10% per year for 2 years?",
+        options: ["₹200", "₹210", "₹220", "₹250"],
+        answer: "₹210"
+    },
+
+    {
+        question: "Find the compound interest on ₹2000 at 5% per year for 2 years.",
+        options: ["₹200", "₹205", "₹210", "₹220"],
+        answer: "₹205"
+    },
+
+    {
+        question: "A sum of ₹5000 is invested at 10% per year for 2 years. What is the compound interest?",
+        options: ["₹1000", "₹1050", "₹1100", "₹1150"],
+        answer: "₹1050"
+    },
+
+    {
+        question: "What will be the amount of ₹3000 at 10% compound interest per year for 2 years?",
+        options: ["₹3600", "₹3630", "₹3660", "₹3700"],
+        answer: "₹3630"
+    },
+
+    {
+        question: "Find the compound interest on ₹4000 at 5% per year for 2 years.",
+        options: ["₹400", "₹405", "₹410", "₹420"],
+        answer: "₹410"
+    },
+
+    {
+        question: "A principal of ₹10,000 is invested at 10% compound interest for 2 years. What is the amount?",
+        options: ["₹11,000", "₹12,000", "₹12,100", "₹12,200"],
+        answer: "₹12,100"
+    },
+
+    {
+        question: "What is the compound interest on ₹2500 at 4% per year for 2 years?",
+        options: ["₹200", "₹204", "₹208", "₹210"],
+        answer: "₹204"
+    },
+
+    {
+        question: "A sum of ₹6000 is invested at 5% compound interest for 2 years. Find the compound interest.",
+        options: ["₹600", "₹615", "₹630", "₹650"],
+        answer: "₹615"
+    },
+
+    {
+        question: "What will ₹5000 become after 2 years at 10% compound interest per year?",
+        options: ["₹6000", "₹6050", "₹6100", "₹6150"],
+        answer: "₹6050"
+    },
+
+    {
+        question: "Find the compound interest on ₹8000 at 10% per year for 2 years.",
+        options: ["₹1600", "₹1680", "₹1700", "₹1800"],
+        answer: "₹1680"
+    }
+
+],
+simple_interest: [
+
+    {
+        question: "What is the simple interest on ₹1000 at 10% per year for 2 years?",
+        options: ["₹100", "₹150", "₹200", "₹250"],
+        answer: "₹200"
+    },
+
+    {
+        question: "Find the simple interest on ₹2000 at 5% per year for 3 years.",
+        options: ["₹200", "₹250", "₹300", "₹350"],
+        answer: "₹300"
+    },
+
+    {
+        question: "A sum of ₹5000 is invested at 8% per year for 2 years. What is the simple interest?",
+        options: ["₹600", "₹700", "₹800", "₹900"],
+        answer: "₹800"
+    },
+
+    {
+        question: "What is the simple interest on ₹3000 at 10% per year for 1 year?",
+        options: ["₹200", "₹300", "₹400", "₹500"],
+        answer: "₹300"
+    },
+
+    {
+        question: "If the principal is ₹4000, rate is 5% per year, and time is 2 years, what is the amount?",
+        options: ["₹4200", "₹4400", "₹4600", "₹4800"],
+        answer: "₹4400"
+    },
+
+    {
+        question: "What is the simple interest on ₹2500 at 4% per year for 3 years?",
+        options: ["₹200", "₹250", "₹300", "₹350"],
+        answer: "₹300"
+    },
+
+    {
+        question: "A person borrows ₹6000 at 5% simple interest for 2 years. How much interest will he pay?",
+        options: ["₹500", "₹600", "₹700", "₹800"],
+        answer: "₹600"
+    },
+
+    {
+        question: "Find the simple interest on ₹10,000 at 6% per year for 2 years.",
+        options: ["₹1000", "₹1200", "₹1400", "₹1600"],
+        answer: "₹1200"
+    },
+
+    {
+        question: "If the simple interest is ₹500 on a principal of ₹5000 for 2 years, what is the rate?",
+        options: ["4%", "5%", "6%", "10%"],
+        answer: "5%"
+    },
+
+    {
+        question: "A sum of ₹2000 earns ₹400 simple interest in 4 years. What is the rate of interest?",
+        options: ["4%", "5%", "6%", "8%"],
+        answer: "5%"
+    }
+
+],
+ratio_proportion: [
+
+    {
+        question: "What is the ratio of 10 to 20?",
+        options: ["1:2", "2:1", "1:3", "2:3"],
+        answer: "1:2"
+    },
+
+    {
+        question: "Simplify the ratio 15:25.",
+        options: ["2:3", "3:5", "4:5", "5:6"],
+        answer: "3:5"
+    },
+
+    {
+        question: "If the ratio of boys to girls is 2:3 and there are 10 boys, how many girls are there?",
+        options: ["12", "15", "18", "20"],
+        answer: "15"
+    },
+
+    {
+        question: "If 4 pens cost ₹20, what is the cost of 10 pens?",
+        options: ["₹40", "₹45", "₹50", "₹60"],
+        answer: "₹50"
+    },
+
+    {
+        question: "The ratio of two numbers is 3:5. If the first number is 15, what is the second number?",
+        options: ["20", "25", "30", "35"],
+        answer: "25"
+    },
+
+    {
+        question: "If 5 kg of rice costs ₹250, what will 8 kg cost?",
+        options: ["₹350", "₹400", "₹450", "₹500"],
+        answer: "₹400"
+    },
+
+    {
+        question: "Find the missing number: 2:5 = 8:?",
+        options: ["15", "18", "20", "25"],
+        answer: "20"
+    },
+
+    {
+        question: "The ratio of apples to oranges is 4:3. If there are 20 apples, how many oranges are there?",
+        options: ["12", "15", "16", "18"],
+        answer: "15"
+    },
+
+    {
+        question: "If 6 workers can complete a job in 10 days, how many days will 3 workers take?",
+        options: ["5 days", "10 days", "15 days", "20 days"],
+        answer: "20 days"
+    },
+
+    {
+        question: "If 3 books cost ₹150, how much will 7 books cost?",
+        options: ["₹300", "₹325", "₹350", "₹375"],
+        answer: "₹350"
+    }
+
+],
+average: [
+
+    {
+        question: "What is the average of 10, 20, and 30?",
+        options: ["15", "20", "25", "30"],
+        answer: "20"
+    },
+
+    {
+        question: "Find the average of 5, 10, 15, and 20.",
+        options: ["10", "12.5", "15", "17.5"],
+        answer: "12.5"
+    },
+
+    {
+        question: "The average of 4 numbers is 25. What is their total?",
+        options: ["75", "100", "125", "150"],
+        answer: "100"
+    },
+
+    {
+        question: "What is the average of 12, 18, and 24?",
+        options: ["16", "18", "20", "22"],
+        answer: "18"
+    },
+
+    {
+        question: "The average of 5 numbers is 20. If four numbers are 15, 18, 22, and 25, what is the fifth number?",
+        options: ["18", "20", "22", "25"],
+        answer: "20"
+    },
+
+    {
+        question: "Find the average of 25, 30, 35, and 40.",
+        options: ["30", "32.5", "35", "37.5"],
+        answer: "32.5"
+    },
+
+    {
+        question: "The average age of 3 friends is 20 years. What is their total age?",
+        options: ["40 years", "50 years", "60 years", "70 years"],
+        answer: "60 years"
+    },
+
+    {
+        question: "What is the average of 8, 16, 24, and 32?",
+        options: ["16", "20", "24", "28"],
+        answer: "20"
+    },
+
+    {
+        question: "The average of 6 numbers is 15. What is their total?",
+        options: ["75", "80", "90", "100"],
+        answer: "90"
+    },
+
+    {
+        question: "Find the average of 100, 200, and 300.",
+        options: ["150", "200", "250", "300"],
+        answer: "200"
+    }
+
+],
+time_work: [
+
+    {
+        question: "A can complete a work in 10 days. How much work does A complete in 1 day?",
+        options: ["1/5", "1/10", "1/15", "1/20"],
+        answer: "1/10"
+    },
+
+    {
+        question: "If a person can complete a work in 12 days, how many days will he take to complete it at the same rate?",
+        options: ["10 days", "12 days", "15 days", "20 days"],
+        answer: "12 days"
+    },
+
+    {
+        question: "A can do a work in 10 days and B can do it in 20 days. How many days will they take together?",
+        options: ["5 days", "6⅔ days", "8 days", "10 days"],
+        answer: "6⅔ days"
+    },
+
+    {
+        question: "A can complete a work in 15 days and B can complete it in 30 days. How long will they take together?",
+        options: ["8 days", "10 days", "12 days", "15 days"],
+        answer: "10 days"
+    },
+
+    {
+        question: "If 5 workers can complete a job in 12 days, how many days will 10 workers take?",
+        options: ["4 days", "6 days", "8 days", "10 days"],
+        answer: "6 days"
+    },
+
+    {
+        question: "A can do a piece of work in 8 days. What fraction of the work does A complete in 1 day?",
+        options: ["1/4", "1/6", "1/8", "1/10"],
+        answer: "1/8"
+    },
+
+    {
+        question: "If 4 workers complete a work in 15 days, how many workers are needed to complete it in 5 days?",
+        options: ["8", "10", "12", "15"],
+        answer: "12"
+    },
+
+    {
+        question: "A can complete a work in 6 days and B can complete it in 12 days. How long will they take together?",
+        options: ["3 days", "4 days", "5 days", "6 days"],
+        answer: "4 days"
+    },
+
+    {
+        question: "If 8 workers can finish a job in 10 days, how many days will 4 workers take?",
+        options: ["5 days", "10 days", "15 days", "20 days"],
+        answer: "20 days"
+    },
+
+    {
+        question: "A and B together can complete a work in 5 days. If A alone takes 10 days, how many days will B alone take?",
+        options: ["8 days", "10 days", "12 days", "15 days"],
+        answer: "10 days"
+    }
+
+],
+time_speed_distance: [
+
+    {
+        question: "A car travels at a speed of 60 km/h. How much distance will it cover in 2 hours?",
+        options: ["100 km", "120 km", "140 km", "160 km"],
+        answer: "120 km"
+    },
+
+    {
+        question: "A train travels 180 km in 3 hours. What is its speed?",
+        options: ["50 km/h", "60 km/h", "70 km/h", "80 km/h"],
+        answer: "60 km/h"
+    },
+
+    {
+        question: "How much time will a car take to cover 150 km at a speed of 50 km/h?",
+        options: ["2 hours", "3 hours", "4 hours", "5 hours"],
+        answer: "3 hours"
+    },
+
+    {
+        question: "A bike travels at 40 km/h. How far will it travel in 5 hours?",
+        options: ["160 km", "180 km", "200 km", "220 km"],
+        answer: "200 km"
+    },
+
+    {
+        question: "A person walks at 5 km/h. How much time will he take to cover 20 km?",
+        options: ["2 hours", "3 hours", "4 hours", "5 hours"],
+        answer: "4 hours"
+    },
+
+    {
+        question: "A train covers 240 km in 4 hours. What is its speed?",
+        options: ["50 km/h", "60 km/h", "70 km/h", "80 km/h"],
+        answer: "60 km/h"
+    },
+
+    {
+        question: "A car travels at 80 km/h for 3 hours. What distance does it cover?",
+        options: ["200 km", "220 km", "240 km", "260 km"],
+        answer: "240 km"
+    },
+
+    {
+        question: "If a bus travels at 50 km/h, how much time will it take to cover 250 km?",
+        options: ["3 hours", "4 hours", "5 hours", "6 hours"],
+        answer: "5 hours"
+    },
+
+    {
+        question: "A runner covers 100 meters in 20 seconds. What is his speed in meters per second?",
+        options: ["4 m/s", "5 m/s", "6 m/s", "8 m/s"],
+        answer: "5 m/s"
+    },
+
+    {
+        question: "A train travels at 90 km/h. How much distance will it cover in 4 hours?",
+        options: ["300 km", "320 km", "360 km", "400 km"],
+        answer: "360 km"
+    }
+
+],
+probability: [
+
+    {
+        question: "What is the probability of getting a Head when a coin is tossed once?",
+        options: ["0", "1/4", "1/2", "1"],
+        answer: "1/2"
+    },
+
+    {
+        question: "What is the probability of getting a 6 when a dice is rolled once?",
+        options: ["1/2", "1/4", "1/6", "1/3"],
+        answer: "1/6"
+    },
+
+    {
+        question: "A coin is tossed once. What is the probability of getting a Tail?",
+        options: ["0", "1/4", "1/2", "1"],
+        answer: "1/2"
+    },
+
+    {
+        question: "A dice is rolled once. What is the probability of getting an even number?",
+        options: ["1/6", "1/3", "1/2", "2/3"],
+        answer: "1/2"
+    },
+
+    {
+        question: "A dice is rolled once. What is the probability of getting a number greater than 4?",
+        options: ["1/6", "1/3", "1/2", "2/3"],
+        answer: "1/3"
+    },
+
+    {
+        question: "A bag contains 3 red balls and 2 blue balls. What is the probability of picking a red ball?",
+        options: ["2/5", "3/5", "1/2", "4/5"],
+        answer: "3/5"
+    },
+
+    {
+        question: "A bag contains 4 green balls and 6 yellow balls. What is the probability of picking a yellow ball?",
+        options: ["2/5", "3/5", "1/2", "4/5"],
+        answer: "3/5"
+    },
+
+    {
+        question: "What is the probability of getting an odd number when a dice is rolled?",
+        options: ["1/6", "1/3", "1/2", "2/3"],
+        answer: "1/2"
+    },
+
+    {
+        question: "A card is drawn from a standard deck of 52 cards. What is the probability of drawing an Ace?",
+        options: ["1/13", "1/12", "1/4", "4/13"],
+        answer: "1/13"
+    },
+
+    {
+        question: "A box contains 5 white balls and 5 black balls. What is the probability of picking a white ball?",
+        options: ["1/4", "1/3", "1/2", "2/3"],
+        answer: "1/2"
+    }
+
+],
+permutation_combination: [
+
+    {
+        question: "In how many ways can 3 different books be arranged on a shelf?",
+        options: ["3", "6", "9", "12"],
+        answer: "6"
+    },
+
+    {
+        question: "What is the value of 5! (5 factorial)?",
+        options: ["60", "100", "120", "150"],
+        answer: "120"
+    },
+
+    {
+        question: "In how many ways can 2 students be selected from 5 students?",
+        options: ["5", "10", "15", "20"],
+        answer: "10"
+    },
+
+    {
+        question: "In how many ways can 4 different people sit in a row?",
+        options: ["12", "16", "20", "24"],
+        answer: "24"
+    },
+
+    {
+        question: "What is the value of 4P2?",
+        options: ["6", "8", "12", "16"],
+        answer: "12"
+    },
+
+    {
+        question: "What is the value of 5C2?",
+        options: ["5", "10", "15", "20"],
+        answer: "10"
+    },
+
+    {
+        question: "In how many ways can 3 students be selected from a group of 6 students?",
+        options: ["15", "20", "25", "30"],
+        answer: "20"
+    },
+
+    {
+        question: "In how many ways can the letters A, B, and C be arranged?",
+        options: ["3", "6", "9", "12"],
+        answer: "6"
+    },
+
+    {
+        question: "What is the value of 6P2?",
+        options: ["12", "20", "30", "36"],
+        answer: "30"
+    },
+
+    {
+        question: "What is the value of 6C2?",
+        options: ["10", "12", "15", "20"],
+        answer: "15"
+    }
+
+],
+data_interpretation: [
+
+    {
+        question: "📊 Sales Chart: Monday = 20, Tuesday = 30, Wednesday = 40, Thursday = 50. How many items were sold on Wednesday?",
+        options: ["20", "30", "40", "50"],
+        answer: "40"
+    },
+
+    {
+        question: "📊 Sales Chart: Monday = 20, Tuesday = 30, Wednesday = 40, Thursday = 50. What was the total sales from Monday to Thursday?",
+        options: ["120", "130", "140", "150"],
+        answer: "140"
+    },
+
+    {
+        question: "📊 Sales Chart: Monday = 20, Tuesday = 30, Wednesday = 40, Thursday = 50. On which day were the highest sales?",
+        options: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+        answer: "Thursday"
+    },
+
+    {
+        question: "📋 Student Marks: Math = 80, English = 70, Science = 90, Hindi = 60. What is the total marks?",
+        options: ["280", "290", "300", "310"],
+        answer: "300"
+    },
+
+    {
+        question: "📋 Student Marks: Math = 80, English = 70, Science = 90, Hindi = 60. Which subject has the highest marks?",
+        options: ["Math", "English", "Science", "Hindi"],
+        answer: "Science"
+    },
+
+    {
+        question: "📈 Monthly Income: January = ₹20,000, February = ₹25,000, March = ₹30,000. What was the income in February?",
+        options: ["₹20,000", "₹25,000", "₹30,000", "₹35,000"],
+        answer: "₹25,000"
+    },
+
+    {
+        question: "📈 Monthly Income: January = ₹20,000, February = ₹25,000, March = ₹30,000. What was the total income for all three months?",
+        options: ["₹65,000", "₹70,000", "₹75,000", "₹80,000"],
+        answer: "₹75,000"
+    },
+
+    {
+        question: "🥧 A pie chart shows: Cricket = 40%, Football = 30%, Hockey = 20%, Tennis = 10%. Which sport has the largest share?",
+        options: ["Football", "Hockey", "Cricket", "Tennis"],
+        answer: "Cricket"
+    },
+
+    {
+        question: "🥧 A pie chart shows: Cricket = 40%, Football = 30%, Hockey = 20%, Tennis = 10%. What is the combined percentage of Football and Hockey?",
+        options: ["40%", "50%", "60%", "70%"],
+        answer: "50%"
+    },
+
+    {
+        question: "📊 A bar graph shows students in four classes: Class 6 = 30, Class 7 = 40, Class 8 = 50, Class 9 = 60. How many students are there in total?",
+        options: ["160", "170", "180", "190"],
+        answer: "180"
+    }
+
+],number_system: [
+
+    {
+        question: "Which of the following is a prime number?",
+        options: ["4", "6", "7", "9"],
+        answer: "7"
+    },
+
+    {
+        question: "What is the smallest natural number?",
+        options: ["0", "1", "2", "3"],
+        answer: "1"
+    },
+
+    {
+        question: "Which of the following is an even number?",
+        options: ["13", "17", "21", "24"],
+        answer: "24"
+    },
+
+    {
+        question: "What is the greatest two-digit number?",
+        options: ["90", "98", "99", "100"],
+        answer: "99"
+    },
+
+    {
+        question: "What is the smallest three-digit number?",
+        options: ["99", "100", "101", "111"],
+        answer: "100"
+    },
+
+    {
+        question: "Which of the following numbers is divisible by 3?",
+        options: ["25", "32", "45", "52"],
+        answer: "45"
+    },
+
+    {
+        question: "What is the HCF of 12 and 18?",
+        options: ["3", "6", "9", "12"],
+        answer: "6"
+    },
+
+    {
+        question: "What is the LCM of 4 and 6?",
+        options: ["8", "10", "12", "24"],
+        answer: "12"
+    },
+
+    {
+        question: "Which of the following is an irrational number?",
+        options: ["1/2", "3", "√2", "5"],
+        answer: "√2"
+    },
+
+    {
+        question: "What is the remainder when 25 is divided by 4?",
+        options: ["0", "1", "2", "3"],
+        answer: "1"
+    }
+
+],
+percentage: [
+
+    {
+        question: "What is 20% of 500?",
+        options: ["50", "100", "150", "200"],
+        answer: "100"
+    },
+
+    {
+        question: "What is 25% of 400?",
+        options: ["80", "100", "120", "150"],
+        answer: "100"
+    },
+
+    {
+        question: "A student scores 80 marks out of 100. What is the percentage?",
+        options: ["70%", "75%", "80%", "85%"],
+        answer: "80%"
+    },
+
+    {
+        question: "What is 10% of ₹2000?",
+        options: ["₹100", "₹150", "₹200", "₹250"],
+        answer: "₹200"
+    },
+
+    {
+        question: "A number is 50% of 200. What is the number?",
+        options: ["50", "75", "100", "150"],
+        answer: "100"
+    },
+
+    {
+        question: "If the price of an item is ₹1000 and it increases by 20%, what is the new price?",
+        options: ["₹1100", "₹1150", "₹1200", "₹1250"],
+        answer: "₹1200"
+    },
+
+    {
+        question: "A shirt costs ₹800 and is sold at a 25% discount. What is the discount amount?",
+        options: ["₹150", "₹200", "₹250", "₹300"],
+        answer: "₹200"
+    },
+
+    {
+        question: "What percentage is 30 out of 150?",
+        options: ["10%", "15%", "20%", "25%"],
+        answer: "20%"
+    },
+
+    {
+        question: "A student's marks increase from 60 to 75. What is the percentage increase?",
+        options: ["15%", "20%", "25%", "30%"],
+        answer: "25%"
+    },
+
+    {
+        question: "If 40% of a number is 80, what is the number?",
+        options: ["160", "180", "200", "220"],
+        answer: "200"
+    }
+
+],
+java_language: [
+
+    {
+        question: "Which keyword is used to create a class in Java?",
+        options: ["class", "struct", "object", "create"],
+        answer: "class"
+    },
+
+    {
+        question: "Which method is the starting point of a Java program?",
+        options: ["start()", "main()", "run()", "begin()"],
+        answer: "main()"
+    },
+
+    {
+        question: "Which data type is used to store an integer in Java?",
+        options: ["float", "String", "int", "char"],
+        answer: "int"
+    },
+
+    {
+        question: "Which keyword is used to inherit a class in Java?",
+        options: ["implements", "extends", "inherits", "super"],
+        answer: "extends"
+    },
+
+    {
+        question: "Which symbol is used to end a statement in Java?",
+        options: [".", ":", ";", ","],
+        answer: ";"
+    },
+
+    {
+        question: "Which data type is used to store a single character?",
+        options: ["String", "char", "character", "text"],
+        answer: "char"
+    },
+
+    {
+        question: "Which keyword is used to create an object in Java?",
+        options: ["object", "new", "create", "this"],
+        answer: "new"
+    },
+
+    {
+        question: "Which of the following is used to print output in Java?",
+        options: ["System.out.println()", "print.console()", "Console.write()", "System.print()"],
+        answer: "System.out.println()"
+    },
+
+    {
+        question: "Which keyword is used to define a constant variable in Java?",
+        options: ["constant", "static", "final", "const"],
+        answer: "final"
+    },
+
+    {
+        question: "Java is primarily a ______ programming language.",
+        options: ["Procedural", "Object-Oriented", "Assembly", "Machine"],
+        answer: "Object-Oriented"
+    }
+
+],
+c_language: [
+
+    {
+        question: "Which function is used to print output in C?",
+        options: ["print()", "printf()", "cout", "display()"],
+        answer: "printf()"
+    },
+
+    {
+        question: "Which function is used to take input from the user in C?",
+        options: ["input()", "scanf()", "cin", "read()"],
+        answer: "scanf()"
+    },
+
+    {
+        question: "Which symbol is used to end a statement in C?",
+        options: [".", ":", ";", ","],
+        answer: ";"
+    },
+
+    {
+        question: "Which data type is used to store an integer in C?",
+        options: ["float", "char", "int", "double"],
+        answer: "int"
+    },
+
+    {
+        question: "Which header file is required for printf() and scanf()?",
+        options: ["conio.h", "math.h", "stdio.h", "string.h"],
+        answer: "stdio.h"
+    },
+
+    {
+        question: "Which operator is used for multiplication in C?",
+        options: ["x", "*", "#", "%"],
+        answer: "*"
+    },
+
+    {
+        question: "Which loop is guaranteed to execute at least once?",
+        options: ["for", "while", "do-while", "if"],
+        answer: "do-while"
+    },
+
+    {
+        question: "Which symbol is used for a single-line comment in C?",
+        options: ["//", "/*", "#", "--"],
+        answer: "//"
+    },
+
+    {
+        question: "Which keyword is used to return a value from a function?",
+        options: ["break", "return", "exit", "continue"],
+        answer: "return"
+    },
+
+    {
+        question: "What is the correct way to declare an integer variable in C?",
+        options: ["integer x;", "int x;", "num x;", "var x;"],
+        answer: "int x;"
+    }
+
+],
+cpp_language: [
+
+    {
+        question: "Which symbol is used to end a statement in C++?",
+        options: [".", ":", ";", ","],
+        answer: ";"
+    },
+
+    {
+        question: "Which function is commonly used to print output in C++?",
+        options: ["printf()", "cout", "print()", "display()"],
+        answer: "cout"
+    },
+
+    {
+        question: "Which header file is used for cout and cin?",
+        options: ["stdio.h", "iostream", "string.h", "math.h"],
+        answer: "iostream"
+    },
+
+    {
+        question: "Which keyword is used to create a class in C++?",
+        options: ["class", "struct", "object", "create"],
+        answer: "class"
+    },
+
+    {
+        question: "Which operator is used with cout for output?",
+        options: [">>", "<<", "==", "++"],
+        answer: "<<"
+    },
+
+    {
+        question: "Which operator is used with cin for input?",
+        options: ["<<", ">>", "==", "&&"],
+        answer: ">>"
+    },
+
+    {
+        question: "Which concept allows the same function name to have different parameters?",
+        options: ["Inheritance", "Encapsulation", "Function Overloading", "Abstraction"],
+        answer: "Function Overloading"
+    },
+
+    {
+        question: "Which keyword is used to inherit a class in C++?",
+        options: ["extends", "inherits", ":", "super"],
+        answer: ":"
+    },
+
+    {
+        question: "Which data type is used to store a single character?",
+        options: ["String", "char", "character", "text"],
+        answer: "char"
+    },
+
+    {
+        question: "Which keyword is used to create an object dynamically in C++?",
+        options: ["create", "malloc", "new", "object"],
+        answer: "new"
+    }
+
+],
+python_language: [
+
+    {
+        question: "Which keyword is used to define a function in Python?",
+        options: ["function", "def", "fun", "define"],
+        answer: "def"
+    },
+
+    {
+        question: "Which function is used to print output in Python?",
+        options: ["print()", "printf()", "cout", "display()"],
+        answer: "print()"
+    },
+
+    {
+        question: "Which data type is used to store text in Python?",
+        options: ["int", "float", "str", "bool"],
+        answer: "str"
+    },
+
+    {
+        question: "Which symbol is used for a single-line comment in Python?",
+        options: ["//", "#", "/*", "--"],
+        answer: "#"
+    },
+
+    {
+        question: "Which of the following is a Python list?",
+        options: ["(1, 2, 3)", "[1, 2, 3]", "{1, 2, 3}", "<1, 2, 3>"],
+        answer: "[1, 2, 3]"
+    },
+
+    {
+        question: "Which keyword is used for a condition in Python?",
+        options: ["if", "when", "check", "condition"],
+        answer: "if"
+    },
+
+    {
+        question: "Which operator is used for exponentiation in Python?",
+        options: ["^", "**", "//", "%%"],
+        answer: "**"
+    },
+
+    {
+        question: "Which function is used to find the length of a list?",
+        options: ["size()", "length()", "len()", "count()"],
+        answer: "len()"
+    },
+
+    {
+        question: "Which data type stores True or False values?",
+        options: ["int", "str", "bool", "float"],
+        answer: "bool"
+    },
+
+    {
+        question: "Which keyword is used to create a class in Python?",
+        options: ["class", "Class", "object", "define"],
+        answer: "class"
+    }
+
+],
+dbms: [
+
+    {
+        question: "What does DBMS stand for?",
+        options: [
+            "Database Management System",
+            "Data Backup Management System",
+            "Database Monitoring System",
+            "Data Management Software"
+        ],
+        answer: "Database Management System"
+    },
+
+    {
+        question: "Which of the following is a DBMS?",
+        options: ["MySQL", "HTML", "CSS", "JavaScript"],
+        answer: "MySQL"
+    },
+
+    {
+        question: "Which language is commonly used to interact with databases?",
+        options: ["HTML", "SQL", "CSS", "Python"],
+        answer: "SQL"
+    },
+
+    {
+        question: "Which key uniquely identifies each record in a table?",
+        options: ["Foreign Key", "Primary Key", "Candidate Key", "Super Key"],
+        answer: "Primary Key"
+    },
+
+    {
+        question: "Which SQL command is used to retrieve data from a table?",
+        options: ["GET", "SELECT", "FETCH", "READ"],
+        answer: "SELECT"
+    },
+
+    {
+        question: "Which SQL command is used to add a new record?",
+        options: ["ADD", "INSERT", "CREATE", "UPDATE"],
+        answer: "INSERT"
+    },
+
+    {
+        question: "Which SQL command is used to modify existing data?",
+        options: ["CHANGE", "MODIFY", "UPDATE", "ALTER"],
+        answer: "UPDATE"
+    },
+
+    {
+        question: "Which SQL command is used to remove records from a table?",
+        options: ["REMOVE", "DELETE", "DROP", "CLEAR"],
+        answer: "DELETE"
+    },
+
+    {
+        question: "Which key is used to establish a relationship between two tables?",
+        options: ["Primary Key", "Foreign Key", "Unique Key", "Super Key"],
+        answer: "Foreign Key"
+    },
+
+    {
+        question: "Which command is used to create a new table in SQL?",
+        options: ["MAKE TABLE", "NEW TABLE", "CREATE TABLE", "ADD TABLE"],
+        answer: "CREATE TABLE"
+    }
+
+],
+sql: [
+
+    {
+        question: "Which SQL command is used to retrieve data from a table?",
+        options: ["GET", "SELECT", "FETCH", "READ"],
+        answer: "SELECT"
+    },
+
+    {
+        question: "Which SQL command is used to insert a new record?",
+        options: ["ADD", "INSERT", "CREATE", "UPDATE"],
+        answer: "INSERT"
+    },
+
+    {
+        question: "Which SQL command is used to modify existing records?",
+        options: ["CHANGE", "UPDATE", "MODIFY", "ALTER"],
+        answer: "UPDATE"
+    },
+
+    {
+        question: "Which SQL command is used to delete records from a table?",
+        options: ["REMOVE", "DELETE", "CLEAR", "DROP"],
+        answer: "DELETE"
+    },
+
+    {
+        question: "Which SQL command is used to create a new table?",
+        options: ["MAKE TABLE", "CREATE TABLE", "NEW TABLE", "ADD TABLE"],
+        answer: "CREATE TABLE"
+    },
+
+    {
+        question: "Which clause is used to filter records in SQL?",
+        options: ["ORDER BY", "GROUP BY", "WHERE", "FILTER"],
+        answer: "WHERE"
+    },
+
+    {
+        question: "Which clause is used to sort the result of a query?",
+        options: ["SORT BY", "ORDER BY", "GROUP BY", "ARRANGE BY"],
+        answer: "ORDER BY"
+    },
+
+    {
+        question: "Which SQL function is used to count the number of rows?",
+        options: ["SUM()", "COUNT()", "TOTAL()", "NUMBER()"],
+        answer: "COUNT()"
+    },
+
+    {
+        question: "Which command is used to remove a table completely?",
+        options: ["DELETE TABLE", "REMOVE TABLE", "DROP TABLE", "CLEAR TABLE"],
+        answer: "DROP TABLE"
+    },
+
+    {
+        question: "Which operator is used to search for a pattern in SQL?",
+        options: ["MATCH", "LIKE", "SEARCH", "FIND"],
+        answer: "LIKE"
+    }
+
+],
+operating_system: [
+
+    {
+        question: "What is an Operating System?",
+        options: [
+            "Application Software",
+            "System Software",
+            "Programming Language",
+            "Database"
+        ],
+        answer: "System Software"
+    },
+
+    {
+        question: "Which of the following is an Operating System?",
+        options: ["Windows", "Google", "HTML", "MySQL"],
+        answer: "Windows"
+    },
+
+    {
+        question: "Which OS is developed by Apple for Mac computers?",
+        options: ["Linux", "Windows", "macOS", "Android"],
+        answer: "macOS"
+    },
+
+    {
+        question: "Which of the following is an open-source Operating System?",
+        options: ["Linux", "Windows", "iOS", "macOS"],
+        answer: "Linux"
+    },
+
+    {
+        question: "What is the main function of an Operating System?",
+        options: [
+            "Manage computer resources",
+            "Create websites",
+            "Design images",
+            "Write documents"
+        ],
+        answer: "Manage computer resources"
+    },
+
+    {
+        question: "Which part of the OS manages running programs?",
+        options: ["File Manager", "Process Manager", "Web Browser", "Compiler"],
+        answer: "Process Manager"
+    },
+
+    {
+        question: "Which of the following is a mobile Operating System?",
+        options: ["Android", "Oracle", "Python", "Chrome"],
+        answer: "Android"
+    },
+
+    {
+        question: "What is a process in an Operating System?",
+        options: [
+            "A program in execution",
+            "A computer file",
+            "A hardware device",
+            "A programming language"
+        ],
+        answer: "A program in execution"
+    },
+
+    {
+        question: "Which technique allows multiple programs to run seemingly at the same time?",
+        options: ["Multitasking", "Formatting", "Compiling", "Debugging"],
+        answer: "Multitasking"
+    },
+
+    {
+        question: "Which component of an Operating System manages files and folders?",
+        options: ["File System", "CPU", "RAM", "Compiler"],
+        answer: "File System"
+    }
+
+],
+computer_network: [
+    {
+        question: "What is a computer network?",
+        options: ["A group of connected computers", "A single computer", "A printer", "A software"],
+        answer: "A group of connected computers"
+    },
+    {
+        question: "Which device connects multiple computers in a LAN?",
+        options: ["Switch", "Keyboard", "Monitor", "Scanner"],
+        answer: "Switch"
+    },
+    {
+        question: "What does LAN stand for?",
+        options: ["Local Area Network", "Large Area Network", "Long Area Network", "Local Access Network"],
+        answer: "Local Area Network"
+    },
+    {
+        question: "Which protocol is used to browse websites?",
+        options: ["HTTP", "FTP", "SMTP", "POP3"],
+        answer: "HTTP"
+    },
+    {
+        question: "What is the full form of IP?",
+        options: ["Internet Protocol", "Internet Program", "Internal Protocol", "Internet Process"],
+        answer: "Internet Protocol"
+    },
+    {
+        question: "Which device is used to connect different networks?",
+        options: ["Router", "Switch", "Keyboard", "Hub"],
+        answer: "Router"
+    },
+    {
+        question: "Which network covers a large geographical area?",
+        options: ["WAN", "LAN", "PAN", "CAN"],
+        answer: "WAN"
+    },
+    {
+        question: "What does Wi-Fi provide?",
+        options: ["Wireless network connection", "Printing", "Power supply", "Data storage"],
+        answer: "Wireless network connection"
+    },
+    {
+        question: "Which protocol is mainly used to send emails?",
+        options: ["SMTP", "HTTP", "FTP", "TCP"],
+        answer: "SMTP"
+    },
+    {
+        question: "Which topology connects all devices to a central device?",
+        options: ["Star", "Ring", "Bus", "Mesh"],
+        answer: "Star"
+    }
+],
+computer_network: [
+    {
+        question: "What is a computer network?",
+        options: ["A group of connected computers", "A single computer", "A printer", "A software"],
+        answer: "A group of connected computers"
+    },
+    {
+        question: "Which device connects multiple computers in a LAN?",
+        options: ["Switch", "Keyboard", "Monitor", "Scanner"],
+        answer: "Switch"
+    },
+    {
+        question: "What does LAN stand for?",
+        options: ["Local Area Network", "Large Area Network", "Long Area Network", "Local Access Network"],
+        answer: "Local Area Network"
+    },
+    {
+        question: "Which protocol is used to browse websites?",
+        options: ["HTTP", "FTP", "SMTP", "POP3"],
+        answer: "HTTP"
+    },
+    {
+        question: "What is the full form of IP?",
+        options: ["Internet Protocol", "Internet Program", "Internal Protocol", "Internet Process"],
+        answer: "Internet Protocol"
+    },
+    {
+        question: "Which device is used to connect different networks?",
+        options: ["Router", "Switch", "Keyboard", "Hub"],
+        answer: "Router"
+    },
+    {
+        question: "Which network covers a large geographical area?",
+        options: ["WAN", "LAN", "PAN", "CAN"],
+        answer: "WAN"
+    },
+    {
+        question: "What does Wi-Fi provide?",
+        options: ["Wireless network connection", "Printing", "Power supply", "Data storage"],
+        answer: "Wireless network connection"
+    },
+    {
+        question: "Which protocol is mainly used to send emails?",
+        options: ["SMTP", "HTTP", "FTP", "TCP"],
+        answer: "SMTP"
+    },
+    {
+        question: "Which topology connects all devices to a central device?",
+        options: ["Star", "Ring", "Bus", "Mesh"],
+        answer: "Star"
+    }
+],
+data_structure: [
+    {
+        question: "What is a data structure?",
+        options: ["A way to organize data", "A programming language", "An operating system", "A computer network"],
+        answer: "A way to organize data"
+    },
+    {
+        question: "Which data structure follows LIFO?",
+        options: ["Stack", "Queue", "Array", "Linked List"],
+        answer: "Stack"
+    },
+    {
+        question: "Which data structure follows FIFO?",
+        options: ["Queue", "Stack", "Tree", "Graph"],
+        answer: "Queue"
+    },
+    {
+        question: "Which data structure stores elements in contiguous memory?",
+        options: ["Array", "Linked List", "Tree", "Graph"],
+        answer: "Array"
+    },
+    {
+        question: "Which data structure uses nodes and pointers?",
+        options: ["Linked List", "Array", "Stack", "Queue"],
+        answer: "Linked List"
+    },
+    {
+        question: "Which data structure is used for recursion?",
+        options: ["Stack", "Queue", "Array", "Graph"],
+        answer: "Stack"
+    },
+    {
+        question: "Which data structure represents hierarchical data?",
+        options: ["Tree", "Array", "Stack", "Queue"],
+        answer: "Tree"
+    },
+    {
+        question: "Which data structure is used to represent networks?",
+        options: ["Graph", "Stack", "Array", "Queue"],
+        answer: "Graph"
+    },
+    {
+        question: "What is the first index of an array in most programming languages?",
+        options: ["0", "1", "-1", "2"],
+        answer: "0"
+    },
+    {
+        question: "Which data structure is commonly used for BFS traversal?",
+        options: ["Queue", "Stack", "Tree", "Array"],
+        answer: "Queue"
+    }
+],
+oops: [
+
+    {
+        question: "What does OOPS stand for?",
+        options: [
+            "Object-Oriented Programming System",
+            "Object-Oriented Programming Structure",
+            "Object-Oriented Programming",
+            "Only Object Programming"
+        ],
+        answer: "Object-Oriented Programming"
+    },
+
+    {
+        question: "Which of the following is a basic concept of OOPS?",
+        options: ["Encapsulation", "Compilation", "Networking", "Formatting"],
+        answer: "Encapsulation"
+    },
+
+    {
+        question: "What is an object in OOPS?",
+        options: [
+            "An instance of a class",
+            "A programming language",
+            "A database",
+            "An operating system"
+        ],
+        answer: "An instance of a class"
+    },
+
+    {
+        question: "Which keyword is commonly used to create a class?",
+        options: ["class", "object", "new", "create"],
+        answer: "class"
+    },
+
+    {
+        question: "Which OOPS concept allows one class to acquire properties of another class?",
+        options: ["Inheritance", "Encapsulation", "Abstraction", "Polymorphism"],
+        answer: "Inheritance"
+    },
+
+    {
+        question: "Which OOPS concept means hiding implementation details?",
+        options: ["Abstraction", "Inheritance", "Compilation", "Iteration"],
+        answer: "Abstraction"
+    },
+
+    {
+        question: "Which concept allows the same method name to behave differently?",
+        options: ["Polymorphism", "Encapsulation", "Inheritance", "Class"],
+        answer: "Polymorphism"
+    },
+
+    {
+        question: "Which keyword is commonly used to create an object?",
+        options: ["new", "class", "object", "this"],
+        answer: "new"
+    },
+
+    {
+        question: "What is encapsulation?",
+        options: [
+            "Wrapping data and methods together",
+            "Deleting an object",
+            "Creating a network",
+            "Running a program"
+        ],
+        answer: "Wrapping data and methods together"
+    },
+
+    {
+        question: "A class is best described as what?",
+        options: [
+            "A blueprint for objects",
+            "A database table",
+            "A compiler",
+            "An operating system"
+        ],
+        answer: "A blueprint for objects"
+    }
+
+],
+software_engineering: [
+
+    {
+        question: "What is Software Engineering?",
+        options: [
+            "A systematic approach to developing software",
+            "Only writing code",
+            "Repairing computer hardware",
+            "Using the internet"
+        ],
+        answer: "A systematic approach to developing software"
+    },
+
+    {
+        question: "What does SDLC stand for?",
+        options: [
+            "Software Development Life Cycle",
+            "System Data Language Code",
+            "Software Design Logic Cycle",
+            "System Development Level Code"
+        ],
+        answer: "Software Development Life Cycle"
+    },
+
+    {
+        question: "Which phase of SDLC involves gathering user requirements?",
+        options: ["Requirement Analysis", "Testing", "Maintenance", "Deployment"],
+        answer: "Requirement Analysis"
+    },
+
+    {
+        question: "Which phase involves creating the structure of the software?",
+        options: ["Design", "Testing", "Maintenance", "Deployment"],
+        answer: "Design"
+    },
+
+    {
+        question: "Which phase involves writing the actual program code?",
+        options: ["Implementation", "Requirement Analysis", "Maintenance", "Planning"],
+        answer: "Implementation"
+    },
+
+    {
+        question: "Which phase is used to find errors or bugs in software?",
+        options: ["Testing", "Design", "Planning", "Deployment"],
+        answer: "Testing"
+    },
+
+    {
+        question: "Which phase involves releasing software to users?",
+        options: ["Deployment", "Design", "Testing", "Requirement Analysis"],
+        answer: "Deployment"
+    },
+
+    {
+        question: "Which phase includes fixing and updating software after release?",
+        options: ["Maintenance", "Planning", "Design", "Coding"],
+        answer: "Maintenance"
+    },
+
+    {
+        question: "Which software development model follows a linear sequence of phases?",
+        options: ["Waterfall Model", "Spiral Model", "Agile Model", "Prototype Model"],
+        answer: "Waterfall Model"
+    },
+
+    {
+        question: "What is a bug in software?",
+        options: [
+            "An error or defect in a program",
+            "A type of database",
+            "A programming language",
+            "A computer hardware device"
+        ],
+        answer: "An error or defect in a program"
+    }
+
+]
+
+
+        };
+
+
+
+        // =========================
+        // QUESTIONS SELECT KARNA
+        // =========================
+
+        let questions = questionDatabase[topic];
+
+
+        // Agar topic database me nahi hai
+
+        if (!questions) {
+
+            questions = questionDatabase.percentage;
+
+        }
+
+
+
+        // Current question
+
+        let currentQuestion = 0;
+
+        let score = 0;
+
+        let answerSubmitted = false;
+
+
+
+        // Topic ka naam screen par show karna
+
+        let topicName = topic
+            .replaceAll("_", " ")
+            .replace(/\b\w/g, function(letter) {
+
+                return letter.toUpperCase();
+
+            });
+
+
+        document.getElementById("topicTitle").innerText =
+            topicName + " Questions";
+
+
+
+        // =========================
+        // QUESTION SHOW KARNA
+        // =========================
+
+        function showQuestion() {
+
+            let question = questions[currentQuestion];
+
+
+            document.getElementById("questionNumber").innerText =
+                "Question " + (currentQuestion + 1) +
+                " / " + questions.length;
+
+
+            document.getElementById("questionText").innerText =
+                question.question;
+
+
+            let optionsHTML = "";
+
+
+            question.options.forEach(function(option, index) {
+
+                optionsHTML += `
+
+                    <div class="form-check mb-2">
+
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="answer"
+                            id="option${index}"
+                            value="${option}"
+                        >
+
+                        <label
+                            class="form-check-label"
+                            for="option${index}"
+                        >
+                            ${option}
+                        </label>
+
+                    </div>
+
+                `;
+
+            });
+
+
+            document.getElementById("options").innerHTML =
+                optionsHTML;
+
+
+            document.getElementById("submitBtn").style.display =
+                "inline-block";
+
+
+            document.getElementById("nextBtn").style.display =
+                "none";
+
+
+            document.getElementById("previousBtn").style.display =
+                currentQuestion > 0 ? "inline-block" : "none";
+
+
+            document.getElementById("result").style.display =
+                "none";
+
+
+            answerSubmitted = false;
+
+        }
+
+
+
+        // =========================
+        // ANSWER SUBMIT
+        // =========================
+
+        function submitAnswer() {
+
+            if (answerSubmitted) {
+                return;
+            }
+
+
+            let selected = document.querySelector(
+                'input[name="answer"]:checked'
+            );
+
+
+            if (!selected) {
+
+                alert("Please select an answer.");
+
+                return;
+
+            }
+
+
+            let correctAnswer =
+                questions[currentQuestion].answer;
+
+
+            if (selected.value === correctAnswer) {
+
+                score++;
+
+                document.getElementById("result").innerText =
+                    "Correct Answer!";
+
+            } else {
+
+                document.getElementById("result").innerText =
+                    "Wrong Answer! Correct answer is: " +
+                    correctAnswer;
+
+            }
+
+
+            document.getElementById("result").style.display =
+                "block";
+
+
+            document.getElementById("submitBtn").style.display =
+                "none";
+
+
+            document.getElementById("nextBtn").style.display =
+                "inline-block";
+
+
+            answerSubmitted = true;
+
+        }
+
+
+
+        // =========================
+        // NEXT QUESTION
+        // =========================
+
+        function nextQuestion() {
+
+            if (currentQuestion < questions.length - 1) {
+
+                currentQuestion++;
+
+                showQuestion();
+
+            } else {
+
+                document.getElementById("result").innerText =
+                    "Test Completed! Your Score: " +
+                    score + " / " + questions.length;
+
+                document.getElementById("result").style.display =
+                    "block";
+
+
+                document.getElementById("nextBtn").style.display =
+                    "none";
+
+            }
+
+        }
+
+
+
+        // =========================
+        // PREVIOUS QUESTION
+        // =========================
+
+        function previousQuestion() {
+
+            if (currentQuestion > 0) {
+
+                currentQuestion--;
+
+                showQuestion();
+
+            }
+
+        }
+
+
+
+        // First question show
+
+        showQuestion();
+
+
+    </script>
+
+    <!-- ========================= -->
+    <!-- JAVASCRIPT END -->
+    <!-- ========================= -->
+
+
+    <!-- CSS & JS (</body> ke theek pehle add karein) -->
+    <style>
+        .custom-translate-btn {
+            background-color: #d1e7dd !important;
+            color: #0f5132 !important;
+            border: 1px solid #badbcc !important;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .custom-translate-btn:hover {
+            background-color: #badbcc !important;
+        }
+        .custom-translate-btn:focus {
+            box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+            border-color: #198754 !important;
+        }
+
+        /* Google unneeded UI & branding hide */
+        .goog-logo-link, .goog-te-gadget span, .goog-te-banner-frame, .skiptranslate, .goog-te-gadget {
+            display: none !important;
+            color: transparent !important;
+        }
+        body {
+            top: 0 !important;
+            position: static !important;
+        }
+    </style>
+
+    <script type="text/javascript">
+        let currentLang = 'en';
+
+        // Page load hone par auto-translate rokar English me fix rakhne ke liye cookie clear karein
+        document.addEventListener("DOMContentLoaded", function() {
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + document.domain + "; path=/;";
+            currentLang = 'en';
+            document.getElementById("langToggleBtn").innerText = "हिंदी (Hindi)";
+        });
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'hi,en',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        // Single Button Toggle Logic (English ⟷ Hindi)
+        function toggleLanguage() {
+            var btn = document.getElementById("langToggleBtn");
+            var selectField = document.querySelector(".goog-te-combo");
+
+            if (currentLang === 'en') {
+                // Switch to Hindi
+                if (selectField) {
+                    selectField.value = 'hi';
+                    selectField.dispatchEvent(new Event('change'));
+                } else {
+                    document.cookie = "googtrans=/en/hi; path=/";
+                    location.reload();
+                }
+                btn.innerText = "English";
+                currentLang = 'hi';
+            } else {
+                // Switch back to English
+                if (selectField) {
+                    selectField.value = 'en';
+                    selectField.dispatchEvent(new Event('change'));
+                } else {
+                    document.cookie = "googtrans=/en/en; path=/";
+                    location.reload();
+                }
+                btn.innerText = "हिंदी (Hindi)";
+                currentLang = 'en';
+            }
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+</body>
+
+</html>

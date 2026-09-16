@@ -1,0 +1,3758 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Technical Preparation - Student Preparation Portal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+        }
+
+        /* TOPIC CARDS */
+        .topic-card {
+            transition: 0.3s;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+        }
+
+        /* QUESTION PAGE SIZE */
+        #questionPage .container {
+            max-width: 850px;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px 18px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 7px rgba(0,0,0,0.08);
+            border: 1px solid #e5e5e5;
+        }
+
+        .question-number {
+            color: #0d6efd;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .question-card h5 {
+            font-size: 17px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        /* OPTIONS SMALL SIZE */
+        .option {
+            display: block;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+            background: #fff;
+        }
+
+        .option:hover {
+            background: #f0f6ff;
+            border-color: #0d6efd;
+        }
+
+        .option input {
+            margin-right: 8px;
+        }
+
+        .option:has(input:checked) {
+            background: #eaf3ff;
+            border-color: #0d6efd;
+        }
+
+        /* QUESTION PAGE BUTTONS */
+        #questionPage .btn-lg {
+            font-size: 15px;
+            padding: 8px 18px;
+        }
+
+        /* HIDE PAGES */
+        #questionPage,
+        #resultPage {
+            display: none;
+        }
+
+        /* RESULT PAGE */
+        .result-card {
+            background: white;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        .result-icon {
+            font-size: 65px;
+        }
+
+        .score {
+            font-size: 60px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .status {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .result-box {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .correct-number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #198754;
+        }
+
+        .wrong-number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #dc3545;
+        }
+
+        .percentage-number {
+            font-size: 30px;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .topic-title {
+            color: #0d6efd;
+        }
+
+        footer {
+            margin-top: 40px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            #questionPage .container {
+                width: 95%;
+            }
+
+            .question-card {
+                padding: 12px;
+            }
+
+            .question-card h5 {
+                font-size: 15px;
+            }
+
+            .option {
+                padding: 7px 9px;
+                font-size: 13px;
+            }
+
+            .result-card {
+                margin: 20px 10px;
+                padding: 25px 15px;
+            }
+
+            .score {
+                font-size: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <a class="navbar-brand" href="javascript:void(0)" onclick="showTopics()">
+            Student Preparation Portal
+        </a>
+
+        <!-- Right Side: Dashboard + Single Light-Green Toggle Button -->
+        <div class="d-flex align-items-center gap-2">
+            <a href="dashboard.html" class="btn btn-outline-light">
+                Dashboard
+            </a>
+
+            <!-- Hidden Google Translate Element -->
+            <div id="google_translate_element" style="display: none;"></div>
+
+            <!-- Single Toggle Button -->
+            <button id="langToggleBtn" class="btn custom-translate-btn" onclick="toggleLanguage()">
+                हिंदी (Hindi)
+            </button>
+        </div>
+
+    </div>
+</nav>
+
+<!-- TOPICS PAGE -->
+<div id="topicsPage">
+    <div class="container mt-5">
+        <div class="text-center mb-5">
+            <h1>Technical Preparation</h1>
+            <p class="text-muted">Select a subject and start your technical preparation.</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- JAVA -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Java</h4>
+                            <p>Practice Java programming, OOP concepts and interview questions.</p>
+                        </div>
+                        <a href="/MyPdf/Complete_Java_30_Topics_Masterclass.pdf" target="_blank"
+                           class="btn btn-primary" style="margin-bottom: 10px">
+                            Java Notes
+                        </a>
+
+                        <button onclick="startTest('java_language')" class="btn btn-dark">Start Practice</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- C PROGRAMMING -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>C Programming</h4>
+                            <p>Practice C programming, functions, arrays and pointers.</p>
+                        </div>
+                        <a href="/MyPdf/C_Programming_Complete_Guide_and_Practice.pdf" target="_blank"
+                            class="btn btn-primary" style="margin-bottom: 10px">
+                            C Programming Notes
+                        </a>
+
+                        <button onclick="startTest('c_language')" class="btn btn-dark">Start Practice</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- C++ -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>C++</h4>
+                            <p>Practice C++ programming and object-oriented concepts.</p>
+                        </div>
+                        <a href="/MyPdf/OOPs_Complete_Guide_and_Practice.pdf" target="_blank"
+                           class="btn btn-primary" style="margin-bottom: 10px">
+                            C++ Notes
+                        </a>
+
+                        <button onclick="startTest('cpp_language')" class="btn btn-dark">Start Practice</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PYTHON -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Python</h4>
+                            <p>Practice Python programming, syntax and problem solving.</p>
+                        </div>
+                        <a href="/MyPdf/Python_Complete_Guide_and_Practice.pdf" target="_blank"
+                            class="btn btn-primary" style="margin-bottom: 10px">
+                            Python Notes
+                        </a>
+
+                        <button onclick="startTest('python_language')" class="btn btn-dark">Start Practice</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DBMS -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>DBMS</h4>
+                            <p>Learn database concepts, keys, normalization and transactions.</p>
+                        </div>
+                        <a href="/MyPdf/Database_Management_Systems_Complete_Guide_and_Practice.pdf" target="_blank"
+                           class="btn btn-primary" style="margin-bottom: 10px">
+                            DBMS Notes
+                        </a>
+
+                        <button onclick="startTest('dbms')" class="btn btn-dark">Start Practice</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SQL -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>SQL</h4>
+                            <p> SQL ki  Practice SQL queries, joins, functions and commands.</p>
+                        </div>
+                        <a href="/MyPdf/SQL_Complete_Guide_and_Practice.pdf" target="_blank"
+                            class="btn btn-primary" style="margin-bottom: 10px">
+                            SQL Notes
+                        </a>
+
+                        <button onclick="startTest('sql')" class="btn btn-dark">Start Practice</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPERATING SYSTEM -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Operating System</h4>
+                            <p>Practice processes, threads, memory and scheduling concepts.</p>
+                        </div>
+                        <a href="/MyPdf/Operating_Systems_Complete_Guide_and_Practice.pdf" target="_blank"
+                           class="btn btn-primary" style="margin-bottom: 10px">
+                            OS Notes
+                        </a>
+
+                        <button onclick="startTest('operating_system')" class="btn btn-dark">Start Practice</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPUTER NETWORKS -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Computer Networks</h4>
+                            <p> computer Learn networking, protocols, OSI model and TCP/IP.</p>
+                        </div>
+                        <a href="/MyPdf/Computer_Networks_Complete_Guide_and_Practice.pdf" target="_blank"
+                           class="btn btn-primary" style="margin-bottom: 10px">
+                            Computer N/W Notes
+                        </a>
+
+                        <button onclick="startTest('computer_network')" class="btn btn-dark">Start Practice</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DATA STRUCTURES -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Data Structures</h4>
+                            <p> Data structure Practice arrays, stacks, queues, linked lists and trees.</p>
+                        </div>
+                        <a href="/MyPdf/Data_Structures_Theory_and_Practice.pdf" target="_blank"
+                           class="btn btn-primary" style="margin-bottom: 10px">
+                            Data Structure Notes
+                        </a>
+
+                        <button onclick="startTest('data_structure')" class="btn btn-dark">Start Practice</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OOP -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>OOPs</h4>
+                            <p>Practice inheritance, polymorphism, abstraction and encapsulation.</p>
+                        </div>
+                        <a href="/MyPdf/OOPs_Complete_Guide_and_Practice.pdf" target="_blank"
+                           class="btn btn-primary" style="margin-bottom: 10px">
+                            OOPs Notes
+                        </a>
+
+                        <button onclick="startTest('oops')" class="btn btn-dark">Start Practice</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOFTWARE ENGINEERING -->
+            <div class="col-md-4">
+                <div class="card topic-card shadow h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h4>Software Engineering</h4>
+                            <p> Software eng Practice SDLC, models, testing and software concepts.</p>
+                        </div>
+                        <a href="/MyPdf/Software_Engineering_Complete_Guide_and_Practice.pdf" target="_blank"
+                           class="btn btn-primary" style="margin-bottom: 10px">
+                            Software Engineering Notes
+                        </a>
+
+                        <button onclick="startTest('software_engineering')" class="btn btn-dark">Start Practice</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5 mb-5">
+            <a href="dashboard_page" class="btn btn-secondary">← Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<!-- QUESTION PAGE -->
+<div id="questionPage">
+    <div class="container mt-4">
+        <div class="text-center mb-3">
+            <h2 id="questionTopic" class="topic-title">Technical Practice</h2>
+            <p class="text-muted small mb-2">Answer all questions and submit the test.</p>
+        </div>
+
+        <div id="questionsContainer"></div>
+
+        <div class="text-center mt-3 mb-4">
+            <button onclick="submitTest()" class="btn btn-success">Submit Test</button>
+            <button onclick="showTopics()" class="btn btn-secondary ms-2">Back to Topics</button>
+        </div>
+    </div>
+</div>
+
+<!-- RESULT PAGE -->
+<div id="resultPage">
+    <div class="container">
+        <div class="result-card text-center">
+            <div id="resultIcon" class="result-icon">🏆</div>
+            <h1>Test Completed!</h1>
+            <p class="text-muted">Subject: <strong id="resultTopic">-</strong></p>
+            <p>Your practice test result is given below.</p>
+
+            <div class="score">
+                <span id="correctScore">0</span> / <span id="totalScore">0</span>
+            </div>
+            <div class="fw-bold text-muted">Your Score</div>
+
+            <div id="resultStatus" class="status"></div>
+
+            <hr class="my-4">
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="result-box">
+                        <div id="correctNumber" class="correct-number">0</div>
+                        <div>Correct</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="result-box">
+                        <div id="wrongNumber" class="wrong-number">0</div>
+                        <div>Wrong</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="result-box">
+                        <div id="percentageNumber" class="percentage-number">0%</div>
+                        <div>Percentage</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button onclick="tryAgain()" class="btn btn-primary">Try Again</button>
+                <button onclick="showTopics()" class="btn btn-secondary ms-2">Technical Subjects</button>
+                <a href="dashboard.html" class="btn btn-dark ms-2">Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white text-center p-3">
+    <p class="mb-0">© 2026 Student Preparation Portal</p>
+</footer>
+
+<script>
+    /* QUESTION BANK */
+    const questionBank = {
+        java_language: [
+            {
+                question: "Which keyword is used to create an instance of a class in Java?",
+                options: ["class", "new", "object", "create"],
+                answer: "new"
+            },
+            {
+                question: "What is the size of int in Java?",
+                options: ["2 bytes", "4 bytes", "8 bytes", "Depends on OS"],
+                answer: "4 bytes"
+            },
+            {
+                question: "Which concept allows method overloading and overriding in Java?",
+                options: ["Abstraction", "Encapsulation", "Polymorphism", "Inheritance"],
+                answer: "Polymorphism"
+            },
+            {
+                question: "Which package is imported by default in Java?",
+                options: ["java.util", "java.io", "java.lang", "java.net"],
+                answer: "java.lang"
+            },
+            {
+                question: "Which entry point method is executed first in Java?",
+                options: ["public void start()", "public static void main(String[] args)", "void main()", "static main()"],
+                answer: "public static void main(String[] args)"
+            },
+            {
+                question: "Which keyword is used to create an instance of a class in Java?",
+                options: ["class", "new", "object", "create"],
+                answer: "new"
+            },
+            {
+                question: "What is the size of int in Java?",
+                options: ["2 bytes", "4 bytes", "8 bytes", "Depends on OS"],
+                answer: "4 bytes"
+            },
+            {
+                question: "Which concept allows method overloading and overriding in Java?",
+                options: ["Abstraction", "Encapsulation", "Polymorphism", "Inheritance"],
+                answer: "Polymorphism"
+            },
+            {
+                question: "Which package is imported by default in Java?",
+                options: ["java.util", "java.io", "java.lang", "java.net"],
+                answer: "java.lang"
+            },
+            {
+                question: "Which keyword is used to inherit a class in Java?",
+                options: ["implements", "inherits", "extends", "super"],
+                answer: "extends"
+            },
+            {
+                question: "Which method is the entry point of a Java program?",
+                options: ["start()", "main()", "run()", "execute()"],
+                answer: "main()"
+            },
+            {
+                question: "Which keyword is used to declare a constant in Java?",
+                options: ["static", "const", "final", "constant"],
+                answer: "final"
+            },
+            {
+                question: "Which of the following is not a primitive data type in Java?",
+                options: ["int", "float", "String", "char"],
+                answer: "String"
+            },
+            {
+                question: "Which operator is used for comparison in Java?",
+                options: ["=", "==", ":=", "==="],
+                answer: "=="
+            },
+            {
+                question: "Which keyword is used to stop a loop immediately?",
+                options: ["stop", "exit", "break", "return"],
+                answer: "break"
+            },
+            {
+                question: "Which keyword skips the current iteration of a loop?",
+                options: ["skip", "continue", "next", "pass"],
+                answer: "continue"
+            },
+            {
+                question: "Which access modifier provides the widest accessibility?",
+                options: ["private", "protected", "default", "public"],
+                answer: "public"
+            },
+            {
+                question: "Which keyword refers to the current object?",
+                options: ["self", "this", "current", "object"],
+                answer: "this"
+            },
+            {
+                question: "Which keyword is used to call the parent class constructor or method?",
+                options: ["parent", "base", "super", "this"],
+                answer: "super"
+            },
+            {
+                question: "Which collection stores elements in key-value pairs?",
+                options: ["ArrayList", "HashSet", "HashMap", "Stack"],
+                answer: "HashMap"
+            },
+            {
+                question: "Which collection does not allow duplicate elements?",
+                options: ["ArrayList", "HashSet", "LinkedList", "Vector"],
+                answer: "HashSet"
+            },
+            {
+                question: "Which class is commonly used to take input from the keyboard?",
+                options: ["Input", "Scanner", "Reader", "Keyboard"],
+                answer: "Scanner"
+            },
+            {
+                question: "Which keyword is used to handle exceptions?",
+                options: ["try", "catch", "throw", "All of these"],
+                answer: "All of these"
+            },
+            {
+                question: "Which block is always executed whether an exception occurs or not?",
+                options: ["try", "catch", "finally", "throw"],
+                answer: "finally"
+            },
+            {
+                question: "Which keyword is used to explicitly throw an exception?",
+                options: ["throws", "throw", "exception", "raise"],
+                answer: "throw"
+            },
+            {
+                question: "Which keyword is used in a method declaration to indicate possible exceptions?",
+                options: ["throw", "throws", "try", "catch"],
+                answer: "throws"
+            },
+            {
+                question: "Which keyword prevents a method from being overridden?",
+                options: ["static", "final", "private", "protected"],
+                answer: "final"
+            },
+            {
+                question: "What is method overloading?",
+                options: [
+                    "Same method name with different parameters",
+                    "Different method names with same parameters",
+                    "Redefining a variable",
+                    "Creating multiple classes"
+                ],
+                answer: "Same method name with different parameters"
+            },
+            {
+                question: "What is method overriding?",
+                options: [
+                    "Defining a method with different parameters",
+                    "Redefining a parent class method in a child class",
+                    "Creating a new constructor",
+                    "Changing a variable value"
+                ],
+                answer: "Redefining a parent class method in a child class"
+            },
+            {
+                question: "Which OOP concept hides internal implementation details?",
+                options: ["Inheritance", "Encapsulation", "Abstraction", "Polymorphism"],
+                answer: "Abstraction"
+            },
+            {
+                question: "Which OOP concept binds data and methods together?",
+                options: ["Inheritance", "Encapsulation", "Polymorphism", "Abstraction"],
+                answer: "Encapsulation"
+            },
+            {
+                question: "Which keyword is used to implement an interface?",
+                options: ["extends", "implements", "interface", "inherits"],
+                answer: "implements"
+            },
+            {
+                question: "Which keyword is used to declare an interface?",
+                options: ["Interface", "implements", "interface", "abstract"],
+                answer: "interface"
+            },
+            {
+                question: "Can a Java class extend more than one class?",
+                options: ["Yes", "No", "Only with static classes", "Only with final classes"],
+                answer: "No"
+            },
+            {
+                question: "Can a Java class implement multiple interfaces?",
+                options: ["Yes", "No", "Only one", "Only two"],
+                answer: "Yes"
+            },
+            {
+                question: "Which class is the parent of all Java classes?",
+                options: ["Main", "Class", "Object", "Parent"],
+                answer: "Object"
+            },
+            {
+                question: "Which keyword is used to create an abstract class?",
+                options: ["abstract", "interface", "virtual", "base"],
+                answer: "abstract"
+            },
+            {
+                question: "Can an abstract class be instantiated directly?",
+                options: ["Yes", "No", "Only using new", "Only using static"],
+                answer: "No"
+            },
+            {
+                question: "Which type of polymorphism is achieved through method overloading?",
+                options: ["Runtime polymorphism", "Compile-time polymorphism", "Dynamic polymorphism", "Inheritance"],
+                answer: "Compile-time polymorphism"
+            },
+            {
+                question: "Which type of polymorphism is mainly achieved through method overriding?",
+                options: ["Compile-time polymorphism", "Runtime polymorphism", "Static polymorphism", "Constructor polymorphism"],
+                answer: "Runtime polymorphism"
+            },
+            {
+                question: "Which keyword is used to create a thread by extending a class?",
+                options: ["Thread", "extends", "implements", "start"],
+                answer: "extends"
+            },
+            {
+                question: "Which method starts the execution of a thread?",
+                options: ["run()", "start()", "execute()", "begin()"],
+                answer: "start()"
+            },
+            {
+                question: "Which interface is commonly used to create a thread?",
+                options: ["Runnable", "Threadable", "Executable", "Run"],
+                answer: "Runnable"
+            },
+            {
+                question: "What happens when an integer is divided by zero in Java?",
+                options: [
+                    "Returns 0",
+                    "Returns Infinity",
+                    "ArithmeticException occurs",
+                    "Compilation succeeds with warning"
+                ],
+                answer: "ArithmeticException occurs"
+            },
+            {
+                question: "Which exception occurs when accessing an invalid array index?",
+                options: [
+                    "NullPointerException",
+                    "ArrayIndexOutOfBoundsException",
+                    "ArithmeticException",
+                    "IOException"
+                ],
+                answer: "ArrayIndexOutOfBoundsException"
+            },
+            {
+                question: "Which exception occurs when calling a method on a null reference?",
+                options: [
+                    "NullPointerException",
+                    "IOException",
+                    "ClassNotFoundException",
+                    "ArithmeticException"
+                ],
+                answer: "NullPointerException"
+            },
+            {
+                question: "Which keyword is used to synchronize a method or block?",
+                options: ["lock", "synchronized", "sync", "threadsafe"],
+                answer: "synchronized"
+            },
+            {
+                question: "Which class is immutable in Java?",
+                options: ["String", "StringBuilder", "StringBuffer", "ArrayList"],
+                answer: "String"
+            },
+            {
+                question: "Which class is generally faster for modifying strings in a single-threaded environment?",
+                options: ["String", "StringBuilder", "StringBuffer", "Character"],
+                answer: "StringBuilder"
+            },
+            {
+                question: "Which class is synchronized and mutable for string manipulation?",
+                options: ["String", "StringBuilder", "StringBuffer", "StringList"],
+                answer: "StringBuffer"
+            },
+
+
+        ],
+        c_language: [
+            {
+                question: "Who developed C Language?",
+                options: ["Bjarne Stroustrup", "Dennis Ritchie", "James Gosling", "Guido van Rossum"],
+                answer: "Dennis Ritchie"
+            },
+            {
+                question: "Which symbol is used to access value at address of a pointer?",
+                options: ["&", "*", "->", "."],
+                answer: "*"
+            },
+            {
+                question: "Who developed C Language?",
+                options: ["Bjarne Stroustrup", "Dennis Ritchie", "James Gosling", "Guido van Rossum"],
+                answer: "Dennis Ritchie"
+            },
+            {
+                question: "Which symbol is used to access value at address of a pointer?",
+                options: ["&", "*", "->", "."],
+                answer: "*"
+            },
+            {
+                question: "What is the return type of malloc() function?",
+                options: ["int*", "void*", "char*", "float*"],
+                answer: "void*"
+            },
+            {
+                question: "Which symbol is used to end a statement in C?",
+                options: [".", ":", ";", ","],
+                answer: ";"
+            },
+            {
+                question: "Which header file is required for printf() and scanf()?",
+                options: ["stdlib.h", "string.h", "stdio.h", "math.h"],
+                answer: "stdio.h"
+            },
+            {
+                question: "Which data type is used to store a single character?",
+                options: ["int", "char", "float", "string"],
+                answer: "char"
+            },
+            {
+                question: "Which function is used to display output in C?",
+                options: ["scanf()", "print()", "printf()", "display()"],
+                answer: "printf()"
+            },
+            {
+                question: "Which function is used to take formatted input in C?",
+                options: ["input()", "scanf()", "get()", "read()"],
+                answer: "scanf()"
+            },
+            {
+                question: "Which operator is used for logical AND?",
+                options: ["&", "&&", "||", "!"],
+                answer: "&&"
+            },
+            {
+                question: "Which operator is used for logical OR?",
+                options: ["&&", "&", "||", "|"],
+                answer: "||"
+            },
+            {
+                question: "Which operator is used for logical NOT?",
+                options: ["!", "~", "not", "!="],
+                answer: "!"
+            },
+            {
+                question: "Which keyword is used to declare a constant variable?",
+                options: ["constant", "const", "final", "static"],
+                answer: "const"
+            },
+            {
+                question: "Which keyword is used to return a value from a function?",
+                options: ["return", "break", "continue", "exit"],
+                answer: "return"
+            },
+            {
+                question: "Which loop is guaranteed to execute at least once?",
+                options: ["for", "while", "do-while", "nested loop"],
+                answer: "do-while"
+            },
+            {
+                question: "Which statement is used to exit from a loop?",
+                options: ["stop", "exit", "break", "return"],
+                answer: "break"
+            },
+            {
+                question: "Which statement skips the current iteration of a loop?",
+                options: ["skip", "continue", "break", "pass"],
+                answer: "continue"
+            },
+            {
+                question: "Which operator is used to get the address of a variable?",
+                options: ["*", "&", "->", "@"],
+                answer: "&"
+            },
+            {
+                question: "Which operator is used to access a structure member using a structure variable?",
+                options: ["->", ".", "::", "#"],
+                answer: "."
+            },
+            {
+                question: "Which operator is used to access a structure member through a pointer?",
+                options: [".", "::", "->", "*"],
+                answer: "->"
+            },
+            {
+                question: "Which function is used to allocate memory dynamically?",
+                options: ["alloc()", "malloc()", "memory()", "new()"],
+                answer: "malloc()"
+            },
+            {
+                question: "Which function is used to allocate initialized memory dynamically?",
+                options: ["malloc()", "calloc()", "alloc()", "init()"],
+                answer: "calloc()"
+            },
+            {
+                question: "Which function is used to resize dynamically allocated memory?",
+                options: ["resize()", "realloc()", "malloc()", "change()"],
+                answer: "realloc()"
+            },
+            {
+                question: "Which function is used to release dynamically allocated memory?",
+                options: ["delete()", "remove()", "free()", "release()"],
+                answer: "free()"
+            },
+            {
+                question: "Which header file contains malloc(), calloc(), realloc() and free()?",
+                options: ["stdio.h", "stdlib.h", "string.h", "memory.h"],
+                answer: "stdlib.h"
+            },
+            {
+                question: "What is the index of the first element in a C array?",
+                options: ["0", "1", "-1", "Depends on array"],
+                answer: "0"
+            },
+            {
+                question: "Which is the correct declaration of an integer array of size 5?",
+                options: ["int arr(5);", "array int arr[5];", "int arr[5];", "int[5] arr;"],
+                answer: "int arr[5];"
+            },
+            {
+                question: "Which character terminates a string in C?",
+                options: ["\\n", "\\0", "\\t", "EOF"],
+                answer: "\\0"
+            },
+            {
+                question: "Which header file contains strlen() and strcpy()?",
+                options: ["stdio.h", "stdlib.h", "string.h", "ctype.h"],
+                answer: "string.h"
+            },
+            {
+                question: "Which function is used to find the length of a string?",
+                options: ["strsize()", "strlen()", "length()", "strlength()"],
+                answer: "strlen()"
+            },
+            {
+                question: "Which function is used to copy one string into another?",
+                options: ["strcopy()", "strcpy()", "copystr()", "stringcopy()"],
+                answer: "strcpy()"
+            },
+            {
+                question: "Which function is used to compare two strings?",
+                options: ["strcmp()", "strcompare()", "compare()", "stringcmp()"],
+                answer: "strcmp()"
+            },
+            {
+                question: "Which keyword is used to define a structure?",
+                options: ["structure", "struct", "record", "class"],
+                answer: "struct"
+            },
+            {
+                question: "Which keyword is used to define a union?",
+                options: ["union", "struct", "group", "combine"],
+                answer: "union"
+            },
+            {
+                question: "What is the main difference between structure and union?",
+                options: [
+                    "Structure stores all members separately, union shares memory",
+                    "Union stores all members separately, structure shares memory",
+                    "There is no difference",
+                    "Both always use the same memory"
+                ],
+                answer: "Structure stores all members separately, union shares memory"
+            },
+            {
+                question: "Which storage class makes a local variable retain its value between function calls?",
+                options: ["auto", "register", "static", "extern"],
+                answer: "static"
+            },
+            {
+                question: "Which storage class is used to refer to a global variable defined in another file?",
+                options: ["auto", "static", "register", "extern"],
+                answer: "extern"
+            },
+            {
+                question: "Which storage class suggests storing a variable in a CPU register?",
+                options: ["static", "register", "extern", "auto"],
+                answer: "register"
+            },
+            {
+                question: "What is recursion in C?",
+                options: [
+                    "A function calling another program",
+                    "A function calling itself",
+                    "A loop inside a function",
+                    "Calling a variable"
+                ],
+                answer: "A function calling itself"
+            },
+            {
+                question: "Which preprocessor directive is used to include a header file?",
+                options: ["#define", "#include", "#header", "#import"],
+                answer: "#include"
+            },
+            {
+                question: "Which preprocessor directive is used to define a macro?",
+                options: ["#macro", "#define", "#const", "#include"],
+                answer: "#define"
+            },
+            {
+                question: "Which operator is used to find the remainder of a division?",
+                options: ["/", "%", "//", "mod"],
+                answer: "%"
+            },
+            {
+                question: "What is the output of 10 / 3 when both operands are integers?",
+                options: ["3", "3.33", "4", "3.0"],
+                answer: "3"
+            },
+            {
+                question: "Which format specifier is used to print an integer?",
+                options: ["%f", "%c", "%d", "%s"],
+                answer: "%d"
+            },
+            {
+                question: "Which format specifier is used to print a floating-point value?",
+                options: ["%d", "%c", "%f", "%s"],
+                answer: "%f"
+            },
+            {
+                question: "Which format specifier is used to print a character?",
+                options: ["%c", "%d", "%s", "%f"],
+                answer: "%c"
+            },
+            {
+                question: "Which format specifier is used to print a string?",
+                options: ["%c", "%d", "%f", "%s"],
+                answer: "%s"
+            },
+            {
+                question: "What does a pointer store?",
+                options: [
+                    "Only integer values",
+                    "Address of another variable",
+                    "Only characters",
+                    "Function output only"
+                ],
+                answer: "Address of another variable"
+            },
+            {
+                question: "What is a NULL pointer?",
+                options: [
+                    "A pointer pointing to a valid variable",
+                    "A pointer that does not point to a valid object",
+                    "A pointer containing garbage only",
+                    "A pointer to a function"
+                ],
+                answer: "A pointer that does not point to a valid object"
+            },
+
+
+
+        ],
+        cpp_language: [
+            {
+                question: "Which feature of C++ allows multiple functions with the same name?",
+                options: ["Overloading", "Overriding", "Inheritance", "Templates"],
+                answer: "Overloading"
+            },
+            {
+                question: "Which keyword is used to inherit a class in C++?",
+                options: ["extends", "inherits", ":", "super"],
+                answer: ":"
+            },
+            {
+                question: "Which feature of C++ allows multiple functions with the same name?",
+                options: ["Overloading", "Overriding", "Inheritance", "Templates"],
+                answer: "Overloading"
+            },
+            {
+                question: "Which keyword is used to inherit a class in C++?",
+                options: ["extends", "inherits", ":", "super"],
+                answer: ":"
+            },
+            {
+                question: "Who developed C++?",
+                options: ["Dennis Ritchie", "Bjarne Stroustrup", "James Gosling", "Guido van Rossum"],
+                answer: "Bjarne Stroustrup"
+            },
+            {
+                question: "Which symbol is used to end a statement in C++?",
+                options: [".", ":", ";", ","],
+                answer: ";"
+            },
+            {
+                question: "Which header file is commonly used for input and output in C++?",
+                options: ["stdio.h", "iostream", "conio.h", "stdlib.h"],
+                answer: "iostream"
+            },
+            {
+                question: "Which object is used to take input from the user in C++?",
+                options: ["cout", "cin", "input", "scan"],
+                answer: "cin"
+            },
+            {
+                question: "Which object is used to display output in C++?",
+                options: ["cin", "cout", "print", "output"],
+                answer: "cout"
+            },
+            {
+                question: "Which operator is used with cout?",
+                options: [">>", "<<", "::", "->"],
+                answer: "<<"
+            },
+            {
+                question: "Which operator is used with cin?",
+                options: ["<<", ">>", "::", "->"],
+                answer: ">>"
+            },
+            {
+                question: "Which keyword is used to define a class in C++?",
+                options: ["class", "struct", "object", "define"],
+                answer: "class"
+            },
+            {
+                question: "Which access specifier makes class members accessible from anywhere?",
+                options: ["private", "protected", "public", "internal"],
+                answer: "public"
+            },
+            {
+                question: "Which access specifier is the default for members of a C++ class?",
+                options: ["public", "private", "protected", "default"],
+                answer: "private"
+            },
+            {
+                question: "Which keyword is used to create an object dynamically in C++?",
+                options: ["malloc", "new", "create", "object"],
+                answer: "new"
+            },
+            {
+                question: "Which keyword is used to release dynamically allocated memory?",
+                options: ["free", "delete", "remove", "release"],
+                answer: "delete"
+            },
+            {
+                question: "Which operator is used to access members through an object?",
+                options: ["->", ".", "::", "*"],
+                answer: "."
+            },
+            {
+                question: "Which operator is used to access members through a pointer to an object?",
+                options: [".", "->", "::", "&"],
+                answer: "->"
+            },
+            {
+                question: "Which keyword is used to declare a constant in C++?",
+                options: ["constant", "const", "final", "static"],
+                answer: "const"
+            },
+            {
+                question: "Which keyword is used to declare a variable shared by all objects of a class?",
+                options: ["global", "static", "shared", "common"],
+                answer: "static"
+            },
+            {
+                question: "Which function is automatically called when an object is created?",
+                options: ["Destructor", "Constructor", "Main", "Initialize"],
+                answer: "Constructor"
+            },
+            {
+                question: "Which function is automatically called when an object is destroyed?",
+                options: ["Constructor", "Destructor", "Delete", "Destroy"],
+                answer: "Destructor"
+            },
+            {
+                question: "Which symbol is used before a destructor name?",
+                options: ["!", "~", "#", "$"],
+                answer: "~"
+            },
+            {
+                question: "Can a constructor have a return type in C++?",
+                options: ["Yes", "No", "Only int", "Only void"],
+                answer: "No"
+            },
+            {
+                question: "What is function overloading?",
+                options: [
+                    "Using the same function name with different parameters",
+                    "Using different function names with same parameters",
+                    "Changing a variable",
+                    "Creating multiple classes"
+                ],
+                answer: "Using the same function name with different parameters"
+            },
+            {
+                question: "Which OOP concept allows a derived class to acquire properties of a base class?",
+                options: ["Encapsulation", "Inheritance", "Abstraction", "Polymorphism"],
+                answer: "Inheritance"
+            },
+            {
+                question: "Which OOP concept hides implementation details?",
+                options: ["Inheritance", "Encapsulation", "Abstraction", "Overloading"],
+                answer: "Abstraction"
+            },
+            {
+                question: "Which OOP concept combines data and functions into a single unit?",
+                options: ["Encapsulation", "Inheritance", "Polymorphism", "Compilation"],
+                answer: "Encapsulation"
+            },
+            {
+                question: "Which OOP concept allows one interface to have different implementations?",
+                options: ["Inheritance", "Polymorphism", "Encapsulation", "Compilation"],
+                answer: "Polymorphism"
+            },
+            {
+                question: "Which type of polymorphism is achieved through function overloading?",
+                options: ["Runtime", "Compile-time", "Dynamic", "Virtual"],
+                answer: "Compile-time"
+            },
+            {
+                question: "Which keyword is used to declare a virtual function?",
+                options: ["virtual", "dynamic", "override", "runtime"],
+                answer: "virtual"
+            },
+            {
+                question: "Which keyword can be used to explicitly indicate that a derived class method overrides a base class method?",
+                options: ["virtual", "override", "overload", "extends"],
+                answer: "override"
+            },
+            {
+                question: "Which keyword is used to prevent a class from being inherited?",
+                options: ["sealed", "final", "private", "constant"],
+                answer: "final"
+            },
+            {
+                question: "Which keyword is used to define a template?",
+                options: ["generic", "template", "typename", "Both template and typename"],
+                answer: "Both template and typename"
+            },
+            {
+                question: "Which keyword is commonly used to declare a type parameter in a C++ template?",
+                options: ["type", "typename", "datatype", "generic"],
+                answer: "typename"
+            },
+            {
+                question: "Which container stores elements in a dynamic array?",
+                options: ["list", "vector", "stack", "queue"],
+                answer: "vector"
+            },
+            {
+                question: "Which STL container follows LIFO order?",
+                options: ["queue", "vector", "stack", "deque"],
+                answer: "stack"
+            },
+            {
+                question: "Which STL container follows FIFO order?",
+                options: ["stack", "queue", "vector", "set"],
+                answer: "queue"
+            },
+            {
+                question: "Which STL container stores unique elements in sorted order by default?",
+                options: ["vector", "set", "list", "array"],
+                answer: "set"
+            },
+            {
+                question: "Which STL container stores key-value pairs and keeps keys unique?",
+                options: ["vector", "map", "stack", "queue"],
+                answer: "map"
+            },
+            {
+                question: "Which keyword is used to handle exceptions in C++?",
+                options: ["try", "catch", "throw", "All of these"],
+                answer: "All of these"
+            },
+            {
+                question: "Which keyword is used to explicitly throw an exception?",
+                options: ["throw", "throws", "raise", "exception"],
+                answer: "throw"
+            },
+            {
+                question: "Which block handles an exception in C++?",
+                options: ["try", "catch", "throw", "finally"],
+                answer: "catch"
+            },
+            {
+                question: "Which operator is called the scope resolution operator in C++?",
+                options: [".", "->", "::", ":"],
+                answer: "::"
+            },
+            {
+                question: "Which keyword is used to refer to the current object?",
+                options: ["self", "this", "current", "object"],
+                answer: "this"
+            },
+            {
+                question: "What is a pure virtual function?",
+                options: [
+                    "A function with no parameters",
+                    "A virtual function declared with = 0",
+                    "A static function",
+                    "A private function"
+                ],
+                answer: "A virtual function declared with = 0"
+            },
+            {
+                question: "A class containing at least one pure virtual function is called what?",
+                options: ["Static class", "Abstract class", "Final class", "Friend class"],
+                answer: "Abstract class"
+            },
+            {
+                question: "Can an abstract class be instantiated directly?",
+                options: ["Yes", "No", "Only using new", "Only using static"],
+                answer: "No"
+            },
+            {
+                question: "What is a friend function in C++?",
+                options: [
+                    "A function that can access private and protected members of a class",
+                    "A function that can only access public members",
+                    "A function that creates objects",
+                    "A function that cannot take parameters"
+                ],
+                answer: "A function that can access private and protected members of a class"
+            },
+
+            {
+                question: "Which header file is needed for cin and cout?",
+                options: ["<stdio.h>", "<conio.h>", "<iostream>", "<stdlib.h>"],
+                answer: "<iostream>"
+            }
+        ],
+        python_language: [
+            {
+                question: "Which keyword is used to define a function in Python?",
+                options: ["func", "def", "function", "define"],
+                answer: "def"
+            },
+            {
+                question: "Which keyword is used to define a function in Python?",
+                options: ["func", "def", "function", "define"],
+                answer: "def"
+            },
+            {
+                question: "Which keyword is used to create an anonymous function in Python?",
+                options: ["lambda", "anonymous", "def", "function"],
+                answer: "lambda"
+            },
+            {
+                question: "What is the output of print(10 // 3)?",
+                options: ["3", "3.33", "4", "1"],
+                answer: "3"
+            },
+            {
+                question: "What is the output of print(10 % 3)?",
+                options: ["0", "1", "3", "3.33"],
+                answer: "1"
+            },
+            {
+                question: "Which function returns the number of items in an object?",
+                options: ["size()", "length()", "len()", "count()"],
+                answer: "len()"
+            },
+            {
+                question: "Which method adds an item to the end of a list?",
+                options: ["add()", "append()", "insert()", "push()"],
+                answer: "append()"
+            },
+            {
+                question: "Which method removes and returns the last item of a list?",
+                options: ["remove()", "delete()", "pop()", "clear()"],
+                answer: "pop()"
+            },
+            {
+                question: "Which method removes a specific value from a list?",
+                options: ["delete()", "remove()", "pop()", "discard()"],
+                answer: "remove()"
+            },
+            {
+                question: "Which data structure stores key-value pairs in Python?",
+                options: ["List", "Tuple", "Dictionary", "Set"],
+                answer: "Dictionary"
+            },
+            {
+                question: "Which method is used to retrieve a value from a dictionary safely?",
+                options: ["fetch()", "get()", "find()", "value()"],
+                answer: "get()"
+            },
+            {
+                question: "Which data structure contains only unique elements?",
+                options: ["List", "Tuple", "Set", "Dictionary"],
+                answer: "Set"
+            },
+            {
+                question: "Which keyword is used to handle exceptions?",
+                options: ["try", "except", "catch", "handle"],
+                answer: "except"
+            },
+            {
+                question: "Which block is executed whether an exception occurs or not?",
+                options: ["try", "except", "finally", "else"],
+                answer: "finally"
+            },
+            {
+                question: "Which keyword is used to manually raise an exception?",
+                options: ["throw", "raise", "error", "except"],
+                answer: "raise"
+            },
+            {
+                question: "What is the purpose of the pass statement?",
+                options: [
+                    "To stop a loop",
+                    "To skip a function permanently",
+                    "To act as a placeholder",
+                    "To raise an exception"
+                ],
+                answer: "To act as a placeholder"
+            },
+            {
+                question: "Which function is used to generate a sequence of numbers?",
+                options: ["numbers()", "range()", "sequence()", "generate()"],
+                answer: "range()"
+            },
+            {
+                question: "Which keyword is used to create a generator function?",
+                options: ["generator", "yield", "generate", "return"],
+                answer: "yield"
+            },
+            {
+                question: "What does the yield statement do?",
+                options: [
+                    "Terminates the program",
+                    "Returns a value and pauses generator execution",
+                    "Creates a class",
+                    "Raises an exception"
+                ],
+                answer: "Returns a value and pauses generator execution"
+            },
+            {
+                question: "What is list comprehension?",
+                options: [
+                    "A concise way to create a list",
+                    "A way to delete a list",
+                    "A type of exception",
+                    "A method for sorting only"
+                ],
+                answer: "A concise way to create a list"
+            },
+            {
+                question: "Which function applies a function to every item of an iterable?",
+                options: ["filter()", "map()", "apply()", "foreach()"],
+                answer: "map()"
+            },
+            {
+                question: "Which function selects elements based on a condition?",
+                options: ["map()", "filter()", "select()", "where()"],
+                answer: "filter()"
+            },
+            {
+                question: "What is the purpose of the zip() function?",
+                options: [
+                    "Compress files",
+                    "Combine elements from multiple iterables",
+                    "Sort a list",
+                    "Remove duplicates"
+                ],
+                answer: "Combine elements from multiple iterables"
+            },
+            {
+                question: "What does enumerate() return when iterating over a sequence?",
+                options: [
+                    "Only values",
+                    "Only indexes",
+                    "Index-value pairs",
+                    "Sorted values"
+                ],
+                answer: "Index-value pairs"
+            },
+            {
+                question: "Which keyword is used to import a module?",
+                options: ["include", "import", "using", "require"],
+                answer: "import"
+            },
+            {
+                question: "Which keyword is used to create a class?",
+                options: ["object", "class", "struct", "define"],
+                answer: "class"
+            },
+            {
+                question: "What is the purpose of __init__() in a Python class?",
+                options: [
+                    "To destroy an object",
+                    "To initialize an object",
+                    "To import a module",
+                    "To create a loop"
+                ],
+                answer: "To initialize an object"
+            },
+            {
+                question: "Which parameter conventionally refers to the current object?",
+                options: ["this", "self", "current", "object"],
+                answer: "self"
+            },
+            {
+                question: "Which function checks whether an object is an instance of a class?",
+                options: ["typeof()", "isinstance()", "instance()", "check()"],
+                answer: "isinstance()"
+            },
+            {
+                question: "Which function checks whether two objects refer to the same object?",
+                options: ["equals()", "same()", "is", "equal()"],
+                answer: "is"
+            },
+            {
+                question: "What is the difference between == and is in Python?",
+                options: [
+                    "Both always check object identity",
+                    "== checks equality, while is checks object identity",
+                    "is checks values and == checks identity",
+                    "There is no difference"
+                ],
+                answer: "== checks equality, while is checks object identity"
+            },
+            {
+                question: "Which keyword is used to modify a global variable inside a function?",
+                options: ["global", "extern", "public", "globalvar"],
+                answer: "global"
+            },
+            {
+                question: "Which keyword is used to access a variable from an enclosing function scope?",
+                options: ["global", "nonlocal", "outer", "parent"],
+                answer: "nonlocal"
+            },
+            {
+                question: "What is a decorator in Python?",
+                options: [
+                    "A function that modifies or extends another function or class",
+                    "A special type of variable",
+                    "A database object",
+                    "A loop structure"
+                ],
+                answer: "A function that modifies or extends another function or class"
+            },
+            {
+                question: "What is a closure in Python?",
+                options: [
+                    "A function that remembers variables from its enclosing scope",
+                    "A function without parameters",
+                    "A closed file",
+                    "A private class"
+                ],
+                answer: "A function that remembers variables from its enclosing scope"
+            },
+            {
+                question: "What is the purpose of __name__ == '__main__'?",
+                options: [
+                    "To check whether the module is run directly",
+                    "To create the main function",
+                    "To import the main module",
+                    "To terminate the program"
+                ],
+                answer: "To check whether the module is run directly"
+            },
+            {
+                question: "Which statement is used for resource management such as automatically closing a file?",
+                options: ["manage", "with", "using", "resource"],
+                answer: "with"
+            },
+            {
+                question: "Which file mode is used to append data to an existing file?",
+                options: ["r", "w", "a", "x"],
+                answer: "a"
+            },
+            {
+                question: "Which file mode creates a new file and raises an error if it already exists?",
+                options: ["r", "w", "a", "x"],
+                answer: "x"
+            },
+            {
+                question: "What is the purpose of *args in a Python function?",
+                options: [
+                    "Accept multiple positional arguments",
+                    "Accept only one argument",
+                    "Accept only keyword arguments",
+                    "Create a pointer"
+                ],
+                answer: "Accept multiple positional arguments"
+            },
+            {
+                question: "What is the purpose of **kwargs in a Python function?",
+                options: [
+                    "Accept multiple positional arguments",
+                    "Accept multiple keyword arguments",
+                    "Create multiple classes",
+                    "Return multiple values only"
+                ],
+                answer: "Accept multiple keyword arguments"
+            },
+            {
+                question: "What is the output of bool([]) in Python?",
+                options: ["True", "False", "None", "Error"],
+                answer: "False"
+            },
+            {
+                question: "What is the output of bool([0]) in Python?",
+                options: ["True", "False", "0", "Error"],
+                answer: "True"
+            },
+            {
+                question: "Which method can be used to make a shallow copy of a list?",
+                options: ["copy()", "clone()", "duplicate()", "replicate()"],
+                answer: "copy()"
+            },
+            {
+                question: "Which module is commonly used to work with JSON data in Python?",
+                options: ["json", "js", "data", "serialize"],
+                answer: "json"
+            },
+
+            {
+                question: "What is the main purpose of a virtual environment in Python?",
+                options: [
+                    "To isolate project dependencies",
+                    "To increase processor speed",
+                    "To replace the Python interpreter",
+                    "To compile Python into hardware code"
+                ],
+                answer: "To isolate project dependencies"
+            },
+
+
+            {
+                question: "Which data structure in Python is immutable?",
+                options: ["List", "Dictionary", "Tuple", "Set"],
+                answer: "Tuple"
+            },
+            {
+                question: "What is the output of 3 * 'A' in Python?",
+                options: ["AAA", "Error", "3A", "95"],
+                answer: "AAA"
+            },
+            {
+                question: "Which symbol is used for comments in Python?",
+                options: ["//", "#", "/* */", "<!-- -->"],
+                answer: "#"
+            },
+            {
+                question: "What is correct file extension for Python files?",
+                options: [".python", ".pl", ".py", ".pyt"],
+                answer: ".py"
+            }
+        ],
+        dbms: [
+            {
+                question: "A primary key must be?",
+                options: ["Unique and Null", "Unique and NOT Null", "Duplicate and Null", "Any value"],
+                answer: "Unique and NOT Null"
+            },
+            {
+                question: "Which normal form removes partial dependency?",
+                options: ["1NF", "2NF", "3NF", "BCNF"],
+                answer: "2NF"
+            },
+            {
+                question: "A primary key must be?",
+                options: ["Unique and Null", "Unique and NOT Null", "Duplicate and Null", "Any value"],
+                answer: "Unique and NOT Null"
+            },
+            {
+                question: "Which normal form removes partial dependency?",
+                options: ["1NF", "2NF", "3NF", "BCNF"],
+                answer: "2NF"
+            },
+            {
+                question: "Which command is used to retrieve data from a database?",
+                options: ["GET", "SELECT", "FETCH", "RETRIEVE"],
+                answer: "SELECT"
+            },
+            {
+                question: "Which SQL command is used to create a table?",
+                options: ["MAKE", "CREATE", "BUILD", "NEW"],
+                answer: "CREATE"
+            },
+            {
+                question: "Which SQL command is used to remove a table permanently?",
+                options: ["DELETE", "REMOVE", "DROP", "CLEAR"],
+                answer: "DROP"
+            },
+            {
+                question: "Which SQL command is used to modify existing records?",
+                options: ["CHANGE", "UPDATE", "MODIFY", "ALTER"],
+                answer: "UPDATE"
+            },
+            {
+                question: "Which SQL command is used to add new records to a table?",
+                options: ["ADD", "INSERT", "APPEND", "CREATE"],
+                answer: "INSERT"
+            },
+            {
+                question: "Which SQL command is used to remove specific rows from a table?",
+                options: ["DROP", "DELETE", "REMOVE", "CLEAR"],
+                answer: "DELETE"
+            },
+            {
+                question: "Which clause is used to filter rows in SQL?",
+                options: ["FILTER", "WHERE", "HAVING", "ORDER"],
+                answer: "WHERE"
+            },
+            {
+                question: "Which clause is used to sort query results?",
+                options: ["SORT BY", "ORDER BY", "GROUP BY", "ARRANGE BY"],
+                answer: "ORDER BY"
+            },
+            {
+                question: "Which keyword is used to remove duplicate records from SELECT results?",
+                options: ["UNIQUE", "DISTINCT", "DIFFERENT", "ONLY"],
+                answer: "DISTINCT"
+            },
+            {
+                question: "Which function returns the number of rows?",
+                options: ["SUM()", "COUNT()", "TOTAL()", "NUMBER()"],
+                answer: "COUNT()"
+            },
+            {
+                question: "Which function returns the average value?",
+                options: ["AVG()", "AVERAGE()", "MEAN()", "MID()"],
+                answer: "AVG()"
+            },
+            {
+                question: "Which function returns the largest value?",
+                options: ["HIGH()", "MAX()", "LARGE()", "TOP()"],
+                answer: "MAX()"
+            },
+            {
+                question: "Which function returns the smallest value?",
+                options: ["MIN()", "LOW()", "SMALL()", "BOTTOM()"],
+                answer: "MIN()"
+            },
+            {
+                question: "Which function is used to calculate the total of numeric values?",
+                options: ["TOTAL()", "ADD()", "SUM()", "COUNT()"],
+                answer: "SUM()"
+            },
+            {
+                question: "Which key uniquely identifies each record in a table?",
+                options: ["Foreign Key", "Primary Key", "Candidate Key", "Composite Key"],
+                answer: "Primary Key"
+            },
+            {
+                question: "A foreign key is used to?",
+                options: [
+                    "Uniquely identify every table",
+                    "Create a relationship between tables",
+                    "Delete a database",
+                    "Sort records"
+                ],
+                answer: "Create a relationship between tables"
+            },
+            {
+                question: "Which key can contain duplicate values?",
+                options: ["Primary Key", "Foreign Key", "Candidate Key", "Super Key"],
+                answer: "Foreign Key"
+            },
+            {
+                question: "What is a candidate key?",
+                options: [
+                    "A key that can potentially become a primary key",
+                    "A key that always contains duplicate values",
+                    "A foreign key",
+                    "A key used only for sorting"
+                ],
+                answer: "A key that can potentially become a primary key"
+            },
+            {
+                question: "What is a composite key?",
+                options: [
+                    "A key containing only one attribute",
+                    "A key made up of two or more attributes",
+                    "A foreign key",
+                    "A nullable key"
+                ],
+                answer: "A key made up of two or more attributes"
+            },
+            {
+                question: "Which normal form removes repeating groups and ensures atomic values?",
+                options: ["1NF", "2NF", "3NF", "BCNF"],
+                answer: "1NF"
+            },
+            {
+                question: "Which normal form removes transitive dependency?",
+                options: ["1NF", "2NF", "3NF", "4NF"],
+                answer: "3NF"
+            },
+            {
+                question: "Which normal form is stricter than 3NF?",
+                options: ["1NF", "2NF", "BCNF", "5NF"],
+                answer: "BCNF"
+            },
+            {
+                question: "What is normalization in DBMS?",
+                options: [
+                    "Increasing data duplication",
+                    "Organizing data to reduce redundancy and dependency",
+                    "Deleting all duplicate tables",
+                    "Encrypting a database"
+                ],
+                answer: "Organizing data to reduce redundancy and dependency"
+            },
+            {
+                question: "What is denormalization?",
+                options: [
+                    "Adding controlled redundancy to improve performance",
+                    "Removing every column",
+                    "Deleting a database",
+                    "Converting SQL to NoSQL"
+                ],
+                answer: "Adding controlled redundancy to improve performance"
+            },
+            {
+                question: "Which SQL clause is used to group rows having the same values?",
+                options: ["GROUP BY", "ORDER BY", "WHERE", "HAVING"],
+                answer: "GROUP BY"
+            },
+            {
+                question: "Which clause is used to filter grouped records?",
+                options: ["WHERE", "FILTER", "HAVING", "GROUP"],
+                answer: "HAVING"
+            },
+            {
+                question: "Which JOIN returns only matching records from both tables?",
+                options: ["LEFT JOIN", "RIGHT JOIN", "INNER JOIN", "FULL JOIN"],
+                answer: "INNER JOIN"
+            },
+            {
+                question: "Which JOIN returns all records from the left table and matching records from the right table?",
+                options: ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "CROSS JOIN"],
+                answer: "LEFT JOIN"
+            },
+            {
+                question: "Which JOIN returns all records from the right table and matching records from the left table?",
+                options: ["LEFT JOIN", "RIGHT JOIN", "INNER JOIN", "SELF JOIN"],
+                answer: "RIGHT JOIN"
+            },
+            {
+                question: "Which JOIN produces the Cartesian product of two tables?",
+                options: ["INNER JOIN", "CROSS JOIN", "LEFT JOIN", "SELF JOIN"],
+                answer: "CROSS JOIN"
+            },
+            {
+                question: "What is a self join?",
+                options: [
+                    "Joining two databases",
+                    "Joining a table with itself",
+                    "Joining two columns only",
+                    "Joining only primary keys"
+                ],
+                answer: "Joining a table with itself"
+            },
+            {
+                question: "Which property of a transaction means that all operations are completed or none are?",
+                options: ["Consistency", "Atomicity", "Isolation", "Durability"],
+                answer: "Atomicity"
+            },
+            {
+                question: "Which ACID property ensures that committed data is not lost after a system failure?",
+                options: ["Atomicity", "Consistency", "Isolation", "Durability"],
+                answer: "Durability"
+            },
+            {
+                question: "Which ACID property ensures that concurrent transactions do not improperly interfere with each other?",
+                options: ["Atomicity", "Isolation", "Consistency", "Durability"],
+                answer: "Isolation"
+            },
+            {
+                question: "Which ACID property ensures that a transaction takes the database from one valid state to another?",
+                options: ["Consistency", "Atomicity", "Isolation", "Durability"],
+                answer: "Consistency"
+            },
+            {
+                question: "What is a transaction in DBMS?",
+                options: [
+                    "A group of operations treated as a single logical unit",
+                    "A database table",
+                    "A type of index",
+                    "A backup file"
+                ],
+                answer: "A group of operations treated as a single logical unit"
+            },
+            {
+                question: "Which command permanently saves a transaction?",
+                options: ["SAVE", "COMMIT", "STORE", "PERSIST"],
+                answer: "COMMIT"
+            },
+            {
+                question: "Which command undoes changes made by a transaction?",
+                options: ["UNDO", "ROLLBACK", "CANCEL", "REVERSE"],
+                answer: "ROLLBACK"
+            },
+            {
+                question: "What is an index in a database?",
+                options: [
+                    "A structure used to speed up data retrieval",
+                    "A backup of the database",
+                    "A type of primary key only",
+                    "A duplicate table"
+                ],
+                answer: "A structure used to speed up data retrieval"
+            },
+            {
+                question: "What is a view in DBMS?",
+                options: [
+                    "A physical copy of a table",
+                    "A virtual table based on a query",
+                    "A backup database",
+                    "A database index"
+                ],
+                answer: "A virtual table based on a query"
+            },
+            {
+                question: "Which SQL command is used to change the structure of an existing table?",
+                options: ["UPDATE", "MODIFY", "ALTER", "CHANGE"],
+                answer: "ALTER"
+            },
+            {
+                question: "Which constraint prevents NULL values in a column?",
+                options: ["UNIQUE", "NOT NULL", "CHECK", "DEFAULT"],
+                answer: "NOT NULL"
+            },
+
+
+            {
+                question: "What is a deadlock in DBMS?",
+                options: [
+                    "When two or more transactions wait indefinitely for each other",
+                    "When a table contains duplicate data",
+                    "When a query returns no rows",
+                    "When a database is deleted"
+                ],
+                answer: "When two or more transactions wait indefinitely for each other"
+            },
+            {
+                question: "ACID properties stand for Atomicity, Consistency, Isolation and?",
+                options: ["Durability", "Database", "Dependency", "Data"],
+                answer: "Durability"
+            },
+            {
+                question: "Foreign Key is used to establish?",
+                options: ["Encryption", "Relationship between tables", "Primary indexing", "Caching"],
+                answer: "Relationship between tables"
+            },
+            {
+                question: "Which level of database architecture is closest to users?",
+                options: ["Internal level", "Conceptual level", "External level", "Physical level"],
+                answer: "External level"
+            }
+        ],
+        sql: [
+            {
+                question: "Which SQL command is used to fetch data from a table?",
+                options: ["GET", "FETCH", "SELECT", "EXTRACT"],
+                answer: "SELECT"
+            },
+            {
+                question: "Which SQL clause is used to filter records?",
+                options: ["GROUP BY", "WHERE", "ORDER BY", "HAVING"],
+                answer: "WHERE"
+            },
+            {
+                question: "Which SQL command is used to fetch data from a table?",
+                options: ["GET", "FETCH", "SELECT", "EXTRACT"],
+                answer: "SELECT"
+            },
+            {
+                question: "Which SQL clause is used to filter records?",
+                options: ["GROUP BY", "WHERE", "ORDER BY", "HAVING"],
+                answer: "WHERE"
+            },
+            {
+                question: "Which SQL command is used to create a new table?",
+                options: ["MAKE", "CREATE", "NEW", "BUILD"],
+                answer: "CREATE"
+            },
+            {
+                question: "Which SQL command is used to add a new row?",
+                options: ["ADD", "INSERT", "UPDATE", "CREATE"],
+                answer: "INSERT"
+            },
+            {
+                question: "Which SQL command is used to modify existing data?",
+                options: ["CHANGE", "UPDATE", "MODIFY", "ALTER"],
+                answer: "UPDATE"
+            },
+            {
+                question: "Which SQL command is used to remove rows from a table?",
+                options: ["DROP", "DELETE", "REMOVE", "CLEAR"],
+                answer: "DELETE"
+            },
+            {
+                question: "Which command is used to remove an entire table?",
+                options: ["DELETE", "DROP", "REMOVE", "CLEAR"],
+                answer: "DROP"
+            },
+            {
+                question: "Which clause is used to sort query results?",
+                options: ["SORT BY", "ORDER BY", "GROUP BY", "ARRANGE BY"],
+                answer: "ORDER BY"
+            },
+            {
+                question: "Which keyword removes duplicate rows from the result?",
+                options: ["UNIQUE", "DISTINCT", "DIFFERENT", "ONLY"],
+                answer: "DISTINCT"
+            },
+            {
+                question: "Which SQL keyword is used to give a temporary name to a column or table?",
+                options: ["NAME", "AS", "ALIAS", "RENAME"],
+                answer: "AS"
+            },
+            {
+                question: "Which operator is used to check whether a value lies within a range?",
+                options: ["BETWEEN", "RANGE", "WITHIN", "IN"],
+                answer: "BETWEEN"
+            },
+            {
+                question: "Which operator is used to search for a specified pattern?",
+                options: ["LIKE", "MATCH", "SEARCH", "FIND"],
+                answer: "LIKE"
+            },
+            {
+                question: "Which wildcard represents any number of characters in SQL?",
+                options: ["_", "%", "*", "?"],
+                answer: "%"
+            },
+            {
+                question: "Which wildcard represents exactly one character in SQL?",
+                options: ["%", "_", "*", "?"],
+                answer: "_"
+            },
+            {
+                question: "Which operator is used to match a value against multiple possible values?",
+                options: ["IN", "ANY", "MATCH", "MULTI"],
+                answer: "IN"
+            },
+            {
+                question: "Which keyword is used to check for NULL values?",
+                options: ["= NULL", "IS NULL", "NULL =", "CHECK NULL"],
+                answer: "IS NULL"
+            },
+            {
+                question: "Which function returns the total number of rows?",
+                options: ["TOTAL()", "COUNT()", "NUMBER()", "ROWS()"],
+                answer: "COUNT()"
+            },
+            {
+                question: "Which aggregate function calculates the average?",
+                options: ["MEAN()", "AVG()", "AVERAGE()", "MID()"],
+                answer: "AVG()"
+            },
+            {
+                question: "Which aggregate function returns the highest value?",
+                options: ["HIGH()", "MAX()", "TOP()", "LARGE()"],
+                answer: "MAX()"
+            },
+            {
+                question: "Which aggregate function returns the lowest value?",
+                options: ["MIN()", "LOW()", "SMALL()", "BOTTOM()"],
+                answer: "MIN()"
+            },
+            {
+                question: "Which aggregate function calculates the total?",
+                options: ["ADD()", "SUM()", "TOTAL()", "COUNT()"],
+                answer: "SUM()"
+            },
+            {
+                question: "Which clause is used to group rows with the same values?",
+                options: ["GROUP BY", "ORDER BY", "WHERE", "HAVING"],
+                answer: "GROUP BY"
+            },
+            {
+                question: "Which clause is used to filter grouped results?",
+                options: ["WHERE", "HAVING", "FILTER", "GROUP"],
+                answer: "HAVING"
+            },
+            {
+                question: "Which JOIN returns only matching records from both tables?",
+                options: ["LEFT JOIN", "RIGHT JOIN", "INNER JOIN", "FULL JOIN"],
+                answer: "INNER JOIN"
+            },
+            {
+                question: "Which JOIN returns all records from the left table?",
+                options: ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "CROSS JOIN"],
+                answer: "LEFT JOIN"
+            },
+            {
+                question: "Which JOIN returns all records from the right table?",
+                options: ["LEFT JOIN", "RIGHT JOIN", "INNER JOIN", "CROSS JOIN"],
+                answer: "RIGHT JOIN"
+            },
+            {
+                question: "Which JOIN returns all records from both tables, including unmatched records?",
+                options: ["INNER JOIN", "LEFT JOIN", "FULL OUTER JOIN", "CROSS JOIN"],
+                answer: "FULL OUTER JOIN"
+            },
+            {
+                question: "Which JOIN produces the Cartesian product of two tables?",
+                options: ["INNER JOIN", "CROSS JOIN", "LEFT JOIN", "SELF JOIN"],
+                answer: "CROSS JOIN"
+            },
+            {
+                question: "What is a primary key?",
+                options: [
+                    "A key that uniquely identifies each row",
+                    "A key that allows duplicate values",
+                    "A key used only for sorting",
+                    "A key that always contains NULL"
+                ],
+                answer: "A key that uniquely identifies each row"
+            },
+            {
+                question: "What is a foreign key?",
+                options: [
+                    "A key used to create relationships between tables",
+                    "A key that must always be unique",
+                    "A temporary key",
+                    "A key used only for sorting"
+                ],
+                answer: "A key used to create relationships between tables"
+            },
+            {
+                question: "Which constraint prevents NULL values?",
+                options: ["UNIQUE", "NOT NULL", "CHECK", "DEFAULT"],
+                answer: "NOT NULL"
+            },
+            {
+                question: "Which constraint ensures that values are not duplicated?",
+                options: ["UNIQUE", "CHECK", "DEFAULT", "NOT NULL"],
+                answer: "UNIQUE"
+            },
+            {
+                question: "Which constraint is used to enforce a condition on a column?",
+                options: ["CHECK", "UNIQUE", "DEFAULT", "INDEX"],
+                answer: "CHECK"
+            },
+            {
+                question: "Which constraint provides a value automatically when no value is specified?",
+                options: ["AUTO", "DEFAULT", "VALUE", "SET"],
+                answer: "DEFAULT"
+            },
+            {
+                question: "Which command is used to modify the structure of an existing table?",
+                options: ["UPDATE", "ALTER", "CHANGE", "MODIFY"],
+                answer: "ALTER"
+            },
+            {
+                question: "Which SQL command is used to remove all rows while keeping the table structure?",
+                options: ["DROP", "DELETE", "TRUNCATE", "REMOVE"],
+                answer: "TRUNCATE"
+            },
+            {
+                question: "Which command is generally considered a DDL command?",
+                options: ["SELECT", "INSERT", "CREATE", "UPDATE"],
+                answer: "CREATE"
+            },
+            {
+                question: "Which command is generally considered a DML command?",
+                options: ["CREATE", "ALTER", "INSERT", "DROP"],
+                answer: "INSERT"
+            },
+            {
+                question: "Which command is used to permanently save a transaction?",
+                options: ["SAVE", "COMMIT", "STORE", "CONFIRM"],
+                answer: "COMMIT"
+            },
+            {
+                question: "Which command is used to undo changes made during a transaction?",
+                options: ["UNDO", "ROLLBACK", "REVERSE", "CANCEL"],
+                answer: "ROLLBACK"
+            },
+            {
+                question: "Which SQL statement is used to create a view?",
+                options: ["CREATE VIEW", "MAKE VIEW", "NEW VIEW", "VIEW CREATE"],
+                answer: "CREATE VIEW"
+            },
+            {
+                question: "What is a view in SQL?",
+                options: [
+                    "A virtual table based on a query",
+                    "A physical copy of a table",
+                    "A database backup",
+                    "An index"
+                ],
+                answer: "A virtual table based on a query"
+            },
+            {
+                question: "Which SQL feature is primarily used to improve data retrieval speed?",
+                options: ["View", "Index", "Trigger", "Cursor"],
+                answer: "Index"
+            },
+            {
+                question: "What is a subquery?",
+                options: [
+                    "A query written inside another query",
+                    "A query that deletes a database",
+                    "A query without a table",
+                    "A query that only uses indexes"
+                ],
+                answer: "A query written inside another query"
+            },
+            {
+                question: "Which operator can compare a value with the result of a subquery that returns multiple rows?",
+                options: ["IN", "=", "AS", "LIKE"],
+                answer: "IN"
+            },
+
+            {
+                question: "Which SQL join returns all rows from both tables?",
+                options: ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL OUTER JOIN"],
+                answer: "FULL OUTER JOIN"
+            },
+            {
+                question: "Which function counts the number of rows in SQL?",
+                options: ["SUM()", "COUNT()", "TOTAL()", "NUMBER()"],
+                answer: "COUNT()"
+            },
+            {
+                question: "Which command is used to remove a table along with its structure?",
+                options: ["DELETE", "TRUNCATE", "DROP", "REMOVE"],
+                answer: "DROP"
+            }
+        ],
+        operating_system: [
+            {
+                question: "Which condition is NOT required for Deadlock?",
+                options: ["Mutual Exclusion", "Hold and Wait", "Preemption", "Circular Wait"],
+                answer: "Preemption"
+            },
+            {
+                question: "Thrashing occurs due to excessive?",
+                options: ["CPU utilization", "Page faults", "I/O waiting", "Disk space"],
+                answer: "Page faults"
+            },
+            {
+                question: "Which CPU scheduling algorithm gives lowest average waiting time?",
+                options: ["FCFS", "SJF", "Round Robin", "Priority"],
+                answer: "SJF"
+            },
+            {
+                question: "What is the main function of an operating system?",
+                options: ["Manage hardware and software resources", "Compile programs", "Design websites", "Create databases"],
+                answer: "Manage hardware and software resources"
+            },
+            {
+                question: "Which of the following is an example of an operating system?",
+                options: ["Oracle", "Linux", "Python", "MySQL"],
+                answer: "Linux"
+            },
+            {
+                question: "A program in execution is called?",
+                options: ["Process", "File", "Thread", "Compiler"],
+                answer: "Process"
+            },
+            {
+                question: "Which scheduling algorithm works on First Come First Serve basis?",
+                options: ["FCFS", "SJF", "Round Robin", "Priority"],
+                answer: "FCFS"
+            },
+            {
+                question: "Which CPU scheduling algorithm gives lowest average waiting time?",
+                options: ["FCFS", "SJF", "Round Robin", "Priority"],
+                answer: "SJF"
+            },
+            {
+                question: "What is a thread?",
+                options: ["Heavyweight process", "Lightweight process", "Virtual memory page", "Interrupt handler"],
+                answer: "Lightweight process"
+            },
+            {
+                question: "Which scheduling algorithm uses a time quantum?",
+                options: ["FCFS", "SJF", "Round Robin", "FIFO"],
+                answer: "Round Robin"
+            },
+            {
+                question: "Which of the following is a process state?",
+                options: ["Ready", "Compile", "Execute", "Delete"],
+                answer: "Ready"
+            },
+            {
+                question: "Which component of OS manages processes?",
+                options: ["Process Manager", "Compiler", "Loader", "Assembler"],
+                answer: "Process Manager"
+            },
+            {
+                question: "What is multitasking?",
+                options: ["Running multiple programs seemingly at the same time", "Running only one program", "Deleting multiple programs", "Installing multiple OS"],
+                answer: "Running multiple programs seemingly at the same time"
+            },
+            {
+                question: "Which data structure is used to implement a process queue?",
+                options: ["Queue", "Stack", "Tree", "Graph"],
+                answer: "Queue"
+            },
+            {
+                question: "What is context switching?",
+                options: ["Switching between processes or threads", "Changing the operating system", "Changing the CPU", "Changing a file name"],
+                answer: "Switching between processes or threads"
+            },
+            {
+                question: "Which scheduling algorithm may cause starvation?",
+                options: ["Priority Scheduling", "FCFS", "Round Robin", "FIFO"],
+                answer: "Priority Scheduling"
+            },
+            {
+                question: "What is starvation in operating systems?",
+                options: ["A process waits indefinitely for CPU or resources", "CPU stops permanently", "Memory becomes empty", "Process terminates normally"],
+                answer: "A process waits indefinitely for CPU or resources"
+            },
+            {
+                question: "Which technique can help prevent starvation?",
+                options: ["Aging", "Paging", "Spooling", "Fragmentation"],
+                answer: "Aging"
+            },
+
+            {
+                question: "What is deadlock?",
+                options: ["Processes waiting indefinitely for resources", "CPU executing normally", "Memory allocation", "Process termination"],
+                answer: "Processes waiting indefinitely for resources"
+            },
+            {
+                question: "How many necessary conditions must hold for deadlock to occur?",
+                options: ["2", "3", "4", "5"],
+                answer: "4"
+            },
+            {
+                question: "Which is NOT a necessary condition for deadlock?",
+                options: ["Mutual Exclusion", "Hold and Wait", "Circular Wait", "Preemption"],
+                answer: "Preemption"
+            },
+            {
+                question: "Which condition means a resource cannot be shared simultaneously?",
+                options: ["Mutual Exclusion", "Hold and Wait", "No Preemption", "Circular Wait"],
+                answer: "Mutual Exclusion"
+            },
+            {
+                question: "Which algorithm is used for deadlock avoidance?",
+                options: ["Banker's Algorithm", "FCFS", "Round Robin", "FIFO"],
+                answer: "Banker's Algorithm"
+            },
+            {
+                question: "What is a semaphore?",
+                options: ["Synchronization mechanism", "CPU scheduling algorithm", "Memory unit", "File system"],
+                answer: "Synchronization mechanism"
+            },
+            {
+                question: "Which problem is associated with process synchronization?",
+                options: ["Critical Section Problem", "Compilation Problem", "Loading Problem", "Booting Problem"],
+                answer: "Critical Section Problem"
+            },
+            {
+                question: "What is a critical section?",
+                options: ["Part of program accessing shared resources", "Part of RAM", "CPU register", "Hard disk partition"],
+                answer: "Part of program accessing shared resources"
+            },
+            {
+                question: "Which mechanism is commonly used to provide mutual exclusion?",
+                options: ["Mutex", "Compiler", "Loader", "Cache"],
+                answer: "Mutex"
+            },
+
+            {
+                question: "What is paging in operating systems?",
+                options: ["Memory management technique", "CPU scheduling technique", "File compression technique", "Process termination technique"],
+                answer: "Memory management technique"
+            },
+            {
+                question: "In paging, physical memory is divided into?",
+                options: ["Frames", "Pages", "Segments", "Blocks only"],
+                answer: "Frames"
+            },
+            {
+                question: "In paging, logical memory is divided into?",
+                options: ["Pages", "Frames", "Sectors", "Tracks"],
+                answer: "Pages"
+            },
+            {
+                question: "What is virtual memory?",
+                options: ["Technique that allows execution of programs larger than physical memory", "Extra CPU", "Cache memory", "ROM"],
+                answer: "Technique that allows execution of programs larger than physical memory"
+            },
+            {
+                question: "Which technique is commonly used to implement virtual memory?",
+                options: ["Demand Paging", "FCFS", "Round Robin", "Spooling"],
+                answer: "Demand Paging"
+            },
+            {
+                question: "What is a page fault?",
+                options: ["Required page is not present in main memory", "Page is deleted", "CPU stops", "File is corrupted"],
+                answer: "Required page is not present in main memory"
+            },
+            {
+                question: "Which page replacement algorithm removes the page that has not been used for the longest time?",
+                options: ["FIFO", "LRU", "Optimal", "FCFS"],
+                answer: "LRU"
+            },
+            {
+                question: "Which page replacement algorithm replaces the oldest loaded page?",
+                options: ["FIFO", "LRU", "Optimal", "SJF"],
+                answer: "FIFO"
+            },
+            {
+                question: "Which page replacement algorithm theoretically gives the minimum number of page faults?",
+                options: ["FIFO", "LRU", "Optimal", "Round Robin"],
+                answer: "Optimal"
+            },
+            {
+                question: "What is thrashing?",
+                options: ["Excessive paging activity", "CPU overheating", "File deletion", "Process creation"],
+                answer: "Excessive paging activity"
+            },
+
+            {
+                question: "What is fragmentation?",
+                options: ["Wastage of memory space", "CPU scheduling", "Process synchronization", "File encryption"],
+                answer: "Wastage of memory space"
+            },
+            {
+                question: "External fragmentation occurs when?",
+                options: ["Free memory is scattered into small blocks", "Memory is completely full", "CPU is idle", "Pages are missing"],
+                answer: "Free memory is scattered into small blocks"
+            },
+            {
+                question: "Which memory allocation method suffers mainly from external fragmentation?",
+                options: ["Contiguous Allocation", "Paging", "Pure Segmentation", "Virtual Memory"],
+                answer: "Contiguous Allocation"
+            },
+            {
+                question: "Which memory management technique eliminates external fragmentation?",
+                options: ["Paging", "Contiguous Allocation", "Fixed Partitioning", "FCFS"],
+                answer: "Paging"
+            },
+
+            {
+                question: "What is a system call?",
+                options: ["Interface between user program and operating system", "CPU instruction only", "Database query", "Compiler command"],
+                answer: "Interface between user program and operating system"
+            },
+            {
+                question: "Which system call is commonly used to create a new process in Unix/Linux?",
+                options: ["fork()", "create()", "new()", "process()"],
+                answer: "fork()"
+            },
+            {
+                question: "Which system call replaces the current process image with a new program?",
+                options: ["exec()", "fork()", "wait()", "exit()"],
+                answer: "exec()"
+            },
+            {
+                question: "What is a zombie process?",
+                options: ["Terminated process whose entry remains in the process table", "Running process", "Blocked process", "Newly created process"],
+                answer: "Terminated process whose entry remains in the process table"
+            },
+            {
+                question: "What is an orphan process?",
+                options: ["Process whose parent has terminated", "Process waiting for CPU", "Process with no memory", "Terminated process"],
+                answer: "Process whose parent has terminated"
+            },
+            {
+                question: "Which file allocation method stores files using a linked list of disk blocks?",
+                options: ["Linked Allocation", "Contiguous Allocation", "Indexed Allocation", "Paging"],
+                answer: "Linked Allocation"
+            },
+            {
+                question: "Which disk scheduling algorithm services requests in the order they arrive?",
+                options: ["FCFS", "SSTF", "SCAN", "C-SCAN"],
+                answer: "FCFS"
+            },
+
+            {
+                question: "What is a thread?",
+                options: ["Heavyweight process", "Lightweight process", "Virtual memory page", "Interrupt handler"],
+                answer: "Lightweight process"
+            },
+            {
+                question: "Banker's Algorithm is used for Deadlock?",
+                options: ["Prevention", "Avoidance", "Detection", "Recovery"],
+                answer: "Avoidance"
+            }
+        ],
+        computer_network: [
+            {
+                question: "How many layers are in the OSI model?",
+                options: ["5", "6", "7", "8"],
+                answer: "7"
+            },
+            {
+                question: "HTTP works on which OSI layer?",
+                options: ["Network", "Transport", "Session", "Application"],
+                answer: "Application"
+            },
+            {
+                question: "Port number of HTTPS is?",
+                options: ["80", "21", "443", "25"],
+                answer: "443"
+            },
+            {
+                question: "What is the full form of LAN?",
+                options: ["Local Area Network", "Large Area Network", "Logical Area Network", "Long Area Network"],
+                answer: "Local Area Network"
+            },
+            {
+                question: "Which device is used to connect different networks?",
+                options: ["Hub", "Router", "Repeater", "Switch"],
+                answer: "Router"
+            },
+            {
+                question: "Which protocol is used to transfer web pages?",
+                options: ["FTP", "HTTP", "SMTP", "SNMP"],
+                answer: "HTTP"
+            },
+            {
+                question: "Which protocol is used to send emails?",
+                options: ["FTP", "SMTP", "HTTP", "ARP"],
+                answer: "SMTP"
+            },
+            {
+                question: "Which protocol is used to receive emails?",
+                options: ["POP3", "HTTP", "FTP", "ARP"],
+                answer: "POP3"
+            },
+            {
+                question: "What is the full form of IP?",
+                options: ["Internet Protocol", "Internet Process", "Internal Protocol", "Interface Protocol"],
+                answer: "Internet Protocol"
+            },
+            {
+                question: "Which device forwards packets based on MAC addresses?",
+                options: ["Router", "Switch", "Modem", "Repeater"],
+                answer: "Switch"
+            },
+            {
+                question: "Which device broadcasts data to all connected ports?",
+                options: ["Switch", "Router", "Hub", "Gateway"],
+                answer: "Hub"
+            },
+            {
+                question: "HTTP works on which OSI layer?",
+                options: ["Network", "Transport", "Session", "Application"],
+                answer: "Application"
+            },
+            {
+                question: "Port number of HTTPS is?",
+                options: ["80", "21", "443", "25"],
+                answer: "443"
+            },
+            {
+                question: "Port number of HTTP is?",
+                options: ["20", "21", "80", "443"],
+                answer: "80"
+            },
+            {
+                question: "Which protocol is used for file transfer?",
+                options: ["FTP", "SMTP", "HTTP", "DNS"],
+                answer: "FTP"
+            },
+            {
+                question: "Which protocol translates domain names into IP addresses?",
+                options: ["DHCP", "DNS", "FTP", "ARP"],
+                answer: "DNS"
+            },
+            {
+                question: "Which protocol automatically assigns IP addresses to devices?",
+                options: ["DNS", "DHCP", "HTTP", "ICMP"],
+                answer: "DHCP"
+            },
+
+            {
+                question: "How many layers are present in the OSI model?",
+                options: ["5", "6", "7", "8"],
+                answer: "7"
+            },
+            {
+                question: "Which is the lowest layer of the OSI model?",
+                options: ["Data Link", "Network", "Physical", "Transport"],
+                answer: "Physical"
+            },
+            {
+                question: "Which OSI layer is responsible for routing?",
+                options: ["Data Link", "Network", "Transport", "Session"],
+                answer: "Network"
+            },
+            {
+                question: "Which OSI layer provides end-to-end communication?",
+                options: ["Physical", "Data Link", "Transport", "Network"],
+                answer: "Transport"
+            },
+            {
+                question: "Which layer is responsible for MAC addressing?",
+                options: ["Physical", "Data Link", "Network", "Transport"],
+                answer: "Data Link"
+            },
+            {
+                question: "Which protocol is connection-oriented?",
+                options: ["UDP", "TCP", "IP", "ICMP"],
+                answer: "TCP"
+            },
+            {
+                question: "Which protocol is connectionless?",
+                options: ["TCP", "UDP", "HTTP", "FTP"],
+                answer: "UDP"
+            },
+            {
+                question: "Which protocol provides reliable data delivery?",
+                options: ["UDP", "IP", "TCP", "ARP"],
+                answer: "TCP"
+            },
+            {
+                question: "What is the size of an IPv4 address?",
+                options: ["16 bits", "32 bits", "64 bits", "128 bits"],
+                answer: "32 bits"
+            },
+            {
+                question: "What is the size of an IPv6 address?",
+                options: ["32 bits", "64 bits", "128 bits", "256 bits"],
+                answer: "128 bits"
+            },
+            {
+                question: "Which protocol maps an IP address to a MAC address?",
+                options: ["DNS", "ARP", "DHCP", "ICMP"],
+                answer: "ARP"
+            },
+            {
+                question: "Which protocol is commonly used to report network errors?",
+                options: ["ICMP", "FTP", "SMTP", "ARP"],
+                answer: "ICMP"
+            },
+            {
+                question: "What does URL stand for?",
+                options: ["Uniform Resource Locator", "Universal Resource Link", "Uniform Routing Link", "Universal Resource Locator"],
+                answer: "Uniform Resource Locator"
+            },
+            {
+                question: "What is the default port number of FTP control connection?",
+                options: ["20", "21", "22", "23"],
+                answer: "21"
+            },
+            {
+                question: "Which protocol is used for secure remote login?",
+                options: ["FTP", "SSH", "HTTP", "SMTP"],
+                answer: "SSH"
+            },
+            {
+                question: "What is the main purpose of a subnet mask?",
+                options: ["Identify network and host portions of an IP address", "Encrypt packets", "Assign MAC addresses", "Control CPU access"],
+                answer: "Identify network and host portions of an IP address"
+            },
+
+            {
+                question: "Which TCP/IP layer is responsible for routing packets?",
+                options: ["Application", "Transport", "Internet", "Network Access"],
+                answer: "Internet"
+            },
+            {
+                question: "What is the purpose of TCP three-way handshake?",
+                options: ["Terminate a connection", "Establish a connection", "Encrypt data", "Assign an IP address"],
+                answer: "Establish a connection"
+            },
+            {
+                question: "Which messages are exchanged during TCP connection establishment?",
+                options: ["SYN, SYN-ACK, ACK", "FIN, ACK, RST", "GET, POST, PUT", "ARP, DNS, DHCP"],
+                answer: "SYN, SYN-ACK, ACK"
+            },
+            {
+                question: "Which TCP mechanism controls the amount of data sent before receiving acknowledgements?",
+                options: ["Flow Control", "DNS", "ARP", "Routing"],
+                answer: "Flow Control"
+            },
+            {
+                question: "Which mechanism prevents a sender from overwhelming the network?",
+                options: ["Congestion Control", "Address Resolution", "DNS", "Fragmentation"],
+                answer: "Congestion Control"
+            },
+            {
+                question: "Which routing protocol is a distance-vector routing protocol?",
+                options: ["RIP", "OSPF", "BGP", "Ethernet"],
+                answer: "RIP"
+            },
+            {
+                question: "Which routing protocol uses Dijkstra's shortest path algorithm?",
+                options: ["RIP", "OSPF", "FTP", "SMTP"],
+                answer: "OSPF"
+            },
+            {
+                question: "Which protocol is mainly used for routing between autonomous systems on the Internet?",
+                options: ["RIP", "OSPF", "BGP", "ARP"],
+                answer: "BGP"
+            },
+            {
+                question: "What is the main purpose of NAT?",
+                options: ["Translate private IP addresses to public IP addresses", "Encrypt packets", "Resolve domain names", "Detect viruses"],
+                answer: "Translate private IP addresses to public IP addresses"
+            },
+            {
+                question: "Which technique divides a network into smaller logical networks?",
+                options: ["Subnetting", "Broadcasting", "Encapsulation", "Multiplexing"],
+                answer: "Subnetting"
+            },
+            {
+                question: "What is a MAC address?",
+                options: ["Logical address of a network", "Physical hardware address of a network interface", "Domain name", "Port number"],
+                answer: "Physical hardware address of a network interface"
+            },
+            {
+                question: "Which IPv4 address is used for localhost?",
+                options: ["192.168.1.1", "127.0.0.1", "10.0.0.1", "255.255.255.255"],
+                answer: "127.0.0.1"
+            },
+            {
+                question: "Which address represents an IPv4 broadcast address?",
+                options: ["0.0.0.0", "127.0.0.1", "255.255.255.255", "192.168.0.1"],
+                answer: "255.255.255.255"
+            },
+            {
+                question: "What is packet switching?",
+                options: ["Data is divided into packets before transmission", "Data is always sent as one continuous block", "Only voice data is transmitted", "Data is stored permanently"],
+                answer: "Data is divided into packets before transmission"
+            },
+            {
+                question: "What is packet switching?",
+                options: ["Data is divided into packets before transmission", "Data is always sent as one continuous block", "Only voice data is transmitted", "Data is stored permanently"],
+                answer: "Data is divided into packets before transmission"
+            },
+            {
+                question: "IP Address (IPv4) length is?",
+                options: ["16 bits", "32 bits", "64 bits", "128 bits"],
+                answer: "32 bits"
+            },
+            {
+                question: "Which protocol is connection-oriented?",
+                options: ["UDP", "TCP", "IP", "ICMP"],
+                answer: "TCP"
+            }
+        ],
+        data_structure: [
+            {
+                question: "Which data structure follows LIFO principle?",
+                options: ["Queue", "Stack", "Array", "Linked List"],
+                answer: "Stack"
+            },
+            {
+                question: "Time complexity of Binary Search in best case is?",
+                options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
+                answer: "O(1)"
+            },
+            {
+                question: "Which data structure uses pointers to link nodes?",
+                options: ["Array", "Linked List", "Stack (Array based)", "Queue (Array based)"],
+                answer: "Linked List"
+            },
+            {
+                question: "A Queue works on which principle?",
+                options: ["LIFO", "FIFO", "FILO", "Random"],
+                answer: "FIFO"
+            },
+            {
+                question: "Height of a balanced binary tree with N nodes is?",
+                options: ["O(1)", "O(N)", "O(log N)", "O(N^2)"],
+                answer: "O(log N)"
+            },
+            {
+                question: "A Queue works on which principle?",
+                options: ["LIFO", "FIFO", "FILO", "Random"],
+                answer: "FIFO"
+            },
+            {
+                question: "A Stack works on which principle?",
+                options: ["FIFO", "LIFO", "FCFS", "Random"],
+                answer: "LIFO"
+            },
+            {
+                question: "Which data structure is used for function call management?",
+                options: ["Queue", "Stack", "Graph", "Heap"],
+                answer: "Stack"
+            },
+            {
+                question: "Which data structure is commonly used in Breadth First Search (BFS)?",
+                options: ["Stack", "Queue", "Heap", "Array"],
+                answer: "Queue"
+            },
+            {
+                question: "Which data structure is commonly used in Depth First Search (DFS)?",
+                options: ["Queue", "Stack", "Heap", "Hash Table"],
+                answer: "Stack"
+            },
+            {
+                question: "Which data structure stores elements in contiguous memory locations?",
+                options: ["Linked List", "Array", "Tree", "Graph"],
+                answer: "Array"
+            },
+            {
+                question: "Which data structure allows insertion and deletion from both ends?",
+                options: ["Stack", "Deque", "Priority Queue", "Binary Tree"],
+                answer: "Deque"
+            },
+            {
+                question: "Which data structure is best suited for implementing undo operations?",
+                options: ["Queue", "Stack", "Graph", "Heap"],
+                answer: "Stack"
+            },
+            {
+                question: "In a singly linked list, each node contains?",
+                options: ["Only data", "Data and a pointer to the next node", "Only pointer", "Two parent pointers"],
+                answer: "Data and a pointer to the next node"
+            },
+            {
+                question: "What is the time complexity of accessing an element by index in an array?",
+                options: ["O(1)", "O(log N)", "O(N)", "O(N^2)"],
+                answer: "O(1)"
+            },
+            {
+                question: "What is the average time complexity of searching in a hash table?",
+                options: ["O(1)", "O(log N)", "O(N)", "O(N^2)"],
+                answer: "O(1)"
+            },
+            {
+                question: "Which data structure is used to represent hierarchical relationships?",
+                options: ["Array", "Queue", "Tree", "Stack"],
+                answer: "Tree"
+            },
+            {
+                question: "What is the root node of a tree?",
+                options: ["Node with no children", "Topmost node", "Bottommost node", "Node with two children"],
+                answer: "Topmost node"
+            },
+            {
+                question: "A tree with N nodes contains how many edges?",
+                options: ["N", "N-1", "N+1", "2N"],
+                answer: "N-1"
+            },
+            {
+                question: "Height of a balanced binary tree with N nodes is?",
+                options: ["O(1)", "O(N)", "O(log N)", "O(N^2)"],
+                answer: "O(log N)"
+            },
+
+            {
+                question: "In a Binary Search Tree, values smaller than the root are generally stored in which subtree?",
+                options: ["Right subtree", "Left subtree", "Both subtrees", "None"],
+                answer: "Left subtree"
+            },
+            {
+                question: "Which traversal of a BST gives elements in sorted order?",
+                options: ["Preorder", "Postorder", "Inorder", "Level order"],
+                answer: "Inorder"
+            },
+            {
+                question: "Which traversal visits Root, Left, Right?",
+                options: ["Inorder", "Preorder", "Postorder", "Level order"],
+                answer: "Preorder"
+            },
+            {
+                question: "Which traversal visits Left, Right, Root?",
+                options: ["Preorder", "Inorder", "Postorder", "Level order"],
+                answer: "Postorder"
+            },
+            {
+                question: "Which traversal visits nodes level by level?",
+                options: ["Preorder", "Inorder", "Postorder", "Level Order"],
+                answer: "Level Order"
+            },
+            {
+                question: "What is the maximum number of children a binary tree node can have?",
+                options: ["1", "2", "3", "Unlimited"],
+                answer: "2"
+            },
+            {
+                question: "Which data structure is commonly used to implement a priority queue efficiently?",
+                options: ["Heap", "Stack", "Linked List", "Graph"],
+                answer: "Heap"
+            },
+            {
+                question: "Which heap is commonly used to implement a min-priority queue?",
+                options: ["Max Heap", "Min Heap", "Binary Search Tree", "Stack"],
+                answer: "Min Heap"
+            },
+            {
+                question: "In a max heap, the root contains?",
+                options: ["Minimum element", "Maximum element", "Middle element", "Random element"],
+                answer: "Maximum element"
+            },
+            {
+                question: "Which data structure is used to represent relationships between connected entities?",
+                options: ["Array", "Graph", "Stack", "Queue"],
+                answer: "Graph"
+            },
+            {
+                question: "A graph consists mainly of?",
+                options: ["Nodes and Edges", "Arrays and Indexes", "Stacks and Queues", "Keys and Values"],
+                answer: "Nodes and Edges"
+            },
+            {
+                question: "Which algorithm is used to find the shortest path from a source in a graph with non-negative edge weights?",
+                options: ["Dijkstra's Algorithm", "DFS", "Binary Search", "Merge Sort"],
+                answer: "Dijkstra's Algorithm"
+            },
+            {
+                question: "Which algorithm is used to find a minimum spanning tree?",
+                options: ["Kruskal's Algorithm", "Binary Search", "DFS only", "Quick Sort"],
+                answer: "Kruskal's Algorithm"
+            },
+            {
+                question: "Which algorithm is another popular algorithm for finding a Minimum Spanning Tree?",
+                options: ["Prim's Algorithm", "BFS", "Heap Sort", "Binary Search"],
+                answer: "Prim's Algorithm"
+            },
+
+            {
+                question: "What is the time complexity of Binary Search on a sorted array?",
+                options: ["O(1)", "O(log N)", "O(N)", "O(N^2)"],
+                answer: "O(log N)"
+            },
+            {
+                question: "Binary Search requires the data to be?",
+                options: ["Unsorted", "Sorted", "Random", "Duplicated"],
+                answer: "Sorted"
+            },
+            {
+                question: "What is the worst-case time complexity of Linear Search?",
+                options: ["O(1)", "O(log N)", "O(N)", "O(N log N)"],
+                answer: "O(N)"
+            },
+            {
+                question: "What is the average time complexity of Quick Sort?",
+                options: ["O(1)", "O(log N)", "O(N)", "O(N log N)"],
+                answer: "O(N log N)"
+            },
+            {
+                question: "What is the worst-case time complexity of Quick Sort?",
+                options: ["O(N)", "O(log N)", "O(N log N)", "O(N^2)"],
+                answer: "O(N^2)"
+            },
+            {
+                question: "What is the time complexity of Merge Sort?",
+                options: ["O(N)", "O(log N)", "O(N log N)", "O(N^2)"],
+                answer: "O(N log N)"
+            },
+            {
+                question: "Which sorting algorithm repeatedly selects the minimum element?",
+                options: ["Bubble Sort", "Selection Sort", "Merge Sort", "Quick Sort"],
+                answer: "Selection Sort"
+            },
+            {
+                question: "Which sorting algorithm compares adjacent elements and swaps them when required?",
+                options: ["Bubble Sort", "Selection Sort", "Merge Sort", "Heap Sort"],
+                answer: "Bubble Sort"
+            },
+            {
+                question: "Which sorting algorithm is generally efficient for nearly sorted data?",
+                options: ["Insertion Sort", "Selection Sort", "Heap Sort", "Counting Sort"],
+                answer: "Insertion Sort"
+            },
+            {
+                question: "Which sorting algorithm uses divide and conquer by selecting a pivot?",
+                options: ["Merge Sort", "Quick Sort", "Bubble Sort", "Selection Sort"],
+                answer: "Quick Sort"
+            },
+
+            {
+                question: "What is recursion?",
+                options: ["A function calling itself", "A loop only", "Sorting technique", "Memory allocation"],
+                answer: "A function calling itself"
+            },
+            {
+                question: "Which data structure is internally used to manage recursive function calls?",
+                options: ["Queue", "Stack", "Heap", "Graph"],
+                answer: "Stack"
+            },
+            {
+                question: "What is the main purpose of a base case in recursion?",
+                options: ["To stop recursive calls", "To increase recursion", "To sort data", "To create a graph"],
+                answer: "To stop recursive calls"
+            },
+            {
+                question: "What is collision in hashing?",
+                options: ["Two keys map to the same hash index", "A key is deleted", "Table becomes empty", "Hash function stops"],
+                answer: "Two keys map to the same hash index"
+            },
+            {
+                question: "Which technique is used to handle collisions in hash tables?",
+                options: ["Chaining", "Recursion", "Binary Search", "DFS"],
+                answer: "Chaining"
+            },
+            {
+                question: "What does Big-O notation describe?",
+                options: ["Growth rate of algorithm complexity", "Program output", "Memory address", "Programming language"],
+                answer: "Growth rate of algorithm complexity"
+            }
+
+
+        ],
+        oops: [
+            {
+                question: "Wrapping up of data and functions into a single unit is called?",
+                options: ["Abstraction", "Encapsulation", "Inheritance", "Polymorphism"],
+                answer: "Encapsulation"
+            },
+            {
+                question: "Hiding internal implementation details and showing essential features is?",
+                options: ["Abstraction", "Encapsulation", "Polymorphism", "Overloading"],
+                answer: "Abstraction"
+            },
+            {
+                question: "Ability of a message to be displayed in more than one form is?",
+                options: ["Inheritance", "Polymorphism", "Binding", "Coupling"],
+                answer: "Polymorphism"
+            },
+            {
+                question: "Ability of a message to be displayed in more than one form is?",
+                options: ["Inheritance", "Polymorphism", "Binding", "Coupling"],
+                answer: "Polymorphism"
+            },
+            {
+                question: "What does OOP stand for?",
+                options: ["Object Oriented Programming", "Object Organized Program", "Object Operating Process", "Oriented Object Programming"],
+                answer: "Object Oriented Programming"
+            },
+            {
+                question: "Which of the following is a fundamental concept of OOP?",
+                options: ["Encapsulation", "Compilation", "Execution", "Linking"],
+                answer: "Encapsulation"
+            },
+            {
+                question: "Which concept combines data and methods into a single unit?",
+                options: ["Inheritance", "Encapsulation", "Polymorphism", "Abstraction"],
+                answer: "Encapsulation"
+            },
+            {
+                question: "What is an object?",
+                options: ["Instance of a class", "A data type only", "A function only", "A compiler"],
+                answer: "Instance of a class"
+            },
+            {
+                question: "What is a class?",
+                options: ["Blueprint for creating objects", "An operating system", "A database", "A loop"],
+                answer: "Blueprint for creating objects"
+            },
+            {
+                question: "Which OOP concept allows a class to acquire properties of another class?",
+                options: ["Inheritance", "Encapsulation", "Abstraction", "Overloading"],
+                answer: "Inheritance"
+            },
+            {
+                question: "Which OOP concept hides unnecessary implementation details?",
+                options: ["Abstraction", "Inheritance", "Polymorphism", "Overloading"],
+                answer: "Abstraction"
+            },
+            {
+                question: "Which keyword is commonly used to create an object in Java?",
+                options: ["class", "new", "object", "create"],
+                answer: "new"
+            },
+            {
+                question: "Which method is automatically called when an object is created in Java?",
+                options: ["Destructor", "Constructor", "Main method", "Finalize method"],
+                answer: "Constructor"
+            },
+            {
+                question: "A constructor has the same name as?",
+                options: ["Package", "Class", "Object", "Method"],
+                answer: "Class"
+            },
+            {
+                question: "Which keyword refers to the current object in Java?",
+                options: ["self", "this", "current", "object"],
+                answer: "this"
+            },
+            {
+                question: "Which keyword is used to refer to the parent class in Java?",
+                options: ["parent", "super", "base", "this"],
+                answer: "super"
+            },
+            {
+                question: "Which access modifier provides the highest level of restriction in Java?",
+                options: ["public", "protected", "private", "default"],
+                answer: "private"
+            },
+            {
+                question: "Which access modifier allows access from anywhere?",
+                options: ["private", "protected", "public", "default"],
+                answer: "public"
+            },
+
+            {
+                question: "What is method overloading?",
+                options: ["Same method name with different parameters", "Same method with same parameters", "Overriding a class", "Hiding a method"],
+                answer: "Same method name with different parameters"
+            },
+            {
+                question: "What is method overriding?",
+                options: ["Defining a method in child class with same signature as parent method", "Creating multiple constructors", "Creating multiple classes", "Changing variable type"],
+                answer: "Defining a method in child class with same signature as parent method"
+            },
+            {
+                question: "Method overloading is an example of?",
+                options: ["Compile-time polymorphism", "Run-time polymorphism", "Inheritance", "Abstraction"],
+                answer: "Compile-time polymorphism"
+            },
+            {
+                question: "Method overriding is generally associated with?",
+                options: ["Compile-time polymorphism", "Run-time polymorphism", "Encapsulation only", "Constructor chaining"],
+                answer: "Run-time polymorphism"
+            },
+            {
+                question: "Which type of inheritance has one parent and one child class?",
+                options: ["Multiple", "Multilevel", "Single", "Hierarchical"],
+                answer: "Single"
+            },
+            {
+                question: "Which inheritance has a chain of classes?",
+                options: ["Single", "Multilevel", "Multiple", "Hybrid"],
+                answer: "Multilevel"
+            },
+            {
+                question: "Which inheritance has one parent class and multiple child classes?",
+                options: ["Multiple", "Hierarchical", "Multilevel", "Single"],
+                answer: "Hierarchical"
+            },
+            {
+                question: "Which inheritance involves more than one parent class?",
+                options: ["Single", "Multiple", "Multilevel", "Hierarchical"],
+                answer: "Multiple"
+            },
+            {
+                question: "Which OOP principle promotes code reuse?",
+                options: ["Inheritance", "Encapsulation", "Abstraction", "Binding"],
+                answer: "Inheritance"
+            },
+            {
+                question: "What is data hiding?",
+                options: ["Restricting direct access to data", "Deleting data", "Copying data", "Sorting data"],
+                answer: "Restricting direct access to data"
+            },
+            {
+                question: "Which keyword can prevent a Java class from being inherited?",
+                options: ["static", "final", "private", "protected"],
+                answer: "final"
+            },
+            {
+                question: "Can a final method be overridden in Java?",
+                options: ["Yes", "No", "Only in child class", "Only if public"],
+                answer: "No"
+            },
+            {
+                question: "Can a final variable be reassigned after initialization?",
+                options: ["Yes", "No", "Only in constructor", "Only in main"],
+                answer: "No"
+            },
+            {
+                question: "Which keyword is used to define an abstract class in Java?",
+                options: ["abstract", "virtual", "interface", "extends"],
+                answer: "abstract"
+            },
+            {
+                question: "Can an abstract class be directly instantiated in Java?",
+                options: ["Yes", "No", "Only with static", "Only with final"],
+                answer: "No"
+            },
+
+            {
+                question: "Which keyword is used when a class inherits another class in Java?",
+                options: ["implements", "extends", "inherits", "using"],
+                answer: "extends"
+            },
+            {
+                question: "Which keyword is used when a class implements an interface in Java?",
+                options: ["extends", "implements", "interface", "inherits"],
+                answer: "implements"
+            },
+            {
+                question: "What is an interface mainly used to provide?",
+                options: ["A contract that implementing classes follow", "Only variables", "Only constructors", "Database connection"],
+                answer: "A contract that implementing classes follow"
+            },
+            {
+                question: "Which relationship represents an 'is-a' relationship?",
+                options: ["Inheritance", "Composition", "Aggregation", "Association"],
+                answer: "Inheritance"
+            },
+            {
+                question: "Which relationship represents a strong 'has-a' relationship?",
+                options: ["Inheritance", "Composition", "Polymorphism", "Overloading"],
+                answer: "Composition"
+            },
+            {
+                question: "Which relationship represents a weaker 'has-a' relationship?",
+                options: ["Aggregation", "Inheritance", "Overriding", "Abstraction"],
+                answer: "Aggregation"
+            },
+            {
+                question: "What is dynamic binding?",
+                options: ["Method call resolved at runtime", "Variable declared at compile time", "Class creation", "Object deletion"],
+                answer: "Method call resolved at runtime"
+            },
+            {
+                question: "What is static binding?",
+                options: ["Binding resolved at compile time", "Binding resolved only at runtime", "Object destruction", "Inheritance"],
+                answer: "Binding resolved at compile time"
+            },
+            {
+                question: "Which OOP concept allows the same interface to have different implementations?",
+                options: ["Polymorphism", "Encapsulation", "Inheritance", "Composition"],
+                answer: "Polymorphism"
+            },
+            {
+                question: "What is coupling?",
+                options: ["Degree of dependency between classes or modules", "Number of objects", "Number of methods", "Memory allocation"],
+                answer: "Degree of dependency between classes or modules"
+            },
+
+            {
+                question: "What is cohesion?",
+                options: ["Degree to which elements of a module belong together", "Dependency between classes", "Number of objects", "Type of inheritance"],
+                answer: "Degree to which elements of a module belong together"
+            },
+            {
+                question: "Which is generally preferred in good object-oriented design?",
+                options: ["High cohesion and low coupling", "Low cohesion and high coupling", "High coupling and low cohesion", "No cohesion"],
+                answer: "High cohesion and low coupling"
+            },
+            {
+                question: "What is constructor overloading?",
+                options: ["Having multiple constructors with different parameter lists", "Overriding a constructor", "Deleting a constructor", "Using only one constructor"],
+                answer: "Having multiple constructors with different parameter lists"
+            },
+            {
+                question: "Which OOP principle means exposing only essential features to the user?",
+                options: ["Abstraction", "Inheritance", "Encapsulation", "Polymorphism"],
+                answer: "Abstraction"
+            },
+            {
+                question: "Which OOP principle protects an object's internal state by controlling access to its data?",
+                options: ["Encapsulation", "Inheritance", "Polymorphism", "Aggregation"],
+                answer: "Encapsulation"
+            },
+
+            {
+                question: "Reusability of code is achieved mainly through?",
+                options: ["Encapsulation", "Inheritance", "Abstraction", "Interface"],
+                answer: "Inheritance"
+            },
+            {
+                question: "A class that cannot be instantiated is called?",
+                options: ["Final Class", "Abstract Class", "Static Class", "Virtual Class"],
+                answer: "Abstract Class"
+            }
+        ],
+        software_engineering: [
+            {
+                question: "SDLC stands for?",
+                options: [
+                    "Software Design Life Cycle",
+                    "Software Development Life Cycle",
+                    "System Development Process",
+                    "Software Life Definition"
+                ],
+                answer: "Software Development Life Cycle"
+            },
+            {
+                question: "Which model is also called Classic Life Cycle Model?",
+                options: ["Spiral Model", "Waterfall Model", "Agile Model", "RAD Model"],
+                answer: "Waterfall Model"
+            },
+            {
+                question: "Which model is also called Classic Life Cycle Model?",
+                options: ["Spiral Model", "Waterfall Model", "Agile Model", "RAD Model"],
+                answer: "Waterfall Model"
+            },
+            {
+                question: "Testing performed by end users before final release is called?",
+                options: ["Unit Testing", "Integration Testing", "Beta Testing", "System Testing"],
+                answer: "Beta Testing"
+            },
+            {
+                question: "What is software engineering?",
+                options: ["Systematic approach to software development", "Only coding software", "Hardware manufacturing", "Database administration"],
+                answer: "Systematic approach to software development"
+            },
+            {
+                question: "What does SDLC stand for?",
+                options: ["Software Development Life Cycle", "System Design Life Cycle", "Software Design Level Code", "System Development Logic Cycle"],
+                answer: "Software Development Life Cycle"
+            },
+            {
+                question: "Which phase of SDLC identifies what the customer needs?",
+                options: ["Requirement Analysis", "Testing", "Maintenance", "Coding"],
+                answer: "Requirement Analysis"
+            },
+            {
+                question: "Which phase involves writing the actual program code?",
+                options: ["Design", "Implementation", "Testing", "Maintenance"],
+                answer: "Implementation"
+            },
+            {
+                question: "Which phase checks whether the software meets specified requirements?",
+                options: ["Testing", "Planning", "Design", "Coding"],
+                answer: "Testing"
+            },
+            {
+                question: "Which phase occurs after software is delivered to users?",
+                options: ["Maintenance", "Coding", "Requirement Analysis", "Design"],
+                answer: "Maintenance"
+            },
+            {
+                question: "What is a requirement specification document commonly called?",
+                options: ["SRS", "DBMS", "API", "UML"],
+                answer: "SRS"
+            },
+            {
+                question: "What does SRS stand for?",
+                options: ["Software Requirement Specification", "System Resource Software", "Software Runtime System", "System Requirement Structure"],
+                answer: "Software Requirement Specification"
+            },
+            {
+                question: "Which model follows a sequential development approach?",
+                options: ["Waterfall Model", "Agile Model", "Spiral Model", "Prototype Model"],
+                answer: "Waterfall Model"
+            },
+            {
+                question: "Which model focuses on repeated cycles and risk analysis?",
+                options: ["Waterfall", "Spiral", "V-Model", "RAD"],
+                answer: "Spiral"
+            },
+            {
+                question: "Which development model emphasizes rapid development using prototypes?",
+                options: ["RAD", "Waterfall", "V-Model", "Big Bang"],
+                answer: "RAD"
+            },
+            {
+                question: "Which model is strongly associated with iterative development and customer feedback?",
+                options: ["Agile", "Waterfall", "V-Model", "Big Bang"],
+                answer: "Agile"
+            },
+            {
+                question: "What is a prototype?",
+                options: ["Early working model of a system", "Final software product", "Testing report", "Database schema"],
+                answer: "Early working model of a system"
+            },
+
+            {
+                question: "Which testing tests individual modules or components?",
+                options: ["Unit Testing", "System Testing", "Acceptance Testing", "Regression Testing"],
+                answer: "Unit Testing"
+            },
+            {
+                question: "Which testing combines and tests multiple modules together?",
+                options: ["Unit Testing", "Integration Testing", "Acceptance Testing", "Beta Testing"],
+                answer: "Integration Testing"
+            },
+            {
+                question: "Testing the complete integrated software system is called?",
+                options: ["System Testing", "Unit Testing", "Smoke Testing", "Module Testing"],
+                answer: "System Testing"
+            },
+            {
+                question: "Testing performed by customers to determine whether software is acceptable is called?",
+                options: ["Acceptance Testing", "Unit Testing", "Integration Testing", "White Box Testing"],
+                answer: "Acceptance Testing"
+            },
+            {
+                question: "Which testing technique tests software without knowing its internal code structure?",
+                options: ["Black Box Testing", "White Box Testing", "Unit Testing", "Code Testing"],
+                answer: "Black Box Testing"
+            },
+            {
+                question: "Which testing technique examines the internal structure of the program?",
+                options: ["Black Box Testing", "White Box Testing", "Beta Testing", "Acceptance Testing"],
+                answer: "White Box Testing"
+            },
+            {
+                question: "Testing performed after changes to ensure existing functionality still works is called?",
+                options: ["Regression Testing", "Unit Testing", "Alpha Testing", "Load Testing"],
+                answer: "Regression Testing"
+            },
+            {
+                question: "Which testing checks whether a build is stable enough for further testing?",
+                options: ["Smoke Testing", "Stress Testing", "Beta Testing", "Security Testing"],
+                answer: "Smoke Testing"
+            },
+            {
+                question: "Testing software with extreme workloads is called?",
+                options: ["Stress Testing", "Unit Testing", "Smoke Testing", "Usability Testing"],
+                answer: "Stress Testing"
+            },
+            {
+                question: "Testing software under expected user load is called?",
+                options: ["Load Testing", "Stress Testing", "Unit Testing", "White Box Testing"],
+                answer: "Load Testing"
+            },
+            {
+                question: "What is debugging?",
+                options: ["Finding and fixing defects in software", "Writing requirements", "Designing hardware", "Installing software"],
+                answer: "Finding and fixing defects in software"
+            },
+
+            {
+                question: "What is software maintenance?",
+                options: ["Modifying software after delivery", "Writing only new code", "Creating hardware", "Removing all documentation"],
+                answer: "Modifying software after delivery"
+            },
+            {
+                question: "Which maintenance fixes errors found after software delivery?",
+                options: ["Corrective Maintenance", "Adaptive Maintenance", "Perfective Maintenance", "Preventive Maintenance"],
+                answer: "Corrective Maintenance"
+            },
+            {
+                question: "Which maintenance adapts software to changes in its environment?",
+                options: ["Adaptive Maintenance", "Corrective Maintenance", "Perfective Maintenance", "Emergency Maintenance"],
+                answer: "Adaptive Maintenance"
+            },
+            {
+                question: "Which maintenance improves performance or adds enhancements?",
+                options: ["Perfective Maintenance", "Corrective Maintenance", "Adaptive Maintenance", "Preventive Maintenance"],
+                answer: "Perfective Maintenance"
+            },
+            {
+                question: "Which maintenance aims to prevent future problems?",
+                options: ["Preventive Maintenance", "Corrective Maintenance", "Adaptive Maintenance", "Perfective Maintenance"],
+                answer: "Preventive Maintenance"
+            },
+            {
+                question: "What is software quality assurance?",
+                options: ["Activities that ensure software processes and products meet quality standards", "Only software testing", "Only coding", "Hardware inspection"],
+                answer: "Activities that ensure software processes and products meet quality standards"
+            },
+            {
+                question: "What is a software metric?",
+                options: ["A quantitative measure of software or its development process", "A programming language", "A testing tool", "A database table"],
+                answer: "A quantitative measure of software or its development process"
+            },
+            {
+                question: "What is coupling in software design?",
+                options: ["Degree of dependency between modules", "Internal strength of a module", "Number of bugs", "Testing speed"],
+                answer: "Degree of dependency between modules"
+            },
+            {
+                question: "What is cohesion?",
+                options: ["Degree to which elements of a module belong together", "Dependency between modules", "Number of functions", "Amount of source code"],
+                answer: "Degree to which elements of a module belong together"
+            },
+            {
+                question: "Good software design generally aims for?",
+                options: ["High cohesion and low coupling", "Low cohesion and high coupling", "High coupling and low cohesion", "High coupling and high cohesion"],
+                answer: "High cohesion and low coupling"
+            },
+
+            {
+                question: "Which UML diagram represents the static structure of a system?",
+                options: ["Class Diagram", "Sequence Diagram", "Activity Diagram", "State Diagram"],
+                answer: "Class Diagram"
+            },
+            {
+                question: "Which UML diagram shows interactions between objects over time?",
+                options: ["Sequence Diagram", "Class Diagram", "Component Diagram", "Deployment Diagram"],
+                answer: "Sequence Diagram"
+            },
+            {
+                question: "Which UML diagram represents system functionality from the user's perspective?",
+                options: ["Use Case Diagram", "Class Diagram", "Sequence Diagram", "Deployment Diagram"],
+                answer: "Use Case Diagram"
+            },
+            {
+                question: "What is risk management in software engineering?",
+                options: ["Identifying, analyzing and controlling project risks", "Writing source code", "Testing only the UI", "Managing databases"],
+                answer: "Identifying, analyzing and controlling project risks"
+            },
+            {
+                question: "What is software reusability?",
+                options: ["Ability to use existing software components in new systems", "Deleting old software", "Testing software repeatedly", "Changing programming languages"],
+                answer: "Ability to use existing software components in new systems"
+            },
+            {
+                question: "Which Agile framework commonly uses Product Backlog and Sprints?",
+                options: ["Scrum", "Waterfall", "Spiral", "RAD"],
+                answer: "Scrum"
+            },
+            {
+                question: "In Scrum, a time-boxed period during which work is completed is called?",
+                options: ["Sprint", "Phase", "Cycle", "Iteration Plan"],
+                answer: "Sprint"
+            },
+            {
+                question: "Who is responsible for maximizing the value of the product in Scrum?",
+                options: ["Product Owner", "Tester", "Database Administrator", "System Administrator"],
+                answer: "Product Owner"
+            },
+            {
+                question: "What is the main goal of software configuration management?",
+                options: ["Control and track changes to software artifacts", "Increase CPU speed", "Create databases", "Replace testing"],
+                answer: "Control and track changes to software artifacts"
+            },
+
+            {
+                question: "Testing performed by end users before final release is called?",
+                options: ["Unit Testing", "Integration Testing", "Beta Testing", "System Testing"],
+                answer: "Beta Testing"
+            },
+            {
+                question: "White box testing checks?",
+                options: ["Internal code structure", "User Interface", "System outputs only", "Documentation"],
+                answer: "Internal code structure"
+            },
+            {
+                question: "Agile methodology focuses on?",
+                options: ["Iterative development", "Rigid documentation", "No changes allowed", "Waterfall steps"],
+                answer: "Iterative development"
+            }
+        ]
+    };
+
+    /* SUBJECT DISPLAY NAMES */
+    const topicNames = {
+        java_language: "Java",
+        c_language: "C Programming",
+        cpp_language: "C++",
+        python_language: "Python",
+        dbms: "DBMS",
+        sql: "SQL",
+        operating_system: "Operating System",
+        computer_network: "Computer Networks",
+        data_structure: "Data Structures",
+        oops: "OOP",
+        software_engineering: "Software Engineering"
+    };
+
+    let currentTopic = "";
+    let currentQuestions = [];
+
+    /* START TEST */
+    function startTest(topic) {
+        currentTopic = topic;
+        currentQuestions = questionBank[topic] || [];
+
+        if (currentQuestions.length === 0) {
+            alert("Questions are not available for this subject.");
+            return;
+        }
+
+        localStorage.setItem("currentTopic", topic);
+        localStorage.removeItem("testResult");
+
+        document.getElementById("topicsPage").style.display = "none";
+        document.getElementById("resultPage").style.display = "none";
+        document.getElementById("questionPage").style.display = "block";
+
+        document.getElementById("questionTopic").innerText = topicNames[topic] + " - Practice Test";
+
+        const container = document.getElementById("questionsContainer");
+        container.innerHTML = "";
+
+        currentQuestions.forEach(function(item, index) {
+            let optionsHTML = "";
+
+            item.options.forEach(function(option) {
+                optionsHTML += `
+                        <label class="option">
+                            <input type="radio" name="question${index}" value="${escapeHTML(option)}">
+                            ${escapeHTML(option)}
+                        </label>
+                    `;
+            });
+
+            const card = document.createElement("div");
+            card.className = "question-card";
+            card.innerHTML = `
+                    <div class="question-number">Question ${index + 1} of ${currentQuestions.length}</div>
+                    <h5>${escapeHTML(item.question)}</h5>
+                    <div>${optionsHTML}</div>
+                `;
+
+            container.appendChild(card);
+        });
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* SUBMIT TEST */
+    function submitTest() {
+        if (!currentQuestions || currentQuestions.length === 0) {
+            alert("No questions available.");
+            return;
+        }
+
+        let correct = 0;
+        let attempted = 0;
+
+        currentQuestions.forEach(function(item, index) {
+            const selected = document.querySelector(`input[name="question${index}"]:checked`);
+
+            if (selected) {
+                attempted++;
+                if (selected.value === item.answer) {
+                    correct++;
+                }
+            }
+        });
+
+        const total = currentQuestions.length;
+        const wrong = total - correct;
+        const percentage = Math.round((correct / total) * 100);
+
+        showResult(correct, wrong, total, attempted, percentage);
+    }
+
+    /* SHOW RESULT */
+    function showResult(correct, wrong, total, attempted, percentage) {
+        document.getElementById("questionPage").style.display = "none";
+        document.getElementById("topicsPage").style.display = "none";
+        document.getElementById("resultPage").style.display = "block";
+
+        document.getElementById("resultTopic").innerText = topicNames[currentTopic];
+        document.getElementById("correctScore").innerText = correct;
+        document.getElementById("totalScore").innerText = total;
+        document.getElementById("correctNumber").innerText = correct;
+        document.getElementById("wrongNumber").innerText = wrong;
+        document.getElementById("percentageNumber").innerText = percentage + "%";
+
+        const status = document.getElementById("resultStatus");
+        const icon = document.getElementById("resultIcon");
+
+        if (percentage >= 40) {
+            status.innerHTML = "PASS ✅";
+            status.style.color = "#198754";
+            icon.innerHTML = "🏆";
+        } else {
+            status.innerHTML = "FAIL ❌";
+            status.style.color = "#dc3545";
+            icon.innerHTML = "❌";
+        }
+
+        const result = {
+            topic: currentTopic,
+            total: total,
+            attempted: attempted,
+            correct: correct,
+            wrong: wrong,
+            percentage: percentage
+        };
+
+        localStorage.setItem("testResult", JSON.stringify(result));
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* TRY AGAIN */
+    function tryAgain() {
+        startTest(currentTopic);
+    }
+
+    /* SHOW TOPICS */
+    function showTopics() {
+        document.getElementById("questionPage").style.display = "none";
+        document.getElementById("resultPage").style.display = "none";
+        document.getElementById("topicsPage").style.display = "block";
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* ESCAPE HTML */
+    function escapeHTML(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+</script>
+
+
+<!-- CSS & JS (</body> ke theek pehle add karein) -->
+<style>
+    .custom-translate-btn {
+        background-color: #d1e7dd !important;
+        color: #0f5132 !important;
+        border: 1px solid #badbcc !important;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+    .custom-translate-btn:hover {
+        background-color: #badbcc !important;
+    }
+    .custom-translate-btn:focus {
+        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+        border-color: #198754 !important;
+    }
+
+    /* Google unneeded UI & branding hide */
+    .goog-logo-link, .goog-te-gadget span, .goog-te-banner-frame, .skiptranslate, .goog-te-gadget {
+        display: none !important;
+        color: transparent !important;
+    }
+    body {
+        top: 0 !important;
+        position: static !important;
+    }
+</style>
+
+<script type="text/javascript">
+    let currentLang = 'en';
+
+    // Page load hone par auto-translate rokar English me fix rakhne ke liye cookie clear karein
+    document.addEventListener("DOMContentLoaded", function() {
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + document.domain + "; path=/;";
+        currentLang = 'en';
+        document.getElementById("langToggleBtn").innerText = "हिंदी (Hindi)";
+    });
+
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'hi,en',
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    // Single Button Toggle Logic (English ⟷ Hindi)
+    function toggleLanguage() {
+        var btn = document.getElementById("langToggleBtn");
+        var selectField = document.querySelector(".goog-te-combo");
+
+        if (currentLang === 'en') {
+            // Switch to Hindi
+            if (selectField) {
+                selectField.value = 'hi';
+                selectField.dispatchEvent(new Event('change'));
+            } else {
+                document.cookie = "googtrans=/en/hi; path=/";
+                location.reload();
+            }
+            btn.innerText = "English";
+            currentLang = 'hi';
+        } else {
+            // Switch back to English
+            if (selectField) {
+                selectField.value = 'en';
+                selectField.dispatchEvent(new Event('change'));
+            } else {
+                document.cookie = "googtrans=/en/en; path=/";
+                location.reload();
+            }
+            btn.innerText = "हिंदी (Hindi)";
+            currentLang = 'en';
+        }
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+</body>
+
+</html>
